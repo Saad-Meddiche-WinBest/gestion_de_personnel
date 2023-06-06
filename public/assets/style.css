@@ -1,0 +1,32 @@
+
+
+ /* Custom gaming styles */
+ body {
+     background-color: #ffffff;
+     color: #030303;
+     font-family: 'Nunito', sans-serif;
+ }
+
+ .navbar {
+     background-color: #000;
+ }
+
+ .navbar-brand {
+     color: #fff;
+     font-size: 24px;
+     font-weight: bold;
+ }
+
+ .navbar-brand:hover {
+     color: #ff0;
+ }
+
+ .nav-link {
+     color: #fff;
+     font-size: 18px;
+ }
+
+ .nav-link:hover {
+     color: #ff0;
+ }
+
