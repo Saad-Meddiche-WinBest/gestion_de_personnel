@@ -30,6 +30,8 @@ return new class extends Migration
         $table->string('etat_civil');
         $table->unsignedBigInteger('id_services');
         $table->unsignedBigInteger('id_employement');
+        $table->unsignedBigInteger('id_poste');
+        $table->foreign('id_poste')->references('id')->on('postes');
         $table->unsignedBigInteger('id_source_embauche');
         $table->foreign('id_services')->references('id')->on('services');
         $table->foreign('id_employement')->references('id')->on('employements');
