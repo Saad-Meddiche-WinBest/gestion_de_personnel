@@ -35,7 +35,7 @@ return new class extends Migration
         $table->unsignedBigInteger('id_source_embauche');
         $table->foreign('id_services')->references('id')->on('services');
         $table->foreign('id_employement')->references('id')->on('employements');
-        $table->foreign('id_source_embauche')->references('id')->on('sources_embauche');
+        $table->foreign('id_source_embauche')->references('id')->on('sources');
         $table->timestamps();
         });
     }

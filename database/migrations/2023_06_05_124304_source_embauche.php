@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::create('sources_embauche', function (Blueprint $table) {
-        $table->id();
-        $table->string('nom');
-        $table->timestamps();
+        Schema::create('sources', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('sources_embauche');
+        Schema::dropIfExists('sources');
     }
 };
