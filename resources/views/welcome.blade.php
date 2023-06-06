@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-welcome
+<div></div>
+<h1 class="text-primary text-center" style="font-size: 7vh">welcome</h1>
 @endsection
