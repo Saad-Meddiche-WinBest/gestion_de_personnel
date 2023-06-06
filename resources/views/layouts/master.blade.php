@@ -15,32 +15,21 @@
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .ContentS1 {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            align-content: center  !important;
-        }
-    </style>
+
+    
 
 </head>
 
 <body style="height:100%;">
-    <div id="app" style="height: 100%; display: flex; flex-direction: column;">
+    <div id="app" style="height:100%;">
 
         @include('layouts.include.navbar')
 
-        <main style="flex: 1;display:flex;">
-            @include('layouts.include.sidebar')
-
-            <div class="ContentS1" style="flex: 1;">
-                @yield('content')
-            </div>
+        <main style="height: 100%">
+            @yield('content')
         </main>
 
     </div>
-
     <script src="{{ asset('assets/main.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
