@@ -23,3 +23,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/Gerer', CrudController::class);
+Route::get('/dashboard', [App\Http\Controllers\CrudController::class, 'create'])->name('dash');

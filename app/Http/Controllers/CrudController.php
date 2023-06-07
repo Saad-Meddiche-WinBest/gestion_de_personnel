@@ -36,6 +36,7 @@ class CrudController extends Controller
     // }
     public function create(Request $request)
     {
+
         $name_of_table = $request->tablename . 's';
 
         $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
@@ -66,6 +67,7 @@ class CrudController extends Controller
         }
 
         return view('create', compact(['columnData', 'name_of_table']));
+
     }
 
     private function getForeignKeyDetails($columnName, $foreignKeys)
