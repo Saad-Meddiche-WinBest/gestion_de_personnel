@@ -1,6 +1,7 @@
 @extends('layouts.app2')
 
 @section('content')
+
 <div id="box-container">
 hhghghg
 </div>
@@ -198,6 +199,16 @@ hhghghg
 
     fill_dash();
 </script>
+
+    <div style="height:fit-content">
+        <form action="{{ route('Gerer.create') }}" method="GET">
+            <input type="hidden" name="tablename" value="service">
+            <button>Services</button>
+        </form>
+        <form action="{{ route('Gerer.create') }}" method="GET">
+            <input type="hidden" name="tablename" value="personne">
+            <button>Personnes</button>
+        </form>
+    </div>
+
 @endsection
-
-

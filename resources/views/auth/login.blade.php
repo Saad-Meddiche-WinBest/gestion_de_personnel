@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container" style="height:70%; display:flex; align-items: center; width:100%;">
