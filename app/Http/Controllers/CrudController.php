@@ -24,16 +24,6 @@ class CrudController extends Controller
         return view('display', compact(['data', 'name_of_table']));
     }
 
-
-    // public function create(Request $request)
-    // {
-    //     $name_of_table = $request->tablename;
-
-    //     $columns = Schema::getColumnListing($name_of_table . 's');
-    //     $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
-
-    //     return view('create', compact(['columns', 'name_of_table']));
-    // }
     public function create(Request $request)
     {
 
@@ -52,22 +42,23 @@ class CrudController extends Controller
         FROM 
         information_schema.key_column_usage
         WHERE 
-        table_schema = DATABASE()
+        REFERENCED_TABLE_SCHEMA IS NOT NULL
+        AND table_schema = DATABASE()
         AND table_name = '$name_of_table'"));
 
         $columnData = [];
+
 
         foreach ($columns as $column) {
             $columnData[] = [
                 'name' => $column->getName(),
                 'type' => $column->getType()->getName(),
-                'default' => $column->getDefault(),
+                'comment' => $column->getComment(),
                 'foreign_key' => $this->getForeignKeyDetails($column->getName(), $foreignKeys),
             ];
         }
 
         return view('create', compact(['columnData', 'name_of_table']));
-
     }
 
     private function getForeignKeyDetails($columnName, $foreignKeys)

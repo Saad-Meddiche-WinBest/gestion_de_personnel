@@ -1,0 +1,28 @@
+.container-formule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 10px;
+}
+
+.formule {
+    background-color: aqua;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+}
+
+.field {
+    width: 50%;
+}
+
+.field input {
+    width: 80%
+}
+
+.field select {
+    width: 80%
+}

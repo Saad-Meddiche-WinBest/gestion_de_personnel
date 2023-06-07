@@ -1,9 +1,31 @@
 <?php
 
-function select_type_of_input($column_type)
+use Illuminate\Support\Facades\DB;
+
+function filter_name($name)
 {
-    $input_type = '';
+    $filtred_name = '';
 
-    // if($column_type == )
+    $filtred_name = str_replace(['id', '_', ' '], ['', ' ', ''], $name);
 
+    $filtred_name = ucfirst($filtred_name);
+
+    return $filtred_name;
+}
+
+function fetch_options($name_of_table)
+{
+
+    if ($name_of_table) {
+
+        $options = '';
+
+        $data = DB::table($name_of_table)->get();
+
+        foreach ($data as $option) {
+        
+            $options .= '<option value="' . $option->id . '">' . $option->nom . '</option>';
+        }
+        return $options;
+    }
 }

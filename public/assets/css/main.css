@@ -7,6 +7,9 @@
 /* Include Side Bar */
 @import url('./include/sidebar.css');
 
+/* Include Formule */
+@import url('./include/formule_creation.css');
+
 .ContentS1 {
     display: flex;
     justify-content: center;

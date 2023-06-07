@@ -16,18 +16,18 @@ return new class extends Migration
         //
         Schema::create('personnes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prenom');
-            $table->date('date_naiss');
-            $table->string('adresse');
-            $table->string('telephone')->comment('telephone');
+            $table->string('nom')->comment('text');
+            $table->string('prenom')->comment('text');
+            $table->date('date_naissance')->comment('date');
+            $table->string('adresse')->comment('text');
+            $table->string('telephone')->comment('tel');
             $table->string('email')->comment('email');
             $table->date('date_debut')->comment('date');
             $table->date('date_fin')->comment('date');
-            $table->string('cin');
-            $table->boolean('presence');
-            $table->string('sexe');
-            $table->string('etat_civil');
+            $table->string('cin')->comment('text');
+            $table->boolean('presence')->comment('text');
+            $table->string('sexe')->comment('text');
+            $table->string('etat_civil')->comment('text');
 
             $table->unsignedBigInteger('id_service')->comment('foreign');
             $table->unsignedBigInteger('id_employement')->comment('foreign');
