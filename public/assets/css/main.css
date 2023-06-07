@@ -1,0 +1,16 @@
+/* Include Dashboard */
+@import url('./include/dashboard.css');
+
+/* Include Navbar */
+@import url('./include/navbar.css');
+
+/* Include Side Bar */
+@import url('./include/sidebar.css');
+
+.ContentS1 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center !important;
+}
+
