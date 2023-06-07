@@ -25,6 +25,7 @@ class CrudController extends Controller
 
     public function create()
     {
+        return view('dashboard.index');
     }
 
 

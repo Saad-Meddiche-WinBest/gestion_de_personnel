@@ -1,16 +1,9 @@
-@extends('layouts.app2')
-
-@section('content')
-<div id="box-container">
-hhghghg
-</div>
 <style>
-    #box-container {
-       width: 93vw;
-       background-color: #5500cb;
-       display: flex;
-       align-items: flex-end;
-       height: 100%;
+    .box-container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     .box1 {
@@ -158,13 +151,17 @@ hhghghg
         border-radius: 4px;
     }
 </style>
-    <div id="box-container">
+<div class="main">
+    <div class="box-container">
        
 
     </div>
+
+
+</div>
 <script>
-    function fill_dash() {
-        let dash = document.getElementsById("box-container");
+    function fill_sidebar() {
+        let sidebar = document.getElementById("box-container");
         let routes = [{
                 'img': 'https://cdn-icons-png.flaticon.com/512/2693/2693560.png',
                 'p': 'Employer'
@@ -187,17 +184,14 @@ hhghghg
 
         ];
         routes.forEach(route => {
-            dash.innerHTML += ` <a href="">
+            sidebar.innerHTML += ` <a href="">
                                       <div class="box box1">
-                                        <img src="${route.img}">
-                                        <p>${route.p}</p>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2693/2693560.png" class="créative">
+                                        <p>Suivi de congé</p>
                                         </div>
                                   </a>`;
         });
     }
 
-    fill_dash();
+    fill_sidebar();
 </script>
-@endsection
-
-
