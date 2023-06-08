@@ -58,7 +58,6 @@ class CrudController extends Controller
                 'foreign_key' => $this->getForeignKeyDetails($column->getName(), $foreignKeys),
             ];
         }
-        // dd($name_of_table);
 
         return view('create', compact(['columnData', 'name_of_model']));
     }
