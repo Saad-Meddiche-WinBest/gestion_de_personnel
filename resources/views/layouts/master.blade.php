@@ -24,8 +24,8 @@
 
         @include('layouts.include.navbar')
 
-        <main style="height: 100%">
-            @yield('content')
+        <main style="height: 100%;">
+                @yield('content')
         </main>
 
     </div>

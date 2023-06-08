@@ -32,6 +32,9 @@ class CrudController extends Controller
 
         //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
         //Salah Starup
+
+        $name_of_table = $request->tablename . 's';
+      
         $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
 
         $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at']));

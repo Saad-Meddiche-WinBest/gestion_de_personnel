@@ -10,6 +10,10 @@
 /* Include Formule */
 @import url('./include/formule_creation.css');
 
+/* Include Welcome */
+@import url('./include/welcome.css');
+
+
 .ContentS1 {
     display: flex;
     justify-content: center;
