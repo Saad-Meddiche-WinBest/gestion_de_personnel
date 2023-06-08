@@ -32,9 +32,6 @@ class CrudController extends Controller
 
         //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
         //Salah Starup
-
-        $name_of_table = $request->tablename . 's';
-      
         $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
 
         $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at']));
@@ -61,6 +58,7 @@ class CrudController extends Controller
                 'foreign_key' => $this->getForeignKeyDetails($column->getName(), $foreignKeys),
             ];
         }
+        // dd($name_of_table);
 
         return view('create', compact(['columnData', 'name_of_model']));
     }
@@ -132,7 +130,6 @@ class CrudController extends Controller
         $data->delete();
 
         $data = $New_Class::all();
-
 
         return view('display', compact(['data', 'name_of_model']));
     }
