@@ -38,7 +38,6 @@ class CrudController extends Controller
     {
 
         $name_of_table = $request->tablename . 's';
-
         $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
         unset($columns['id']);
         unset($columns['created_at']);

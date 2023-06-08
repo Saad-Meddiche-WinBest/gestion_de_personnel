@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+/*
+.content-welcome{
+    width:100% ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+h1{
+    color: rgb(247, 127, 29);
+    font-size: 3vh; 
+    width: 60%;
+    text-align: center;
+    display: flex;
+    font-family: 'Roboto Slab', serif;
+    
+}
+p{
+    width: 60%;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+} */
+
+    .content-welcome{
+        height: 100%;
+        display:flex;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        font-family: 'Roboto Slab', serif;
+        text-align: center;
+    }
+
+    .Inscription{
+       width: 50%;
+    }
+
+    .Title{
+        margin-top: 40px;
+        color: rgb(0, 0, 0);
+        margin-bottom: 20px;
+    }
+    .Description{
+        
+    }
+    .Inscrire_Button button{
+        border: none; 
+        padding:10px  26px 10px 26px;
+        background-color: rgb(233, 56, 86);
+        color: aliceblue; 
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+    .Inscrire_Button button a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+    #btn{
+        background-color: #ffffff;
+        border: 2px solid black;
+        color: #000000;
+    }
+    #btn a{
+        color: #000000;
+    }
+    #btn:hover{
+        background-color: #ffffff;
+        border: 2px solid rgb(54, 126, 233);
+        color: rgb(43, 122, 241);
+       
+    }
+
+    button:hover{
+        background-color: #39b5fd;
+        transition: 1s;
+    }
+    .Image img{
+        margin-top: 20px;
+        width: 400px;
+    }
+  
