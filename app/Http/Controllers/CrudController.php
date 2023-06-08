@@ -30,9 +30,8 @@ class CrudController extends Controller
         $name_of_table = $request->tablename . 's';
 
         $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
-        unset($columns['id']);
-        unset($columns['created_at']);
-        unset($columns['updated_at']);
+
+        $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at']));
 
         $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
