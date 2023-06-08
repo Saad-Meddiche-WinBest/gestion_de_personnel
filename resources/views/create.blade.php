@@ -8,15 +8,7 @@
             <div class="formule">
                 @foreach ($columnData as $column)
                     <div class="field">
-                        <label for="">{{ filter_name($column['name']) }}</label>
-                        <br>
-                        @empty($column['comment'] == 'foreign')
-                            <input type="{{ $column['comment'] }}" name="{{ $column['name'] }}">
-                        @else
-                            <select name="{{ $column['name'] }}">
-                                {!! fetch_options($column['foreign_key']['referenced_table']) !!}
-                            </select>
-                        @endempty
+                        {!! choose_input($column) !!}
                     </div>
                 @endforeach
                 <div class="Sumbit_Button">

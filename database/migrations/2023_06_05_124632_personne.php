@@ -16,23 +16,23 @@ return new class extends Migration
         //
         Schema::create('personnes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')->comment('text');
-            $table->string('prenom')->comment('text');
-            $table->date('date_naissance')->comment('date');
-            $table->string('adresse')->comment('text');
-            $table->string('telephone')->comment('tel');
-            $table->string('email')->comment('email');
-            $table->date('date_debut')->comment('date');
-            $table->date('date_fin')->comment('date');
-            $table->string('cin')->comment('text');
-            $table->boolean('presence')->comment('text');
-            $table->string('sexe')->comment('text');
-            $table->string('etat_civil')->comment('text');
+            $table->string('nom')->comment('grp1-text');
+            $table->string('prenom')->comment('grp1-text');
+            $table->date('date_naissance')->comment('grp1-date');
+            $table->string('adresse')->comment('grp1-text');
+            $table->string('telephone')->comment('grp1-tel');
+            $table->string('email')->comment('grp1-email');
+            $table->date('date_debut')->comment('grp1-date');
+            $table->date('date_fin')->comment('grp1-date');
+            $table->string('cin')->comment('grp1-text');
+            $table->boolean('presence')->comment('grp2-bool-Present-Absent');
+            $table->boolean('sexe')->comment('grp1-bool-Male-Female');
+            $table->boolean('etat_civil')->comment('grp1-bool-Marie-Single');
 
-            $table->unsignedBigInteger('id_service')->comment('foreign');
-            $table->unsignedBigInteger('id_employement')->comment('foreign');
-            $table->unsignedBigInteger('id_poste')->comment('foreign');
-            $table->unsignedBigInteger('id_source')->comment('foreign');
+            $table->unsignedBigInteger('id_service')->comment('grp1-foreign');
+            $table->unsignedBigInteger('id_employement')->comment('grp1-foreign');
+            $table->unsignedBigInteger('id_poste')->comment('grp1-foreign');
+            $table->unsignedBigInteger('id_source')->comment('grp1-foreign');
 
             $table->foreign('id_poste')->references('id')->on('postes');
             $table->foreign('id_service')->references('id')->on('services');
