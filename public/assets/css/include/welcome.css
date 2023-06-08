@@ -42,9 +42,7 @@ p{
         color: rgb(0, 0, 0);
         margin-bottom: 20px;
     }
-    .Description{
-        
-    }
+    
     .Inscrire_Button button{
         border: none; 
         padding:10px  26px 10px 26px;
@@ -72,12 +70,12 @@ p{
        
     }
 
-    button:hover{
+    #btn2:hover{
         background-color: #39b5fd;
         transition: 1s;
     }
     .Image img{
         margin-top: 20px;
-        width: 400px;
+        width: 500px;
     }
   

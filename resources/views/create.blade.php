@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-formule">
         <form action="{{ route('Gerer.store') }}" method='POST'>
-            @csrf
+        @csrf
             <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
             <div class="formule">
                 @foreach ($columnData as $column)
@@ -14,7 +14,6 @@
                 <div class="Sumbit_Button">
                     <button type="submit">AJouter</button>
                 </div>
-            </div>
         </form>
     </div>
 @endsection

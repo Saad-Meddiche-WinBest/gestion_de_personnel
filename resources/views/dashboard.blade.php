@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div id="box-container">
-        <form action="{{ route('Gerer.create') }}" method="GET">
+    
+        <!-- <form action="{{ route('Gerer.create') }}" method="GET">
             <input type="hidden" name="name_of_model" value="service">
             <button>Services</button>
         </form>
@@ -22,7 +22,7 @@
         <form action="{{ route('Gerer.create') }}" method="GET">
             <input type="hidden" name="name_of_model" value="employement">
             <button>Employements</button>
-        </form>
+        </form> -->
 
 
     <div class="box-container">
@@ -36,28 +36,35 @@
     let routes = [
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/3616/3616927.png',
-        'text': 'Employer'
+        'text': 'Employer',
+        'name' : 'employer'
       },
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/912/912214.png',
-        'text': 'Stagiaire'
+        'text': 'Stagiaire',
+        'name' : 'stagiaire'
       },
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
-        'text': 'Présence'
+        'text': 'Présence',
+        'name' : 'presence'
       },
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
-        'text': 'Utilisateur'
+        'text': 'Utilisateur',
+        'name' : 'user'
       },
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/8653/8653200.png',
         'text': 'Services',
-        'link': '{{route("Gerer.create")}}'
+        'name' : 'service',
+        /*'link': '{{route("Gerer.create")}}'*/
+        'link' : '/Gerer'
       },
       {
         'image': 'https://staffngo.com/wp-content/uploads/2021/03/embauche3.png',
-        'text': 'Sources'
+        'text': 'Sources',
+        'name' : 'source'
        
       }
     ];
@@ -71,13 +78,13 @@
       image.src = route.image;
       
       let form = document.createElement("form");
-      form.action = route.link || "{{ route('Gerer.create') }}";
+      form.action = route.link;
       form.method = "GET";
       
       let input = document.createElement("input");
       input.type = "hidden";
-      input.name = "tablename";
-      input.value = "service";
+      input.name = "name_of_model";
+      input.value = route.name;
       
       let button = document.createElement("button");
       button.classList.add("text");
