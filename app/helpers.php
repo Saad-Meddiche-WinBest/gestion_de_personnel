@@ -6,7 +6,7 @@ function filter_name($name)
 {
     $filtred_name = '';
 
-    $filtred_name = str_replace(['id', '_', ' '], ['', ' ', ''], $name);
+    $filtred_name = str_replace(['id_', ' ', '_'], ['', '', ' '], $name);
 
     $filtred_name = ucfirst($filtred_name);
 
@@ -23,7 +23,7 @@ function fetch_options($name_of_table)
         $data = DB::table($name_of_table)->get();
 
         foreach ($data as $option) {
-        
+
             $options .= '<option value="' . $option->id . '">' . $option->nom . '</option>';
         }
         return $options;
