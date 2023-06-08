@@ -13,35 +13,31 @@ class CrudController extends Controller
 
     public function index(Request $request)
     {
-        $name_of_table = $request->tablename;
+        $name_of_model = $request->name_of_model;
 
-        if ($name_of_table == null) return view('welcome');
+        if ($name_of_model == null) return view('welcome');
 
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_table);
+        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::all();
 
-        return view('display', compact(['data', 'name_of_table']));
+        return view('display', compact(['data', 'name_of_model']));
     }
 
-
-    // public function create(Request $request)
-    // {
-    //     $name_of_table = $request->tablename;
-
-    //     $columns = Schema::getColumnListing($name_of_table . 's');
-    //     $columns = array_diff($columns, ['id', 'created_at', 'updated_at']);
-
-    //     return view('create', compact(['columns', 'name_of_table']));
-    // }
     public function create(Request $request)
     {
 
+        $name_of_table = $request->name_of_model . 's';
+        $name_of_model = $request->name_of_model;
+
+        //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
+        //Salah Starup
+
         $name_of_table = $request->tablename . 's';
+      
         $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
-        unset($columns['id']);
-        unset($columns['created_at']);
-        unset($columns['updated_at']);
+
+        $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at']));
 
         $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
@@ -51,7 +47,8 @@ class CrudController extends Controller
         FROM 
         information_schema.key_column_usage
         WHERE 
-        table_schema = DATABASE()
+        REFERENCED_TABLE_SCHEMA IS NOT NULL
+        AND table_schema = DATABASE()
         AND table_name = '$name_of_table'"));
 
         $columnData = [];
@@ -60,13 +57,12 @@ class CrudController extends Controller
             $columnData[] = [
                 'name' => $column->getName(),
                 'type' => $column->getType()->getName(),
-                'default' => $column->getDefault(),
+                'comment' => $column->getComment(),
                 'foreign_key' => $this->getForeignKeyDetails($column->getName(), $foreignKeys),
             ];
         }
 
-        return view('create', compact(['columnData', 'name_of_table']));
-
+        return view('create', compact(['columnData', 'name_of_model']));
     }
 
     private function getForeignKeyDetails($columnName, $foreignKeys)
@@ -86,11 +82,11 @@ class CrudController extends Controller
 
     public function store(Request $request)
     {
-        $name_of_table = $request->tablename;
+        $name_of_model = $request->name_of_model;
 
-        if ($name_of_table == null) return view('welcome');
-
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_table);
+        if ($name_of_model == null) return view('welcome');
+        // dd($request->all());
+        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $New_Class::create($request->all());
 
         return view('welcome');
@@ -110,34 +106,34 @@ class CrudController extends Controller
 
     public function update(Request $request, $id)
     {
-        $name_of_table = $request->tablename;
+        $name_of_model = $request->name_of_model;
 
-        if ($name_of_table == null) return view('welcome');
+        if ($name_of_model == null) return view('welcome');
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_table);
+        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::findOrFail($id);
         $data->update($request->all());
 
         $data = $New_Class::all();
 
 
-        return view('display', compact(['data', 'name_of_table']));
+        return view('display', compact(['data', 'name_of_model']));
     }
 
 
     public function destroy(Request $request, $id)
     {
-        $name_of_table = $request->tablename;
+        $name_of_model = $request->name_of_model;
 
-        if ($name_of_table == null) return view('welcome');
+        if ($name_of_model == null) return view('welcome');
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_table);
+        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::findOrFail($id);
         $data->delete();
 
         $data = $New_Class::all();
 
 
-        return view('display', compact(['data', 'name_of_table']));
+        return view('display', compact(['data', 'name_of_model']));
     }
 }

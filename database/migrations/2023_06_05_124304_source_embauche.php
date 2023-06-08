@@ -16,7 +16,7 @@ return new class extends Migration
         //
         Schema::create('sources', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('nom')->comment('grp1-text');
             $table->timestamps();
         });
     }

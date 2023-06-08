@@ -1,44 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .container-formule {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            margin: 10px;
-        }
-
-        .formule {
-            background-color: aqua;
-
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .field {
-            width: 50%;
-        }
-
-        .field input {
-            width: 80%
-        }
-    </style>
     <div class="container-formule">
-        <form action="">
+        <form action="{{ route('Gerer.store') }}" method='POST'>
+            @csrf
+            <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
             <div class="formule">
                 @foreach ($columnData as $column)
-                    <pre>{{ print_r($column) }}</pre>
-
                     <div class="field">
-                        <label for="">{{ ucfirst($column['name']) }}</label>
-                        <br>
-                        <input type="tel" name="{{ $column['name'] }}">
+                        {!! choose_input($column) !!}
                     </div>
                 @endforeach
+                <div class="Sumbit_Button">
+                    <button type="submit">AJouter</button>
+                </div>
             </div>
         </form>
     </div>
