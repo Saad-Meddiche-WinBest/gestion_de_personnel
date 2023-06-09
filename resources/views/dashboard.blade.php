@@ -35,12 +35,14 @@
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/3616/3616927.png',
         'text': 'Employer',
-        'name' : 'employer'
+        'name' : 'personne',
+        'link' : '/poste/2'
       },
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/912/912214.png',
         'text': 'Stagiaire',
-        'name' : 'stagiaire'
+        'name' : 'personne',
+        'link' : '/poste/1'
       },
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
@@ -50,7 +52,9 @@
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
         'text': 'Utilisateur',
-        'name' : 'user'
+        'name' : 'user',
+        'link' : '/Gerer'
+
       },
       {
         'image': 'https://cdn-icons-png.flaticon.com/512/8653/8653200.png',

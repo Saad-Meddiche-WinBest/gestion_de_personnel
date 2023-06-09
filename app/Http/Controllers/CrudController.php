@@ -17,7 +17,7 @@ class CrudController extends Controller
 
         if ($name_of_model == null) return view('welcome');
 
-         $columnData=fetch_columns($name_of_model.'s');
+        $columnData=fetch_columns($name_of_model.'s');
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::all();
 
