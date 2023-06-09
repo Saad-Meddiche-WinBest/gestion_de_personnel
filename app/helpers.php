@@ -125,17 +125,17 @@ function choose_data($looking_for, $column)
     $comments = explode('-', $column['comment']);
 
     if ($comments[1] == 'foreign') {
-        $text = DB::table($column['foreign_key']['referenced_table'])->where('id', $looking_for)->value('nom');
-        return $text;
+        $referenced_table = $column['foreign_key']['referenced_table'];
+        $data = DB::table($referenced_table)->where('id', $looking_for)->value('nom');
+        return $data;
     }
 
     if ($comments[1] == 'bool') {
-        if ($looking_for == 1) {
-            return $comments[2];
-        }
-
-        if ($looking_for == 0) {
-            return $comments[3];
+        switch ($looking_for) {
+            case 1:
+                return $comments[2];
+            case 0:
+                return $comments[3];
         }
     }
 
