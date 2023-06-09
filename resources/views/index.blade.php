@@ -13,21 +13,32 @@
         <tbody>
             @foreach ($data as $data1)
                 <tr>
-                    <form action="{{ route('Gerer.edit', $data1->id) }}" method="GET">
-                        @foreach ($columnData as $column)
-                            <td>
-                                {{ choose_data($data1->{$column['name']}, $column) }}
-                            </td>
-                        @endforeach
+                    @foreach ($columnData as $column)
                         <td>
-                            <button type="sumbit">Edit</button>
+                            {{ choose_data($data1->{$column['name']}, $column) }}
                         </td>
-                        <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
-                    </form>
+                    @endforeach
+                    <td>
+                        <form action="{{ route('Gerer.edit', $data1->id) }}" method="GET">
+                            <button type="sumbit">Edit</button>
+                            <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
+                        </form>
+                        <form action="{{ route('Gerer.destroy', $data1->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="sumbit">Delete</button>
+                            <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <form action="{{ route('Gerer.create') }}" method="GET">
         <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
         <button type="submit">Add {{ ucfirst($name_of_model) }}</button>

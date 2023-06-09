@@ -21,7 +21,7 @@
     align-content: center !important;
 }
 .dataTables_wrapper{
-    height: 100% !important;
+    height: fit-content !important;
     width: 100% !important;
 }
 
