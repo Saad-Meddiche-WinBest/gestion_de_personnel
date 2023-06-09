@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 @foreach ($columnData as $column)
-                    <th>{{ $column['name'] }}</th>
+                    <th>{{ filter_name($column['name']) }}</th>
                 @endforeach
                 <th>Action</th>
             </tr>
@@ -17,7 +17,7 @@
                         @csrf
                         @foreach ($columnData as $column)
                             <td>
-                                {{ $data1->{$column['name']} }}
+                                {{ choose_data($data1->{$column['name']}, $column) }}
                             </td>
                         @endforeach
                         <td>
@@ -28,7 +28,6 @@
                 </tr>
             @endforeach
         </tbody>
-
     </table>
     <form action="{{ route('Gerer.create') }}" method="GET">
         <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class CrudController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request )
     {
         $name_of_model = $request->name_of_model;
         $name_of_table = $request->name_of_model . 's';
@@ -20,6 +20,7 @@ class CrudController extends Controller
 
         $columnData = fetch_columns($name_of_table);
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
+
         $data = $New_Class::all();
 
         return view('index', compact(['data', 'name_of_model', 'columnData']));
@@ -63,10 +64,9 @@ class CrudController extends Controller
         //Fetch Data
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::where('id', $id)->get();
-        // dd($data[0]);
+
         //Fetch Columns
         $columnData = fetch_columns($name_of_table);
-
 
         return view('edit', compact(['data', 'columnData', 'name_of_model']));
     }

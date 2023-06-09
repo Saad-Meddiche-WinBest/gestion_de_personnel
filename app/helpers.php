@@ -110,14 +110,12 @@ function getForeignKeyDetails($columnName, $foreignKeys)
     return null;
 }
 
-
 function choose_input_and_fill_them($data, $column)
 {
     $input = '<label>' . filter_name($column['name']) . '</label><br>';
 
     $comments = explode('-', $column['comment']);
     if ($comments[0] != 'grp1') {
-       
         return;
     }
 
@@ -147,4 +145,26 @@ function select_option($a, $b)
     }
 
     return '';
+}
+
+function choose_data($looking_for, $column)
+{
+    $comments = explode('-', $column['comment']);
+
+    if ($comments[1] == 'foreign') {
+        $text = DB::table($column['foreign_key']['referenced_table'])->where('id', $looking_for)->value('nom');
+        return $text;
+    }
+
+    if ($comments[1] == 'bool') {
+        if ($looking_for == 1) {
+            return $comments[2];
+        }
+
+        if ($looking_for == 0) {
+            return $comments[3];
+        }
+    }
+
+    return $looking_for;
 }

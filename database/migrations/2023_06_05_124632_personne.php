@@ -25,7 +25,7 @@ return new class extends Migration
             $table->date('date_debut')->comment('grp1-date');
             $table->date('date_fin')->comment('grp1-date');
             $table->string('cin')->comment('grp1-text');
-            $table->boolean('presence')->comment('grp2-bool-Present-Absent');
+            // $table->boolean('presence')->comment('grp2-bool-Present-Absent');
             $table->boolean('sexe')->comment('grp1-bool-Male-Female');
             $table->boolean('etat_civil')->comment('grp1-bool-Marie-Single');
 
