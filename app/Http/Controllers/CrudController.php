@@ -63,13 +63,12 @@ class CrudController extends Controller
         //Fetch Data
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::where('id', $id)->get();
-
+        // dd($data[0]);
         //Fetch Columns
         $columnData = fetch_columns($name_of_table);
 
-        dd($data);
 
-        return view('create', compact(['data', 'columnData', 'name_of_model']));
+        return view('edit', compact(['data', 'columnData', 'name_of_model']));
     }
 
 

@@ -113,12 +113,12 @@ function getForeignKeyDetails($columnName, $foreignKeys)
 
 function choose_input_and_fill_them($data, $column)
 {
-    $input = '';
+    $input = '<label>' . filter_name($column['name']) . '</label><br>';
 
     $comments = explode('-', $column['comment']);
     if ($comments[0] != 'grp1') {
-        $input .= '<p>---------</p>';
-        return $input;
+       
+        return;
     }
 
     if ($comments[1] == 'foreign') {
