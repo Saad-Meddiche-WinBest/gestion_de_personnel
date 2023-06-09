@@ -14,7 +14,6 @@
             @foreach ($data as $data1)
                 <tr>
                     <form action="{{ route('Gerer.edit', $data1->id) }}" method="GET">
-                        @csrf
                         @foreach ($columnData as $column)
                             <td>
                                 {{ choose_data($data1->{$column['name']}, $column) }}

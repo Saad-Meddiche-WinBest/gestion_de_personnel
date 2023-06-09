@@ -46,7 +46,7 @@ class CrudController extends Controller
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $New_Class::create($request->all());
 
-        return view('welcome');
+        return view('dashboard');
     }
 
 

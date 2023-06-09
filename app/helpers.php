@@ -30,34 +30,34 @@ function fetch_options($name_of_table, $id = Null)
     }
 }
 
-function choose_input($column)
-{
+// function choose_input($column)
+// {
 
-    $input = '<label>' . filter_name($column['name']) . '</label><br>';
+//     $input = '<label>' . filter_name($column['name']) . '</label><br>';
 
-    $comments = explode('-', $column['comment']);
-    if ($comments[0] != 'grp1') {
-        return;
-    }
+//     $comments = explode('-', $column['comment']);
+//     if ($comments[0] != 'grp1') {
+//         return;
+//     }
 
-    if ($comments[1] == 'foreign') {
-        $input .= '<select name="' . $column['name'] . '">' . fetch_options($column['foreign_key']['referenced_table']) . '</select>';
-        return $input;
-    }
+//     if ($comments[1] == 'foreign') {
+//         $input .= '<select name="' . $column['name'] . '">' . fetch_options($column['foreign_key']['referenced_table']) . '</select>';
+//         return $input;
+//     }
 
-    if ($comments[1] == 'bool') {
+//     if ($comments[1] == 'bool') {
 
-        $options = '<option value="1">' . $comments[2] . '</option>';
-        $options .= '<option value="0">' . $comments[3] . '</option>';
+//         $options = '<option value="1">' . $comments[2] . '</option>';
+//         $options .= '<option value="0">' . $comments[3] . '</option>';
 
-        $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
+//         $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
 
-        return $input;
-    }
+//         return $input;
+//     }
 
-    $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '">';
-    return $input;
-}
+//     $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '">';
+//     return $input;
+// }
 
 function fetch_columns($name_of_table)
 {
@@ -110,7 +110,7 @@ function getForeignKeyDetails($columnName, $foreignKeys)
     return null;
 }
 
-function choose_input_and_fill_them($data, $column)
+function choose_input($column, $data = null)
 {
     $input = '<label>' . filter_name($column['name']) . '</label><br>';
 
@@ -120,23 +120,55 @@ function choose_input_and_fill_them($data, $column)
     }
 
     if ($comments[1] == 'foreign') {
-        $input .= '<select name="' . $column['name'] . '">' . fetch_options($column['foreign_key']['referenced_table'], $data->{$column['name']}) . '</select>';
+        $options = fetch_options($column['foreign_key']['referenced_table'], isset($data->{$column['name']}) ? $data->{$column['name']} : null);
+        $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
         return $input;
     }
 
     if ($comments[1] == 'bool') {
+        $selectedOption1 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 1);
+        $selectedOption2 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 0);
 
-        $options = '<option value="1" ' . select_option($data->{$column['name']}, 1) . '>' . $comments[2] . '</option>';
-        $options .= '<option value="0" ' . select_option($data->{$column['name']}, 0) . '>' . $comments[3] . '</option>';
+        $options = '<option value="1" ' . $selectedOption1 . '>' . $comments[2] . '</option>';
+        $options .= '<option value="0" ' . $selectedOption2 . '>' . $comments[3] . '</option>';
 
         $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
 
         return $input;
     }
 
-    $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . $data->{$column['name']} . '">';
+    $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
     return $input;
 }
+
+
+// function choose_input_and_fill_them($data, $column)
+// {
+//     $input = '<label>' . filter_name($column['name']) . '</label><br>';
+
+//     $comments = explode('-', $column['comment']);
+//     if ($comments[0] != 'grp1') {
+//         return;
+//     }
+
+//     if ($comments[1] == 'foreign') {
+//         $input .= '<select name="' . $column['name'] . '">' . fetch_options($column['foreign_key']['referenced_table'], $data->{$column['name']}) . '</select>';
+//         return $input;
+//     }
+
+//     if ($comments[1] == 'bool') {
+
+//         $options = '<option value="1" ' . select_option($data->{$column['name']}, 1) . '>' . $comments[2] . '</option>';
+//         $options .= '<option value="0" ' . select_option($data->{$column['name']}, 0) . '>' . $comments[3] . '</option>';
+
+//         $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
+
+//         return $input;
+//     }
+
+//     $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . $data->{$column['name']} . '">';
+//     return $input;
+// }
 
 function select_option($a, $b)
 {

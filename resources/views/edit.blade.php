@@ -11,7 +11,9 @@
                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
                 @foreach ($columnData as $column)
                     <div class="field">
-                        {!! choose_input_and_fill_them($data[0], $column) !!}
+                        {{-- {!! choose_input_and_fill_them($data[0], $column) !!} --}}
+                        {!! choose_input($column, $data[0]) !!}
+
                     </div>
                 @endforeach
                 <div class="Sumbit_Button">
@@ -60,5 +62,3 @@
         }
     </style>
 @endsection
-
-
