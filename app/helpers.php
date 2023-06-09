@@ -30,35 +30,6 @@ function fetch_options($name_of_table, $id = Null)
     }
 }
 
-// function choose_input($column)
-// {
-
-//     $input = '<label>' . filter_name($column['name']) . '</label><br>';
-
-//     $comments = explode('-', $column['comment']);
-//     if ($comments[0] != 'grp1') {
-//         return;
-//     }
-
-//     if ($comments[1] == 'foreign') {
-//         $input .= '<select name="' . $column['name'] . '">' . fetch_options($column['foreign_key']['referenced_table']) . '</select>';
-//         return $input;
-//     }
-
-//     if ($comments[1] == 'bool') {
-
-//         $options = '<option value="1">' . $comments[2] . '</option>';
-//         $options .= '<option value="0">' . $comments[3] . '</option>';
-
-//         $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
-
-//         return $input;
-//     }
-
-//     $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '">';
-//     return $input;
-// }
-
 function fetch_columns($name_of_table)
 {
     //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
@@ -141,43 +112,11 @@ function choose_input($column, $data = null)
     return $input;
 }
 
-
-// function choose_input_and_fill_them($data, $column)
-// {
-//     $input = '<label>' . filter_name($column['name']) . '</label><br>';
-
-//     $comments = explode('-', $column['comment']);
-//     if ($comments[0] != 'grp1') {
-//         return;
-//     }
-
-//     if ($comments[1] == 'foreign') {
-//         $input .= '<select name="' . $column['name'] . '">' . fetch_options($column['foreign_key']['referenced_table'], $data->{$column['name']}) . '</select>';
-//         return $input;
-//     }
-
-//     if ($comments[1] == 'bool') {
-
-//         $options = '<option value="1" ' . select_option($data->{$column['name']}, 1) . '>' . $comments[2] . '</option>';
-//         $options .= '<option value="0" ' . select_option($data->{$column['name']}, 0) . '>' . $comments[3] . '</option>';
-
-//         $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
-
-//         return $input;
-//     }
-
-//     $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . $data->{$column['name']} . '">';
-//     return $input;
-// }
-
 function select_option($a, $b)
 {
-    if ($a == $b) {
-        return 'selected';
-    }
-
-    return '';
+    return $a === $b ? 'selected' : '';
 }
+
 
 function choose_data($looking_for, $column)
 {
