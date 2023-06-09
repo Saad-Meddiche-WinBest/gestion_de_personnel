@@ -6,7 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -46,8 +47,22 @@ class RolesAndPermissionsSeeder extends Seeder
     $accesToDashboard = Permission::create(['name' => 'acces_to_dashboard', 'guard_name' => 'web']);
 
     // Assigner les permissions aux rôles si nécessaire
-    $adminRole->givePermissionTo($gererappPermission);
-    //$user->assignRole('admin');
+    $superAdminRole->givePermissionTo($all);
+
+    $users = [
+        ['name' => 'Super_admin', 'email' => 'superadmin@gmail.com', 'password' => Hash::make('123456789')],
+        ['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => Hash::make('123456789')]
+    ];
+
+    for ($i = 0; $i < count($users); $i++) {
+        User::create($users[$i]);
+    }
+
+    $Admin = User::where('name', 'Admin')->first();
+    
+    $Admin->assignRole($superAdminRole); // Affecter le rôle à l'utilisateur
+
+    
 
     }
 }
