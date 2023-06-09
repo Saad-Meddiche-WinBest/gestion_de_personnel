@@ -16,18 +16,20 @@ function filter_name($name)
 
 function fetch_options($name_of_table, $id = Null)
 {
-    if ($name_of_table) {
-
-        $options = '';
-
-        $data = DB::table($name_of_table)->get();
-
-        foreach ($data as $option) {
-
-            $options .= '<option value="' . $option->id . '" ' . select_option($id, $option->id) . '>' . $option->nom . '</option>';
-        }
-        return $options;
+    if (!$name_of_table) {
+        return '';
     }
+
+    $options = '';
+
+    $data = DB::table($name_of_table)->get();
+
+    foreach ($data as $option) {
+        $selected = select_option($id, $option->id);
+        $options .= sprintf('<option value="%s" %s>%s</option>', $option->id, $selected, $option->nom);
+    }
+
+    return $options;
 }
 
 function fetch_columns($name_of_table)
