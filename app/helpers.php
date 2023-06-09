@@ -67,7 +67,7 @@ function fetch_columns($name_of_table)
 
     $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
 
-    $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at']));
+    $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at', 'password']));
 
     $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
