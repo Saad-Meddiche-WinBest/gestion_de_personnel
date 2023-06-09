@@ -14,9 +14,8 @@ function filter_name($name)
     return $filtred_name;
 }
 
-function fetch_options($name_of_table)
+function fetch_options($name_of_table, $id = Null)
 {
-
     if ($name_of_table) {
 
         $options = '';
@@ -25,7 +24,7 @@ function fetch_options($name_of_table)
 
         foreach ($data as $option) {
 
-            $options .= '<option value="' . $option->id . '">' . $option->nom . '</option>';
+            $options .= '<option value="' . $option->id . '" ' . select_option($id, $option->id) . '>' . $option->nom . '</option>';
         }
         return $options;
     }
@@ -33,10 +32,10 @@ function fetch_options($name_of_table)
 
 function choose_input($column)
 {
+
     $input = '<label>' . filter_name($column['name']) . '</label><br>';
 
     $comments = explode('-', $column['comment']);
-    ['grp1','text'];
     if ($comments[0] != 'grp1') {
         return;
     }
@@ -60,16 +59,17 @@ function choose_input($column)
     return $input;
 }
 
-function fetch_columns($name_of_table){
-        //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
-        //Salah Starup
+function fetch_columns($name_of_table)
+{
+    //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
+    //Salah Starup
 
-      
-        $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
 
-        $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at']));
+    $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
 
-        $foreignKeys = DB::select(DB::raw("SELECT 
+    $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at']));
+
+    $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
         CONSTRAINT_NAME, 
         REFERENCED_TABLE_NAME, 
@@ -81,18 +81,18 @@ function fetch_columns($name_of_table){
         AND table_schema = DATABASE()
         AND table_name = '$name_of_table'"));
 
-        $columnData = [];
+    $columnData = [];
 
-        foreach ($columns as $column) {
-            $columnData[] = [
-                'name' => $column->getName(),
-                'type' => $column->getType()->getName(),
-                'comment' => $column->getComment(),
-                'foreign_key' => getForeignKeyDetails($column->getName(), $foreignKeys),
-            ];
-        }
-        
-        return $columnData;
+    foreach ($columns as $column) {
+        $columnData[] = [
+            'name' => $column->getName(),
+            'type' => $column->getType()->getName(),
+            'comment' => $column->getComment(),
+            'foreign_key' => getForeignKeyDetails($column->getName(), $foreignKeys),
+        ];
+    }
+
+    return $columnData;
 }
 
 function getForeignKeyDetails($columnName, $foreignKeys)
@@ -108,4 +108,43 @@ function getForeignKeyDetails($columnName, $foreignKeys)
     }
 
     return null;
+}
+
+
+function choose_input_and_fill_them($data, $column)
+{
+    $input = '';
+
+    $comments = explode('-', $column['comment']);
+    if ($comments[0] != 'grp1') {
+        $input .= '<p>---------</p>';
+        return $input;
+    }
+
+    if ($comments[1] == 'foreign') {
+        $input .= '<select name="' . $column['name'] . '">' . fetch_options($column['foreign_key']['referenced_table'], $data->{$column['name']}) . '</select>';
+        return $input;
+    }
+
+    if ($comments[1] == 'bool') {
+
+        $options = '<option value="1" ' . select_option($data->{$column['name']}, 1) . '>' . $comments[2] . '</option>';
+        $options .= '<option value="0" ' . select_option($data->{$column['name']}, 0) . '>' . $comments[3] . '</option>';
+
+        $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
+
+        return $input;
+    }
+
+    $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . $data->{$column['name']} . '">';
+    return $input;
+}
+
+function select_option($a, $b)
+{
+    if ($a == $b) {
+        return 'selected';
+    }
+
+    return '';
 }
