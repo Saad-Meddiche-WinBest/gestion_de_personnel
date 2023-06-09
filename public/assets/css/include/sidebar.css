@@ -16,6 +16,9 @@
     margin-bottom: 20px;
     cursor: pointer;
 }
+.route a{
+    text-decoration: none;
+}
 
 .route:hover {
     border-left: 3px solid white;

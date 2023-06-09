@@ -22,7 +22,7 @@
 
          @guest
              <div class="Inscrire_Button">
-                 <button><a href="/register">INSCRIVEZ-VOUS GRATUITEMENT</a></button>
+                 <button id="btn2"><a href="/register">INSCRIVEZ-VOUS GRATUITEMENT</a></button>
                  <button id="btn"><a href="/login">SE CONNECTER</a></button>
              </div>
          @else

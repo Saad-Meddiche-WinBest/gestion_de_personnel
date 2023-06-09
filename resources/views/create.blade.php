@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-formule">
         <form action="{{ route('Gerer.store') }}" method='POST'>
-            @csrf
+        @csrf
             <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
             @foreach ($columnData as $column)
                 <div class="field">
