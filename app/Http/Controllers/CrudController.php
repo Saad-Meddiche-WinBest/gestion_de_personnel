@@ -88,7 +88,6 @@ class CrudController extends Controller
 
         $data = $New_Class::all();
 
-
         return view('display', compact(['data', 'name_of_model']));
     }
 }

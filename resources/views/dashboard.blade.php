@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    
         <!-- <form action="{{ route('Gerer.create') }}" method="GET">
             <input type="hidden" name="name_of_model" value="service">
             <button>Services</button>
@@ -24,13 +22,13 @@
             <button>Employements</button>
         </form> -->
 
-
     <div class="box-container">
         <div class="content-dashboard" id="box-container">
 
         </div>
     </div>
     <script>
+
     function fill_dash() {
     let dash = document.getElementById("box-container");
     let routes = [
@@ -100,7 +98,6 @@
     });
   }
   
-  fill_dash();
-
-</script>
+  fill_dash();      
+    </script>
 @endsection
