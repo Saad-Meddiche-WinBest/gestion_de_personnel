@@ -140,16 +140,13 @@ function choose_data($looking_for, $column)
     }
 
 
-   return $looking_for;
+    return $looking_for;
 }
 
-function fetch_post($id_post){
+function fetch_post($id_post)
+{
     $name_of_model = 'personne';
-    $data = Personne::where('id_poste' ,$id_post )->get();
+    $data = Personne::where('id_poste', $id_post)->get();
     $columnData = fetch_columns('personnes');
-    return view('index', compact(['data', 'name_of_model','columnData']));
+    return view('index', compact(['data', 'name_of_model', 'columnData']));
 }
-
-  
-
-
