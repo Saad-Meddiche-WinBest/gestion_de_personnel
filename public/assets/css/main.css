@@ -20,12 +20,16 @@
     flex-wrap: wrap;
     align-content: center !important;
 }
+
 .dataTables_wrapper{
+
     height: 80% !important;
     width: 800px !important;
     max-height: 100vh; /* Adjust the height as needed */
     overflow-x: scroll;
     font-size: 1.2vh;
-    }
+}
+
+
 
 

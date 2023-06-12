@@ -1,34 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-        <!-- <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="service">
-            <button>Services</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="personne">
-            <button>Personnes</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="poste">
-            <button>Postes</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="source">
-            <button>Source</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="employement">
-            <button>Employements</button>
-        </form> -->
-
     <div class="box-container">
+        <div class="Quick_Add">
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="service">
+                <button>Services</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="personne">
+                <button>Personnes</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="poste">
+                <button>Postes</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="source">
+                <button>Source</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="employement">
+                <button>Employements</button>
+            </form>
+        </div>
+
         <div class="content-dashboard" id="box-container">
 
         </div>
     </div>
     <script>
-
+       
     function fill_dash() {
     let dash = document.getElementById("box-container");
     let routes = [
@@ -103,5 +105,6 @@
   }
   
   fill_dash();      
+
     </script>
 @endsection
