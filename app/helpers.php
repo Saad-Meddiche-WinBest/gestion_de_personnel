@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -139,5 +140,17 @@ function choose_data($looking_for, $column)
         }
     }
 
-    return $looking_for;
+
+   return $looking_for;
 }
+
+function fetch_post($id_post){
+    $name_of_model = 'personne';
+    $data = Personne::where('id_poste' ,$id_post )->get();
+    $columnData = fetch_columns('personnes');
+    return view('index', compact(['data', 'name_of_model','columnData']));
+}
+
+  
+
+

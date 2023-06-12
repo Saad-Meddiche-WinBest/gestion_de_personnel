@@ -3,6 +3,7 @@
 
 
 @section('content')
+
     <div class="container-formule">
         <div class="formule">
             <form action="{{ route('Gerer.update', $data[0]->id) }}" method='POST' class="formule">
@@ -61,4 +62,5 @@
             align-items: end;
         }
     </style>
+
 @endsection

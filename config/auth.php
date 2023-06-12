@@ -18,6 +18,24 @@ return [
         'passwords' => 'users',
     ],
 
+
+
+
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+    ],
+    
+    'providers' => [
+        'roles' => [
+            'driver' => 'eloquent',
+            'model' => Spatie\Permission\Models\Role::class,
+        ],
+    ],
+    
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
