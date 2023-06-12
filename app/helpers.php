@@ -62,14 +62,14 @@ function fetch_columns($name_of_table)
             'name' => $column->getName(),
             'type' => $column->getType()->getName(),
             'comment' => $column->getComment(),
-            'foreign_key' => getForeignKeyDetails($column->getName(), $foreignKeys),
+            'foreign_key' => get_foreign_key_details($column->getName(), $foreignKeys),
         ];
     }
 
     return $columnData;
 }
 
-function getForeignKeyDetails($columnName, $foreignKeys)
+function get_foreign_key_details($columnName, $foreignKeys)
 {
     foreach ($foreignKeys as $foreignKey) {
         if ($foreignKey->COLUMN_NAME === $columnName) {
@@ -119,7 +119,6 @@ function select_option($a, $b)
 {
     return $a === $b ? 'selected' : '';
 }
-
 
 function choose_data($looking_for, $column)
 {
