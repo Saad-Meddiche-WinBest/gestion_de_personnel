@@ -66,17 +66,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                           <label for="role_id" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
-                            <div class="col-md-6">
-                              <select id="role_id" class="form-control @error('role_id') is-invalid @enderror" name="role_id" required>
-                                    <option value="" disabled selected>Choisissez un rôle</option>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Super Admin</option>
-                                    <option value="3">Utilisateur</option>
-                              </select>
-                           </div>
-                        </div>
+                       
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">

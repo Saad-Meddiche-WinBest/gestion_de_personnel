@@ -14,6 +14,7 @@ class CrudController extends Controller
 
     public function index(Request $request)
     {
+
         $name_of_model = $request->name_of_model;
         $name_of_table = $request->name_of_model . 's';
 
@@ -30,6 +31,7 @@ class CrudController extends Controller
     public function create(Request $request)
     {
 
+        
         $name_of_table = $request->name_of_model . 's';
         $name_of_model = $request->name_of_model;
 

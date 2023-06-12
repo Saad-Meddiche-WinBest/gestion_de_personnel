@@ -19,50 +19,5 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         //
-    $superAdminRole = Role::create(['name' => 'super_admin']);
-    $adminRole = Role::create(['name' => 'admin']);
-
-    $all = Permission::create(['name' => '*']);
-
-    $ajouterService = Permission::create(['name' => 'ajouter_service', 'guard_name' => 'web']);
-    $ModifierService = Permission::create(['name' => 'modifier_service', 'guard_name' => 'web']);
-    $SupprimerService = Permission::create(['name' => 'supprimer_service', 'guard_name' => 'web']);
-    $voirService = Permission::create(['name' => 'voir_service', 'guard_name' => 'web']);
-
-    $ajouterEmployement = Permission::create(['name' => 'ajouter_employement', 'guard_name' => 'web']);
-    $ModifierEmployement = Permission::create(['name' => 'modifier_employement', 'guard_name' => 'web']);
-    $SupprimerEmployent = Permission::create(['name' => 'supprimer_employement', 'guard_name' => 'web']);
-    $voirEmployent = Permission::create(['name' => 'voir_employement', 'guard_name' => 'web']);
-
-    $ajouterSource = Permission::create(['name' => 'ajouter_source', 'guard_name' => 'web']);
-    $ModifierSource = Permission::create(['name' => 'modifier_source', 'guard_name' => 'web']);
-    $SupprimerSource = Permission::create(['name' => 'supprimer_source', 'guard_name' => 'web']);
-    $voirSource = Permission::create(['name' => 'voir_source', 'guard_name' => 'web']);
-
-    $ajouterPoste = Permission::create(['name' => 'ajouter_poste', 'guard_name' => 'web']);
-    $ModifierPoste = Permission::create(['name' => 'modifier_poste', 'guard_name' => 'web']);
-    $SupprimerPoste = Permission::create(['name' => 'supprimer_poste', 'guard_name' => 'web']);
-    $voirPoste = Permission::create(['name' => 'voir_poste', 'guard_name' => 'web']);
-
-    $accesToDashboard = Permission::create(['name' => 'acces_to_dashboard', 'guard_name' => 'web']);
-
-    // Assigner les permissions aux rôles si nécessaire
-    $superAdminRole->givePermissionTo($all);
-
-    $users = [
-        ['name' => 'Super_admin', 'email' => 'superadmin@gmail.com', 'password' => Hash::make('123456789')],
-        ['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => Hash::make('123456789')]
-    ];
-
-    for ($i = 0; $i < count($users); $i++) {
-        User::create($users[$i]);
-    }
-
-    $Admin = User::where('name', 'Admin')->first();
-    
-    $Admin->assignRole($superAdminRole); // Affecter le rôle à l'utilisateur
-
-    
-
     }
 }
