@@ -56,6 +56,7 @@ class CrudController extends Controller
             foreach ($extra_informations as $info) {
                 $request[$info['column']] = $info['data'];
             }
+            
             Cache::forget('extra_informations');
         }
 

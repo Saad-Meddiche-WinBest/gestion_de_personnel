@@ -9,8 +9,8 @@ function fetch_cards()
         [
             'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
             'text' => 'Présence',
-            'name_of_model' => 'presence',
-            'link' => '#'
+            'name_of_model' => 'absence',
+            'link' => '/Gerer'
         ],
         [
             'image' => 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
@@ -46,6 +46,12 @@ function fetch_cards()
             'image' => 'https://staffngo.com/wp-content/uploads/2021/03/embauche3.png',
             'text' => 'Personnes',
             'name_of_model' => 'personne',
+            'link' => '/Gerer'
+        ],
+        [
+            'image' => 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
+            'text' => 'Reasons',
+            'name_of_model' => 'event',
             'link' => '/Gerer'
         ]
     ];
