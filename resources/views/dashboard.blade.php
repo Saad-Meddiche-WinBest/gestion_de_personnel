@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="box-container">
-        <!-- <div class="Quick_Add">
+       <div class="Quick_Add">
             <form action="{{ route('Gerer.create') }}" method="GET">
                 <input type="hidden" name="name_of_model" value="service">
                 <button>Services</button>
@@ -23,7 +23,7 @@
                 <input type="hidden" name="name_of_model" value="employement">
                 <button>Employements</button>
             </form>
-        </div> -->
+        </div> 
 
         <div class="content-dashboard" id="box-container">
             @foreach (fetch_cards() as $card)

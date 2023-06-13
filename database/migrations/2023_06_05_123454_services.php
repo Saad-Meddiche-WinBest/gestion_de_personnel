@@ -15,9 +15,10 @@ return new class extends Migration
     {
         //
         Schema::create('services', function (Blueprint $table) {
-        $table->id();
-        $table->string('nom')->comment('grp1-text');
-        $table->timestamps();
+            $table->id();
+            $table->string('nom')->comment('grp1-text');
+          
+            $table->timestamps();
         });
     }
 
@@ -30,6 +31,5 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('services');
-
     }
 };

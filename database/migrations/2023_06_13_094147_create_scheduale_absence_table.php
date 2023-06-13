@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('absences', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_personne')->comment('grp2-foreign');
-            $table->unsignedBigInteger('id_event')->comment('grp1-foreign');
+            $table->unsignedBigInteger('id_reason')->comment('grp1-foreign');
             $table->date('date')->comment('grp1-date');
             $table->foreign('id_personne')->references('id')->on('personnes');
-            $table->foreign('id_event')->references('id')->on('events');
+            $table->foreign('id_reason')->references('id')->on('reasons');
             $table->timestamps();
         });
     }

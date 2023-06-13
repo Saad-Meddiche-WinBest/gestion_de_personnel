@@ -10,5 +10,5 @@ class Source extends Model
     use HasFactory;
     protected $table = 'sources';
     protected $guarded = ['name_of_model', '_token', '_method'];
-    protected $fillable = ['nom'];
+    protected $fillable = ['nom','id_poste'];
 }
