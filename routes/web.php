@@ -14,40 +14,24 @@ use App\Http\Controllers\CrudController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/admin/dashboard', function () {
-//     // ...
-//     Route::get('/', function () {
-//         return view('welcome');
-//     });
-//     Route::resource('/Gerer', CrudController::class);
-
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     });
-    
-//     Auth::routes();
-//     Route::resource('/Gerer', CrudController::class);
-
-//     Route::get('/poste/{id_poste}', function ($id_poste) {
-//         return fetch_post($id_poste);
-//     });
-// })->middleware('role:admin');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::middleware(['accessDashboard'])->group(function () {
+  
     Route::resource('/Gerer', CrudController::class);
+  
     Route::get('/dashboard', function () {
         return view('dashboard');
-    });
+     });
+  
     Route::get('/poste/{id_poste}', function ($id_poste) {
         return fetch_post($id_poste);
+     });
 });
-});
-
 
 
 Auth::routes();
+

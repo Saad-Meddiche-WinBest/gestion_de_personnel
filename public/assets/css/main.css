@@ -37,6 +37,22 @@
     }
   }
 
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track{
+    background-color: orangered;
+
+}
+::-webkit-scrollbar-thumb{
+    background-color: #58abfb;
+}
+
+
+
+
   @media only screen and (max-width: 1000px) {
     .dataTables_wrapper {
       overflow-x: scroll;
@@ -77,4 +93,5 @@
 .table.dataTable.no-footer {
    border-bottom: none;
 }
+
 
