@@ -24,11 +24,13 @@ function fetch_options($name_of_table, $id = Null)
     $options = '';
 
     $data = DB::table($name_of_table)->get();
-
+    $options .= sprintf('<option selected value="">Selectionner</option>');
     foreach ($data as $option) {
         $selected = select_option($id, $option->id);
+        
         $options .= sprintf('<option value="%s" %s>%s</option>', $option->id, $selected, $option->nom);
     }
+    
 
     return $options;
 }
@@ -95,6 +97,7 @@ function choose_input($column, $data = null)
 
     if ($comments[1] == 'foreign') {
         $options = fetch_options($column['foreign_key']['referenced_table'], isset($data->{$column['name']}) ? $data->{$column['name']} : null);
+        
         $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
         return $input;
     }
@@ -102,7 +105,8 @@ function choose_input($column, $data = null)
     if ($comments[1] == 'bool') {
         $selectedOption1 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 1);
         $selectedOption2 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 0);
-
+        
+       
         $options = '<option value="1" ' . $selectedOption1 . '>' . $comments[2] . '</option>';
         $options .= '<option value="0" ' . $selectedOption2 . '>' . $comments[3] . '</option>';
 
