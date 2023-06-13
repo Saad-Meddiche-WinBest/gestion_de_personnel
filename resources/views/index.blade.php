@@ -33,21 +33,28 @@
                         </td>
                     @endforeach
                     <td>
+                        {{-- Button In Action Column --}}
                         <div style="display:flex; ">
+                            {{-- Edit Button --}}
                             <form action="{{ route('Gerer.edit', $data1->id) }}" method="GET">
                                 <button id="btn1" type="sumbit" class="btn btn-warning">Edit</button>
                                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
                             </form>
+                            {{-- Delete Button --}}
                             <form action="{{ route('Gerer.destroy', $data1->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button id="btn1" type="sumbit" class="btn btn-danger">Delete</button>
                                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
                             </form>
+                            {{-- Absence Button --}}
                             @if ($name_of_model == 'user')
                                 <form action="{{ route('Gerer.create') }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-primary">Absence</button>
                                     <input type="hidden" name="name_of_model" value="Absence">
+                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data1->id }}>
+                                    <input type="hidden" name="extra_informations[0][column]" value="id_personne">
+
                                 </form>
                             @endif
                         </div>

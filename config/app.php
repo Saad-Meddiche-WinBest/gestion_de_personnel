@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-
+    'Testing_Global' => '123456789',
     /*
     |--------------------------------------------------------------------------
     | Application Name

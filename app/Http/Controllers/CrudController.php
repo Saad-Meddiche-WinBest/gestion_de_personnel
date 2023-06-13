@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\QueryException;
 
@@ -31,6 +32,13 @@ class CrudController extends Controller
     public function create(Request $request)
     {
 
+        if (isset($request->extra_informations)) {
+
+            $extra_informations = $request->extra_informations;
+
+            Cache::forever('extra_informations', $extra_informations);
+        }
+
         $name_of_table = $request->name_of_model . 's';
         $name_of_model = $request->name_of_model;
 
@@ -41,6 +49,16 @@ class CrudController extends Controller
 
     public function store(Request $request)
     {
+        if (Cache::has('extra_informations')) {
+
+            $extra_informations = Cache::get('extra_informations');
+
+            foreach ($extra_informations as $info) {
+                $request[$info['column']] = $info['data'];
+            }
+            Cache::forget('extra_informations');
+        }
+
         $name_of_model = $request->name_of_model;
 
         if ($name_of_model == null) return view('welcome');

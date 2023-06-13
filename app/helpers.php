@@ -106,7 +106,6 @@ function choose_input($column, $data = null)
         $selectedOption1 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 1);
         $selectedOption2 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 0);
         
-       
         $options = '<option value="1" ' . $selectedOption1 . '>' . $comments[2] . '</option>';
         $options .= '<option value="0" ' . $selectedOption2 . '>' . $comments[3] . '</option>';
 
