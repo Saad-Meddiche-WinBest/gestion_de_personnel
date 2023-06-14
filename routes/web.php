@@ -1,9 +1,11 @@
 <?php
 
+use Carbon\Carbon;
+use App\Models\Personne;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudController;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,11 @@ Route::middleware(['accessDashboard'])->group(function () {
 
         $sources = DB::table('sources')->where('id_poste', $id_poste)->get();
         return response()->json(['sources' => $sources]);
+    });
+
+    Route::get('/check-expiration', function () {
+        $persons = Personne::whereDate('date_fin', Carbon::today())->get();
+        return response()->json(['notifications' => count($persons)]);
     });
 });
 

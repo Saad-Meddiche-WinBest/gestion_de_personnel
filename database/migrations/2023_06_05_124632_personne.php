@@ -32,7 +32,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_service')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_employement')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_poste')->comment('grp1-foreign');
-            $table->unsignedBigInteger('id_source')->comment('grp1-foreign');
+            $table->unsignedBigInteger('id_source')->comment('grp1-foreign')->default(null);;
 
             $table->foreign('id_poste')->references('id')->on('postes');
             $table->foreign('id_service')->references('id')->on('services');

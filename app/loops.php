@@ -1,9 +1,14 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Poste;
+use App\Models\Personne;
+use Illuminate\Support\Facades\Cache;
 
 function fetch_cards()
 {
+
+
     $routes = [
 
         [
@@ -53,6 +58,12 @@ function fetch_cards()
             'text' => 'Reasons',
             'name_of_model' => 'reason',
             'link' => '/Gerer'
+        ],
+        [
+            'image' => 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
+            'text' => 'End',
+            'name_of_model' => '',
+            'link' => '#'
         ]
     ];
 

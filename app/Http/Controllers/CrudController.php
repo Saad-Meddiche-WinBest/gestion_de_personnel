@@ -56,7 +56,7 @@ class CrudController extends Controller
             foreach ($extra_informations as $info) {
                 $request[$info['column']] = $info['data'];
             }
-            
+
             Cache::forget('extra_informations');
         }
 
@@ -67,7 +67,7 @@ class CrudController extends Controller
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $New_Class::create($request->all());
 
-        return view('dashboard');
+        return redirect('/dashboard');
     }
 
 
