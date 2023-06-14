@@ -82,7 +82,6 @@ function get_foreign_key_details($columnName, $foreignKeys)
             ];
         }
     }
-
     return null;
 }
 
