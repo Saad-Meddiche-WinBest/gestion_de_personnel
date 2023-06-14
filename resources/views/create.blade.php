@@ -35,11 +35,19 @@
                         url: '/get-sources/' + selectedPoste,
                         type: 'GET',
                         success: function(response) {
-                            sourceSelect.html('<option value="">Selectionner</option>');
-                            $.each(response.sources, function(key, value) {
-                                sourceSelect.append('<option value="' + value.id +
-                                    '">' + value.nom + '</option>');
-                            });
+                            if (response.sources.lenght == 0) {
+                                sourceSelect.html('<option value="">Selectionner</option>');
+
+                                $.each(response.sources, function(key, value) {
+                                    sourceSelect.append('<option value="' + value.id +
+                                        '">' + value.nom + '</option>');
+                                });
+                            } else {
+                                sourceSelect.html(
+                                    '<option value="">No Source For This Poste</option>');
+
+                            }
+
                             sourceSelect.prop('disabled', false);
                         }
                     });
