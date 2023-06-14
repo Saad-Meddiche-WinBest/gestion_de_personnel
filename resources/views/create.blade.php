@@ -22,4 +22,32 @@
         </div>
 
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#Poste').change(function() {
+                var selectedPoste = $(this).val();
+                var sourceSelect = $('#Source');
+
+                if (selectedPoste) {
+                    $.ajax({
+                        url: '/get-sources/' + selectedPoste,
+                        type: 'GET',
+                        success: function(response) {
+                            sourceSelect.html('<option value="">Selectionner</option>');
+                            $.each(response.sources, function(key, value) {
+                                sourceSelect.append('<option value="' + value.id +
+                                    '">' + value.nom + '</option>');
+                            });
+                            sourceSelect.prop('disabled', false);
+                        }
+                    });
+                } else {
+                    sourceSelect.prop('disabled', true);
+                    sourceSelect.html('<option value="">Selectionner</option>');
+                }
+            });
+        });
+    </script>
 @endsection

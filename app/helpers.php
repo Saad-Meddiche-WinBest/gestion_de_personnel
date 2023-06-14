@@ -27,10 +27,10 @@ function fetch_options($name_of_table, $id = Null)
     $options .= sprintf('<option selected value="">Selectionner</option>');
     foreach ($data as $option) {
         $selected = select_option($id, $option->id);
-        
+
         $options .= sprintf('<option value="%s" %s>%s</option>', $option->id, $selected, $option->nom);
     }
-    
+
 
     return $options;
 }
@@ -97,15 +97,15 @@ function choose_input($column, $data = null)
 
     if ($comments[1] == 'foreign') {
         $options = fetch_options($column['foreign_key']['referenced_table'], isset($data->{$column['name']}) ? $data->{$column['name']} : null);
-        
-        $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
+
+        $input .= '<select id="' . choose_id($column['name']) . '" name="' . $column['name'] . '">' . $options . '</select>';
         return $input;
     }
 
     if ($comments[1] == 'bool') {
         $selectedOption1 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 1);
         $selectedOption2 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 0);
-        
+
         $options = '<option value="1" ' . $selectedOption1 . '>' . $comments[2] . '</option>';
         $options .= '<option value="0" ' . $selectedOption2 . '>' . $comments[3] . '</option>';
 
@@ -116,6 +116,11 @@ function choose_input($column, $data = null)
 
     $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
     return $input;
+}
+
+function choose_id($name_of_column)
+{
+    return (in_array($name_of_column, ['id_poste', 'id_source'])) ? filter_name($name_of_column) : '';
 }
 
 function select_option($a, $b)
