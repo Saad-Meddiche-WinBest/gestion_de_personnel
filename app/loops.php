@@ -62,8 +62,8 @@ function fetch_cards()
         [
             'image' => 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
             'text' => 'End',
-            'name_of_model' => '',
-            'link' => '#'
+            'name_of_model' => 'expiration',
+            'link' => '/Gerer'
         ]
     ];
 

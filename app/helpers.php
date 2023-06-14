@@ -113,7 +113,12 @@ function choose_input($column, $data = null)
         return $input;
     }
 
-    $input .= '<input type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
+    if ($comments[1] == 'datetime') {
+        $input .= '<input id="' . $column['name'] . '" type="datetime-local" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
+        return $input;
+    }
+
+    $input .= '<input id="' . $column['name'] . '" type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
     return $input;
 }
 

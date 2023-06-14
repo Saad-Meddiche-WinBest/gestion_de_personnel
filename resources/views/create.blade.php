@@ -14,6 +14,13 @@
                         {!! choose_input($column) !!}
                     </div>
                 @endforeach
+                @if ($name_of_model == 'personne')
+                    <div class="field">
+                        <label for="">Notify</label>
+                        <br>
+                        <input type="date" name="date_notification">
+                    </div>
+                @endif
                 <div class="Sumbit_Button">
 
                     <button class="btn btn-primary" type="submit">Ajouter</button>

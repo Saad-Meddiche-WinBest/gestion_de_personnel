@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expiration;
 use Illuminate\Http\Request;
 // use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Illuminate\Support\Facades\DB;
@@ -52,7 +53,7 @@ class CrudController extends Controller
         if (Cache::has('extra_informations')) {
 
             $extra_informations = Cache::get('extra_informations');
-
+            
             foreach ($extra_informations as $info) {
                 $request[$info['column']] = $info['data'];
             }
@@ -65,7 +66,17 @@ class CrudController extends Controller
         if ($name_of_model == null) return view('welcome');
 
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
-        $New_Class::create($request->all());
+        $obj = $New_Class::create($request->all());
+
+        if ($name_of_model == 'personne') {
+            $data = [
+                'id_personne' => $obj->id,
+                'comment' => 'Le Stage touche à son fin',
+                'date' => $request->date_notification
+            ];
+
+            Expiration::create($data);
+        }
 
         return redirect('/dashboard');
     }

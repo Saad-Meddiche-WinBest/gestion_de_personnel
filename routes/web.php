@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudController;
+use App\Models\Expiration;
+use Faker\Provider\ar_EG\Person;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,9 +46,10 @@ Route::middleware(['accessDashboard'])->group(function () {
     });
 
     Route::get('/check-expiration', function () {
-        $persons = Personne::whereDate('date_fin', Carbon::today())->get();
+        $persons = Expiration::whereDate('date', Carbon::today())->get();
         return response()->json(['notifications' => count($persons)]);
     });
+
 });
 
 

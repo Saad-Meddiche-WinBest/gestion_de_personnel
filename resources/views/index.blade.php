@@ -13,7 +13,7 @@
                     </svg>Add {{ ucfirst($name_of_model) }}</button>
             </div>
         @else
-            <input type="hidden" name="name_of_model" value="event">
+            <input type="hidden" name="name_of_model" value="reason">
             <div style="width:100%;">
                 <button type="submit" class="btn btn-primary" style="float:right;  margin-bottom:15px; font-size:1.5vh; ">
                     <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px" width="16" height="16"
@@ -65,6 +65,12 @@
                                 <form action="{{ route('Gerer.create') }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-primary">Absence</button>
                                     <input type="hidden" name="name_of_model" value="Absence">
+                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data1->id }}>
+                                    <input type="hidden" name="extra_informations[0][column]" value="id_personne">
+                                </form>
+                                <form action="{{ route('Gerer.create') }}" method="GET">
+                                    <button id="btn1" type="sumbit" class="btn btn-primary">Evenement</button>
+                                    <input type="hidden" name="name_of_model" value="expiration">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data1->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>

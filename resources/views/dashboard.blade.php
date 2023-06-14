@@ -34,7 +34,7 @@
                         <input type="hidden" name="name_of_model" value="{{ $card['name_of_model'] }}">
                         <button type="submit">{{ $card['text'] }}
                             @if ($card['text'] == 'End')
-                                <span id="notifications"></span>
+                                <span id="notifications">0</span>
                             @endif
                         </button>
                     </form>
