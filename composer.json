@@ -26,7 +26,7 @@
     },
     "autoload": {
         "files": [
-            "app/helpers.php",
+            "app/dynamicFields.php",
             "app/loops.php",
             "app/coreFunctions.php"
         ],

@@ -1,9 +1,8 @@
 <?php
 
+use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 
 /*=========Function That Have Contact With DataBase=========*/
@@ -30,7 +29,6 @@ function fetch_data_of_table($name_of_table, $id = null)
         'content' => $data
     ];
 }
-
 
 function insert_data_to_table($data, $name_of_table)
 {
@@ -120,4 +118,24 @@ function delete_data_from_table($name_of_table, $id_of_row)
     return [
         'status' => 'ok',
     ];
+}
+
+function fetch_personnes_with_this_poste($id_post)
+{
+    $name_of_model = 'personne';
+    $name_of_table = 'personnes';
+
+    $data_of_table = Personne::where('id_poste', $id_post)->get();
+
+    $responce_columns = fetch_columns_of_table($name_of_table);
+
+    if ($responce_columns['status'] == 'error' || empty($responce_columns['content'])) {
+
+
+        return back()->with('error', 'Table not found');
+    }
+
+    $informations_of_columns = $responce_columns['content'];
+
+    return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
 }

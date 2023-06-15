@@ -165,22 +165,4 @@ function choose_data($looking_for, $column)
     return $looking_for;
 }
 
-function fetch_personnes_with_this_poste($id_post)
-{
-    $name_of_model = 'personne';
-    $name_of_table = 'personnes';
 
-    $data_of_table = Personne::where('id_poste', $id_post)->get();
-
-    $responce_columns = fetch_columns_of_table($name_of_table);
-
-    if ($responce_columns['status'] == 'error' || empty($responce_columns['content'])) {
-
-
-        return back()->with('error', 'Table not found');
-    }
-
-    $informations_of_columns = $responce_columns['content'];
-
-    return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
-}
