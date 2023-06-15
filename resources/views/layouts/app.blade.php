@@ -25,13 +25,20 @@
 
         @include('layouts.include.navbar')
 
-       
+
 
         <main style="flex: 1;display:flex;">
             @include('layouts.include.sidebar')
 
 
-            <div class="ContentS1" style="flex: 1;">
+            <div class="ContentS1" style="flex: 1;display:flex;flex-direction:column;">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
                 @yield('content')
             </div>
         </main>

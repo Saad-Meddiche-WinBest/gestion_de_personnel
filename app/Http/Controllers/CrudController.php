@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\DynamicValidation;
 
 
 
@@ -73,8 +74,10 @@ class CrudController extends Controller
         return view('create', compact(['informations_of_columns', 'name_of_model']));
     }
 
-    public function store(Request $request)
+    public function store(DynamicValidation $request)
     {
+
+        $request = $request->validated();
         /*=====================================================================*/
         $name_of_model = $request->name_of_model;
 
