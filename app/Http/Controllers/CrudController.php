@@ -203,7 +203,7 @@ class CrudController extends Controller
     }
 
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id_of_row)
     {
         /*=====================================================================*/
         $name_of_model = $request->name_of_model;
@@ -215,28 +215,32 @@ class CrudController extends Controller
         $name_of_table = $request->name_of_model . 's';
         /*=====================================================================*/
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
+        $responce_delete = delete_data_from_table($name_of_table, $id_of_row);
 
-        try {
-            $data = $New_Class::findOrFail($id);
-            $data->delete();
-        } catch (QueryException $e) {
-            // Handle the exception
-            if ($e->getCode() === '23000') {
-                // Handle the foreign key constraint violation error
-                return back()->with('error', 'Cannot delete the record due to a foreign key constraint violation.');
-            } else {
-                // Handle other database-related errors
-                return back()->with('error', 'An error occurred while deleting the record.');
-            }
+        if ($responce_delete['status'] == 'error') {
+            return back()->with('error', $responce_delete['content']);
         }
 
         /*=====================================================================*/
-        $columnData = fetch_columns_of_table($name_of_table);
-        $data = $New_Class::all();
+        $responce_columns = fetch_columns_of_table($name_of_table);
+
+        if ($responce_columns['status'] == 'error') {
+            return back()->with('error', $responce_columns['content']);
+        }
+
+        $informations_of_columns = $responce_columns['content'];
+        /*=====================================================================*/
+        $responce_data = fetch_data_of_table($name_of_table);
+
+        if ($responce_data['status'] == 'error') {
+
+            return back()->with('error', $responce_data['content']);
+        }
+
+        $data_of_table = $responce_data['content'];
         /*=====================================================================*/
 
 
-        return view('index', compact(['data', 'name_of_model', 'columnData']));
+        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
     }
 }

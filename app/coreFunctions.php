@@ -98,3 +98,26 @@ function update_data_of_table($new_data, $name_of_table, $id_of_row)
         'status' => 'ok',
     ];
 }
+
+function delete_data_from_table($name_of_table, $id_of_row)
+{
+    try {
+        DB::table($name_of_table)->where('id', $id_of_row)->delete();
+    } catch (QueryException $e) {
+        if ($e->getCode() === '23000') {
+            return [
+                'status' => 'error',
+                'content' => "Deleting failed: Cannot delete the record due to a foreign key constraint violation."
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'content' => "Deleting failed: An error occurred while deleting the record."
+            ];
+        }
+    }
+
+    return [
+        'status' => 'ok',
+    ];
+}

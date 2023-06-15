@@ -32,7 +32,7 @@
                 @else
                     <li class="nav-item dropdown">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard" role="button"  class="nav-link dropdown-toggle">
+                        <a class="nav-link" href="/dashboard" role="button" class="nav-link dropdown-toggle">
                             Dashboard
                         </a>
                     </li>
@@ -55,8 +55,8 @@
                     </div>
                     </li>
                 @endguest
-                
-               
+
+
 
             </ul>
         </div>
