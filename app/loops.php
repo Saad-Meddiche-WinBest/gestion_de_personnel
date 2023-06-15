@@ -13,7 +13,7 @@ function fetch_cards()
 
         [
             'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
-            'text' => 'Présence',
+            'text' => 'Absence & Retard',
             'name_of_model' => 'absence',
             'link' => '/Gerer'
         ],

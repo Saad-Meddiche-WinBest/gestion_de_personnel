@@ -10,5 +10,5 @@ class Absence extends Model
     use HasFactory;
     protected $table = 'absences';
     protected $guarded = ['name_of_model', '_token', '_method'];
-    protected $fillable = ['id_personne', 'id_reason', 'date'];
+    protected $fillable = ['id_personne', 'id_reason', 'date', 'comment'];
 }
