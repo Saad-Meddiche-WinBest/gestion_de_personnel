@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Expiration extends Model
+class Event extends Model
 {
     use HasFactory;
-    protected $table = 'expirations';
+    protected $table = 'events';
     protected $guarded = ['name_of_model', '_token', '_method'];
-    protected $fillable = ['id_personne', 'date','comment'];
+    protected $fillable = ['id_personne', 'date', 'comment'];
 }

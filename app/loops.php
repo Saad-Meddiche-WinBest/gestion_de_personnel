@@ -55,7 +55,7 @@ function fetch_cards()
         ],
         [
             'image' => 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
-            'text' => 'Reasons',
+            'text' => 'Les raisons d\'absence',
             'name_of_model' => 'reason',
             'link' => '/Gerer'
         ],

@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Expiration;
+use App\Models\Event;
 use Illuminate\Http\Request;
-// use Doctrine\DBAL\Schema\AbstractSchemaManager;
-use Illuminate\Support\Facades\DB;
-// use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\View;
+
+
 
 
 class CrudController extends Controller
@@ -71,7 +67,6 @@ class CrudController extends Controller
 
             return back()->with('error', 'Table not found');
         }
-        /*=====================================================================*/
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
 
@@ -110,14 +105,14 @@ class CrudController extends Controller
         $id_of_last_row = $responce_insert['content'];
         /*=====================================================================*/
 
-        if ($name_of_model == 'personne') {
+        if ($name_of_model == 'personne' && isset($request->date_notification)) {
             $data = [
                 'id_personne' => $id_of_last_row,
                 'comment' => 'Le Stage touche à son fin',
                 'date' => $request->date_notification
             ];
 
-            Expiration::create($data);
+            Event::create($data);
         }
         /*=====================================================================*/
 

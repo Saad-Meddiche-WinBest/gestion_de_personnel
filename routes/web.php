@@ -35,7 +35,7 @@ Route::middleware(['accessDashboard'])->group(function () {
     })->name('dashboard');
 
     Route::get('/poste/{id_poste}', function ($id_poste) {
-        return fetch_post($id_poste);
+        return fetch_personnes_with_this_poste($id_poste);
     });
 
     Route::get('/get-sources/{id_poste}', function ($id_poste) {
