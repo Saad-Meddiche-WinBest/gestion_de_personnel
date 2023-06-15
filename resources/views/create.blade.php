@@ -2,14 +2,18 @@
 
 @section('content')
     <div class="container-formule">
-
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="formule">
             <h5 style="color:black; width:100%; text-align:center;">Informations de base</h5>
             <form action="{{ route('Gerer.store') }}" method='POST' class="formule">
                 @csrf
                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
 
-                @foreach ($columnData as $column)
+                @foreach ($informations_of_columns as $column)
                     <div class="field">
                         {!! choose_input($column) !!}
                     </div>

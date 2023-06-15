@@ -18,6 +18,37 @@ class CrudController extends Controller
 
     public function index(Request $request)
     {
+        /*=====================================================================*/
+        $name_of_model = $request->name_of_model;
+
+        if (empty($name_of_model)) {
+
+            return back()->with('error', 'Name Of Model Is Empty');
+        }
+
+        $name_of_table = $request->name_of_model . 's';
+        /*=====================================================================*/
+        $responce_columns = fetch_columns_of_table($name_of_table);
+
+        $responce_data = fetch_data_of_table($name_of_table);
+        /*=====================================================================*/
+        if (in_array('error', [$responce_data['status'], $responce_columns['status']])) {
+
+            return back()->with('error', 'Table not found');
+        }
+        /*=====================================================================*/
+        $data_of_table = $responce_data['content'];
+
+        $informations_of_columns = $responce_columns['content'];
+        /*=====================================================================*/
+
+
+        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
+    }
+
+    public function create(Request $request)
+    {
+        /*=====================================================================*/
 
         $name_of_model = $request->name_of_model;
 
@@ -26,41 +57,38 @@ class CrudController extends Controller
         }
 
         $name_of_table = $request->name_of_model . 's';
-
-        $responce_columns = fetch_columns_of_table($name_of_table);
-
-        $responce_data = fetch_data_of_table($name_of_table);
-
-        if (in_array('error', [$responce_data['status'], $responce_columns['status']])) {
-            return back()->with('error', 'Table not found');
-        }
-
-        $data_of_table = $responce_data['content'];
-        $informations_of_columns = $responce_columns['content'];
-
-        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
-    }
-
-    public function create(Request $request)
-    {
-
+        /*=====================================================================*/
         if (isset($request->extra_informations)) {
 
             $extra_informations = $request->extra_informations;
 
             Cache::forever('extra_informations', $extra_informations);
         }
+        /*=====================================================================*/
+        $responce_columns = fetch_columns_of_table($name_of_table);
 
-        $name_of_table = $request->name_of_model . 's';
-        $name_of_model = $request->name_of_model;
+        if ($responce_columns['status'] == 'error') {
 
-        $columnData = fetch_columns_of_table($name_of_table);
+            return back()->with('error', 'Table not found');
+        }
+        /*=====================================================================*/
+        $informations_of_columns = $responce_columns['content'];
+        /*=====================================================================*/
 
-        return view('create', compact(['columnData', 'name_of_model']));
+        return view('create', compact(['informations_of_columns', 'name_of_model']));
     }
 
     public function store(Request $request)
     {
+        /*=====================================================================*/
+        $name_of_model = $request->name_of_model;
+
+        if (empty($name_of_model)) {
+            return back()->with('error', 'Name Of Model Is Empty');
+        }
+
+        $name_of_table = $request->name_of_model . 's';
+        /*=====================================================================*/
         if (Cache::has('extra_informations')) {
 
             $extra_informations = Cache::get('extra_informations');
@@ -71,23 +99,27 @@ class CrudController extends Controller
 
             Cache::forget('extra_informations');
         }
+        /*=====================================================================*/
+        $responce_insert = insert_data_to_table($request->all(), $name_of_table);
 
-        $name_of_model = $request->name_of_model;
+        if ($responce_insert['status'] == 'error') {
 
-        if ($name_of_model == null) return view('welcome');
+            return back()->with('error', $responce_insert['content']);
+        }
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
-        $obj = $New_Class::create($request->all());
+        $id_of_last_row = $responce_insert['content'];
+        /*=====================================================================*/
 
         if ($name_of_model == 'personne') {
             $data = [
-                'id_personne' => $obj->id,
+                'id_personne' => $id_of_last_row,
                 'comment' => 'Le Stage touche à son fin',
                 'date' => $request->date_notification
             ];
 
             Expiration::create($data);
         }
+        /*=====================================================================*/
 
         return redirect('/dashboard');
     }
@@ -101,15 +133,28 @@ class CrudController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $name_of_table = $request->name_of_model . 's';
+        /*=====================================================================*/
         $name_of_model = $request->name_of_model;
 
-        //Fetch Data
+        if (empty($name_of_model)) {
+            return back()->with('error', 'Name Of Model Is Empty');
+        }
+
+        $name_of_table = $request->name_of_model . 's';
+        /*=====================================================================*/
+
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::where('id', $id)->get();
 
-        //Fetch Columns
-        $columnData = fetch_columns_of_table($name_of_table);
+        /*=====================================================================*/
+        $responce_columns = fetch_columns_of_table($name_of_table);
+
+        if ($responce_columns['status'] == 'error') {
+            return back()->with('error', 'Table not found');
+        }
+
+        $informations_of_columns = $responce_columns['content'];
+        /*=====================================================================*/
 
         return view('edit', compact(['data', 'columnData', 'name_of_model']));
     }
@@ -117,20 +162,27 @@ class CrudController extends Controller
 
     public function update(Request $request, $id)
     {
+        /*=====================================================================*/
         $name_of_model = $request->name_of_model;
+
+        if (empty($name_of_model)) {
+            return back()->with('error', 'Name Of Model Is Empty');
+        }
+
         $name_of_table = $request->name_of_model . 's';
-
-
-        if ($name_of_model == null) return view('welcome');
+        /*=====================================================================*/
 
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
         $data = $New_Class::findOrFail($id);
 
         $data->update($request->all());
+        /*=====================================================================*/
 
-        $columnData = fetch_columns_of_table($name_of_table);
+        $responce_columns = fetch_columns_of_table($name_of_table);
+        /*=====================================================================*/
 
         $data = $New_Class::all();
+        /*=====================================================================*/
 
 
         return view('index', compact(['data', 'columnData', 'name_of_model']));
@@ -139,11 +191,15 @@ class CrudController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        /*=====================================================================*/
         $name_of_model = $request->name_of_model;
+
+        if (empty($name_of_model)) {
+            return back()->with('error', 'Name Of Model Is Empty');
+        }
+
         $name_of_table = $request->name_of_model . 's';
-
-
-        if ($name_of_model == null) return view('welcome');
+        /*=====================================================================*/
 
         $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
 
@@ -161,11 +217,12 @@ class CrudController extends Controller
             }
         }
 
-
+        /*=====================================================================*/
         $columnData = fetch_columns_of_table($name_of_table);
-
         $data = $New_Class::all();
+        /*=====================================================================*/
 
-        return view('index', compact(['data', 'name_of_model', ['columnData']]));
+
+        return view('index', compact(['data', 'name_of_model', 'columnData']));
     }
 }

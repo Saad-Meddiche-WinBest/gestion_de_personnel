@@ -62,5 +62,13 @@
                 });
             }
         });
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorMessage = '{{ session('error') }}';
+
+            if (errorMessage) {
+                // Use JavaScript to navigate back without refreshing
+                window.history.back();
+            }
+        });
     </script>
 @endsection
