@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
         @if ($name_of_model != 'absence')
             <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
@@ -31,30 +36,30 @@
 
         <thead>
             <tr>
-                @foreach ($columnData as $column)
+                @foreach ($informations_of_columns as $column)
                     <th>{{ filter_name($column['name']) }}</th>
                 @endforeach
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $data1)
+            @foreach ($data_of_table as $data)
                 <tr>
-                    @foreach ($columnData as $column)
+                    @foreach ($informations_of_columns as $column)
                         <td>
-                            {{ choose_data($data1->{$column['name']}, $column) }}
+                            {{ choose_data($data->{$column['name']}, $column) }}
                         </td>
                     @endforeach
                     <td>
                         {{-- Button In Action Column --}}
                         <div style="display:flex; ">
                             {{-- Edit Button --}}
-                            <form action="{{ route('Gerer.edit', $data1->id) }}" method="GET">
+                            <form action="{{ route('Gerer.edit', $data->id) }}" method="GET">
                                 <button id="btn1" type="sumbit" class="btn btn-warning">Edit</button>
                                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
                             </form>
                             {{-- Delete Button --}}
-                            <form action="{{ route('Gerer.destroy', $data1->id) }}" method="POST">
+                            <form action="{{ route('Gerer.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button id="btn1" type="sumbit" class="btn btn-danger">Delete</button>
@@ -65,13 +70,13 @@
                                 <form action="{{ route('Gerer.create') }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-primary">Absence</button>
                                     <input type="hidden" name="name_of_model" value="Absence">
-                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data1->id }}>
+                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
                                 <form action="{{ route('Gerer.create') }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-primary">Evenement</button>
                                     <input type="hidden" name="name_of_model" value="expiration">
-                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data1->id }}>
+                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
                             @endif
@@ -82,9 +87,4 @@
             @endforeach
         </tbody>
     </table>
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
 @endsection

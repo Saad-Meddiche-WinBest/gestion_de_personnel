@@ -32,7 +32,7 @@ Route::middleware(['accessDashboard'])->group(function () {
 
     Route::get('/dashboard', function () {
         return view('dashboard');
-    });
+    })->name('dashboard');
 
     Route::get('/poste/{id_poste}', function ($id_poste) {
         return fetch_post($id_poste);
@@ -49,7 +49,6 @@ Route::middleware(['accessDashboard'])->group(function () {
         $persons = Expiration::whereDate('date', Carbon::today())->get();
         return response()->json(['notifications' => count($persons)]);
     });
-
 });
 
 

@@ -3,6 +3,7 @@
 use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\QueryException;
 
 function filter_name($name)
 {
@@ -35,15 +36,21 @@ function fetch_options($name_of_table, $id = Null)
     return $options;
 }
 
-function fetch_columns($name_of_table)
+function fetch_columns_of_table($name_of_table)
 {
     //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
     //Salah Starup
 
+    try {
+        $columns_of_table = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
+    } catch (QueryException $e) {
+        return [
+            'status' => 'error',
+            'content' => 'Table Not Found'
+        ];
+    }
 
-    $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
-
-    $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at', 'password']));
+    $columns_of_table = array_diff_key($columns_of_table, array_flip(['id', 'created_at', 'updated_at', 'password']));
 
     $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
@@ -57,10 +64,10 @@ function fetch_columns($name_of_table)
         AND table_schema = DATABASE()
         AND table_name = '$name_of_table'"));
 
-    $columnData = [];
+    $informations_of_columns = [];
 
-    foreach ($columns as $column) {
-        $columnData[] = [
+    foreach ($columns_of_table as $column) {
+        $informations_of_columns[] = [
             'name' => $column->getName(),
             'type' => $column->getType()->getName(),
             'comment' => $column->getComment(),
@@ -68,7 +75,10 @@ function fetch_columns($name_of_table)
         ];
     }
 
-    return $columnData;
+    return [
+        'status' => 'ok',
+        'content' => $informations_of_columns
+    ];
 }
 
 function get_foreign_key_details($columnName, $foreignKeys)
@@ -159,6 +169,6 @@ function fetch_post($id_post)
 {
     $name_of_model = 'personne';
     $data = Personne::where('id_poste', $id_post)->get();
-    $columnData = fetch_columns('personnes');
+    $columnData = fetch_columns_of_table('personnes');
     return view('index', compact(['data', 'name_of_model', 'columnData']));
 }

@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="box-container">
+        @if (session('error'))
+            <div class="alert alert-danger m-3">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="Quick_Add">
             <form action="{{ route('Gerer.create') }}" method="GET">
                 <input type="hidden" name="name_of_model" value="service">

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\View;
+
 
 class CrudController extends Controller
 {
@@ -18,16 +20,25 @@ class CrudController extends Controller
     {
 
         $name_of_model = $request->name_of_model;
+
+        if (empty($name_of_model)) {
+            return back()->with('error', 'Name Of Model Is Empty');
+        }
+
         $name_of_table = $request->name_of_model . 's';
 
-        if ($name_of_model == null) return view('welcome');
+        $responce_columns = fetch_columns_of_table($name_of_table);
 
-        $columnData = fetch_columns($name_of_table);
+        $responce_data = fetch_data_of_table($name_of_table);
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
-        $data = $New_Class::all();
+        if (in_array('error', [$responce_data['status'], $responce_columns['status']])) {
+            return back()->with('error', 'Table not found');
+        }
 
-        return view('index', compact(['data', 'name_of_model', 'columnData']));
+        $data_of_table = $responce_data['content'];
+        $informations_of_columns = $responce_columns['content'];
+
+        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
     }
 
     public function create(Request $request)
@@ -43,7 +54,7 @@ class CrudController extends Controller
         $name_of_table = $request->name_of_model . 's';
         $name_of_model = $request->name_of_model;
 
-        $columnData = fetch_columns($name_of_table);
+        $columnData = fetch_columns_of_table($name_of_table);
 
         return view('create', compact(['columnData', 'name_of_model']));
     }
@@ -53,7 +64,7 @@ class CrudController extends Controller
         if (Cache::has('extra_informations')) {
 
             $extra_informations = Cache::get('extra_informations');
-            
+
             foreach ($extra_informations as $info) {
                 $request[$info['column']] = $info['data'];
             }
@@ -98,7 +109,7 @@ class CrudController extends Controller
         $data = $New_Class::where('id', $id)->get();
 
         //Fetch Columns
-        $columnData = fetch_columns($name_of_table);
+        $columnData = fetch_columns_of_table($name_of_table);
 
         return view('edit', compact(['data', 'columnData', 'name_of_model']));
     }
@@ -117,7 +128,7 @@ class CrudController extends Controller
 
         $data->update($request->all());
 
-        $columnData = fetch_columns($name_of_table);
+        $columnData = fetch_columns_of_table($name_of_table);
 
         $data = $New_Class::all();
 
@@ -151,7 +162,7 @@ class CrudController extends Controller
         }
 
 
-        $columnData = fetch_columns($name_of_table);
+        $columnData = fetch_columns_of_table($name_of_table);
 
         $data = $New_Class::all();
 

@@ -25,6 +25,7 @@
 
         @include('layouts.include.navbar')
 
+       
 
         <main style="flex: 1;display:flex;">
             @include('layouts.include.sidebar')
