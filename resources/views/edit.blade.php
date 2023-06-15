@@ -6,14 +6,13 @@
 
     <div class="container-formule">
         <div class="formule">
-            <form action="{{ route('Gerer.update', $data[0]->id) }}" method='POST' class="formule">
+            <form action="{{ route('Gerer.update', $data_of_table->id) }}" method='POST' class="formule">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
-                @foreach ($columnData as $column)
+                @foreach ($informations_of_columns as $column)
                     <div class="field">
-                        {{-- {!! choose_input_and_fill_them($data[0], $column) !!} --}}
-                        {!! choose_input($column, $data[0]) !!}
+                        {!! choose_input($column, $data_of_table) !!}
 
                     </div>
                 @endforeach

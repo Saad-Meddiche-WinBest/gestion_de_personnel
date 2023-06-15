@@ -131,7 +131,7 @@ class CrudController extends Controller
     }
 
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id_of_row)
     {
         /*=====================================================================*/
         $name_of_model = $request->name_of_model;
@@ -142,21 +142,26 @@ class CrudController extends Controller
 
         $name_of_table = $request->name_of_model . 's';
         /*=====================================================================*/
+        $responce_data = fetch_data_of_table($name_of_table, $id_of_row);
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
-        $data = $New_Class::where('id', $id)->get();
+        if ($responce_data['status'] == 'error') {
 
+            return back()->with('error', $responce_data['content']);
+        }
+        $data_of_table = $responce_data['content'];
+        
+        $data_of_table = $data_of_table[0];
         /*=====================================================================*/
         $responce_columns = fetch_columns_of_table($name_of_table);
 
         if ($responce_columns['status'] == 'error') {
-            return back()->with('error', 'Table not found');
+            return back()->with('error', $responce_columns['content']);
         }
 
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
 
-        return view('edit', compact(['data', 'columnData', 'name_of_model']));
+        return view('edit', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
 
 

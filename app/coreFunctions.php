@@ -8,10 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 /*=========Function That Have Contact With DataBase=========*/
 
-function fetch_data_of_table($name_of_table)
+function fetch_data_of_table($name_of_table, $id = null)
 {
     try {
-        $data = DB::table($name_of_table)->get();
+        $query = DB::table($name_of_table);
+
+        if ($id !== null) {
+            $query->where('id', $id);
+        }
+
+        $data = $query->get();
     } catch (QueryException $e) {
         return [
             'status' => 'error',
@@ -24,6 +30,7 @@ function fetch_data_of_table($name_of_table)
         'content' => $data
     ];
 }
+
 
 function insert_data_to_table($data, $name_of_table)
 {
