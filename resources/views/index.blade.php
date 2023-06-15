@@ -6,6 +6,7 @@
             {{ session('error') }}
         </div>
     @endif
+   
     <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
         @if ($name_of_model != 'absence')
             <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">

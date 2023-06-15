@@ -149,7 +149,7 @@ class CrudController extends Controller
             return back()->with('error', $responce_data['content']);
         }
         $data_of_table = $responce_data['content'];
-        
+
         $data_of_table = $data_of_table[0];
         /*=====================================================================*/
         $responce_columns = fetch_columns_of_table($name_of_table);
@@ -165,7 +165,7 @@ class CrudController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_of_row)
     {
         /*=====================================================================*/
         $name_of_model = $request->name_of_model;
@@ -176,21 +176,30 @@ class CrudController extends Controller
 
         $name_of_table = $request->name_of_model . 's';
         /*=====================================================================*/
+        $responce_update = update_data_of_table($request->all(), $name_of_table, $id_of_row);
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
-        $data = $New_Class::findOrFail($id);
-
-        $data->update($request->all());
+        if ($responce_update['status'] == 'error') {
+            return back()->with('error', $responce_update['content']);
+        }
         /*=====================================================================*/
-
         $responce_columns = fetch_columns_of_table($name_of_table);
+
+        if ($responce_columns['status'] == 'error') {
+            return back()->with('error', $responce_columns['content']);
+        }
+
+        $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
+        $responce_data = fetch_data_of_table($name_of_table);
 
-        $data = $New_Class::all();
+        if ($responce_data['status'] == 'error') {
+
+            return back()->with('error', $responce_data['content']);
+        }
+
+        $data_of_table = $responce_data['content'];
         /*=====================================================================*/
-
-
-        return view('index', compact(['data', 'columnData', 'name_of_model']));
+        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
 
 

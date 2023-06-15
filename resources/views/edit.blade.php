@@ -3,8 +3,13 @@
 
 
 @section('content')
-
+    @if (session('error'))
+        <div class="alert alert-danger m-3">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="container-formule">
+
         <div class="formule">
             <form action="{{ route('Gerer.update', $data_of_table->id) }}" method='POST' class="formule">
                 @csrf
@@ -61,5 +66,4 @@
             align-items: end;
         }
     </style>
-
 @endsection

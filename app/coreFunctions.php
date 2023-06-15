@@ -65,3 +65,36 @@ function insert_data_to_table($data, $name_of_table)
         'content' => $id_of_last_row
     ];
 }
+
+function update_data_of_table($new_data, $name_of_table, $id_of_row)
+{
+    $rules = [];
+
+    foreach ($new_data as $key => $value) {
+        $rules[$key] = 'required|max:255';
+    }
+
+    $validator = Validator::make($new_data, $rules);
+
+    if ($validator->fails()) {
+        return [
+            'status' => 'error',
+            'content' => 'Validation failed: ' . $validator->errors()->first()
+        ];
+    }
+
+    try {
+        $new_data = array_diff_key($new_data, array_flip(['_token', 'name_of_model', 'date_notification', '_method']));
+
+        DB::table($name_of_table)->where('id', $id_of_row)->update($new_data);
+    } catch (QueryException $e) {
+        return [
+            'status' => 'error',
+            'content' => "Updating failed: " . $e->getMessage()
+        ];
+    }
+
+    return [
+        'status' => 'ok',
+    ];
+}
