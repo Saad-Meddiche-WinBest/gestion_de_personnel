@@ -38,15 +38,13 @@
                     <form action="{{ $card['link'] }}" method="GET">
                         <input type="hidden" name="name_of_model" value="{{ $card['name_of_model'] }}">
                         <button type="submit">{{ $card['text'] }}
-                            @if ($card['text'] == 'End')
+                            @if ($card['text'] == 'Events')
                                 <span id="notifications">0</span>
                             @endif
                         </button>
                     </form>
                 </div>
             @endforeach
-
-
         </div>
     </div>
     <script>
@@ -60,14 +58,6 @@
                         sourceSelect.html(response.notifications)
                     }
                 });
-            }
-        });
-        document.addEventListener("DOMContentLoaded", function() {
-            var errorMessage = '{{ session('error') }}';
-
-            if (errorMessage) {
-                // Use JavaScript to navigate back without refreshing
-                window.history.back();
             }
         });
     </script>

@@ -23,9 +23,8 @@ return new class extends Migration
             $table->string('telephone')->comment('grp1-tel');
             $table->string('email')->comment('grp1-email');
             $table->date('date_debut')->comment('grp1-date');
-            $table->date('date_fin')->comment('grp1-date');
+            $table->date('date_fin')->comment('grp1-date')->default(null);
             $table->string('cin')->comment('grp1-text');
-            // $table->boolean('presence')->comment('grp2-bool-Present-Absent');
             $table->boolean('sexe')->comment('grp1-bool-Male-Female');
             $table->boolean('etat_civil')->comment('grp1-bool-Marie-Single');
 

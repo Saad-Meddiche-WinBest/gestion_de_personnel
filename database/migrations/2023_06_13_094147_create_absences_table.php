@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('expirations', function (Blueprint $table) {
+        Schema::create('absences', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_personne')->comment('grp2-foreign');
-            $table->string('comment')->comment('grp1-text');
-            $table->string('date')->comment('grp1-date');
-            $table->foreign('id_personne')->references('id')->on('personnes');
+            $table->unsignedBigInteger('id_reason')->comment('grp1-foreign');
+            $table->date('date')->comment('grp1-date');
+            $table->string('comment')->comment('grp1-text')->default(null);
+            $table->foreign('id_personne')->references('id')->on('personnes')->onDelete("cascade");
+            $table->foreign('id_reason')->references('id')->on('reasons');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expirations');
+        Schema::dropIfExists('scheduale_absence');
     }
 };
