@@ -80,7 +80,8 @@ class creationRoles extends Command
     //$Admin2_User = User::where('name', 'Admin2')->first();
     
     $Owner_User->assignRole($owner); // Affecter le rôle à luti'lisateur
-    $Admin_User->assignRole($admin); // Affecter le rôle à l'utilisateur
+    $Admin_User->removeRole($admin); // Affecter le rôle à l'utilisateur
+    //$Owner_User->removeRole($owner); // Affecter le rôle à l'utilisateur
     //$Admin2_User->assignRole($admin2); // Affecter le rôle à l'utilisateur
     
 }

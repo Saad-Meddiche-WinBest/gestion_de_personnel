@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 
-class PostController extends Controller
+class RoleController extends Controller
 {
     //
     public function create()
     {
         $this->authorize('create', Role::class);
 
-        return view('create');
+        return view('createe');
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class PostController extends Controller
 
         $role = Role::create(['name' => $request->name]);
 
-        return redirect()->route('index1')->with('success', 'Role created successfully.');
+        return redirect()->route('index')->with('success', 'Role created successfully.');
     }
 
     public function assign(Role $role)
@@ -51,7 +51,7 @@ class PostController extends Controller
         $role->syncPermissions($request->permissions);
         $role->users()->sync($request->users);
 
-        return redirect()->route('index1')->with('success', 'Roles assigned successfully.');
+        return redirect()->route('index')->with('success', 'Roles assigned successfully.');
     }
 
     public function revoke(Role $role)
@@ -73,7 +73,7 @@ class PostController extends Controller
 
         $role->users()->detach($request->users);
 
-        return redirect()->route('index1')->with('success', 'Roles revoked successfully.');
+        return redirect()->route('index')->with('success', 'Roles revoked successfully.');
     }
 
 }
