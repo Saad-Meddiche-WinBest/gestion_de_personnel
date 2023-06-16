@@ -48,6 +48,7 @@ class DynamicValidation extends FormRequest
             'date_fin' => 'nullable|date|after:date_debut',
             'date_notification' => 'nullable|date|after:date_debut|before:date_fin',
             'cin' => 'required|' . $cin,
+            'id_source' => 'nullable'
         ];
 
         foreach ($data as $key => $value) {
