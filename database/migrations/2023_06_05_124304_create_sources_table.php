@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::create('employements', function (Blueprint $table) {
-        $table->id();
-        $table->string('nom');
-        $table->timestamps();
+        Schema::create('sources', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom')->comment('grp1-text');
+            $table->unsignedBigInteger('id_poste')->comment('grp1-foreign');
+            $table->foreign('id_poste')->references('id')->on('postes')->onDelete("cascade");;
+            $table->timestamps();
         });
-        
     }
 
     /**
@@ -30,6 +31,6 @@ return new class extends Migration
     public function down()
     {
         //
-         Schema::dropIfExists('employements');
+        Schema::dropIfExists('sources');
     }
 };

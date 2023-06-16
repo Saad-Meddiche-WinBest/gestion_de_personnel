@@ -7,10 +7,80 @@
 /* Include Side Bar */
 @import url('./include/sidebar.css');
 
+/* Include Formule */
+@import url('./include/formule_creation.css');
+
+/* Include Welcome */
+@import url('./include/welcome.css');
+
+
 .ContentS1 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-content: center !important;
+    background-color: rgb(246, 246, 250);
 }
+
+
+.dataTables_wrapper{
+    height: 80% !important;
+    
+    max-height: 100vh;
+    font-size: 1.2vh;
+    width: 100%;
+}
+@media only screen and (max-width: 1200px) {
+    .dataTables_wrapper {
+      overflow-x: scroll;
+      max-width: 900px !important;
+    }
+  }
+
+
+
+
+
+
+  @media only screen and (max-width: 1000px) {
+    .dataTables_wrapper {
+      overflow-x: scroll;
+      max-width: 800px !important;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    .dataTables_wrapper {
+      overflow-x: scroll;
+      max-width: 700px !important;
+    }
+  }
+  @media only screen and (max-width: 800px) {
+    .dataTables_wrapper {
+      overflow-x: scroll;
+      max-width: 600px !important;
+    }
+  }
+  @media only screen and (max-width: 700px) {
+    .dataTables_wrapper {
+      overflow-x: scroll;
+      max-width: 400px !important;
+    }
+  }
+  #btn1{
+      padding: 5px;
+      font-size: 1vh;
+      margin-right: 5px;
+  }
+  #myTable_filter label input:focus{
+    outline: none;
+}
+#myTable_filter label input{
+   border: none;
+   border-bottom: 3px solid rgb(0, 171, 250);
+   margin-bottom: 5px;
+}
+.table.dataTable.no-footer {
+   border-bottom: none;
+}
+
 

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark shadow-sm sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             Website
@@ -32,7 +32,7 @@
                 @else
                     <li class="nav-item dropdown">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard" role="button">
+                        <a class="nav-link" href="/dashboard" role="button" class="nav-link dropdown-toggle">
                             Dashboard
                         </a>
                     </li>
@@ -55,6 +55,9 @@
                     </div>
                     </li>
                 @endguest
+
+
+
             </ul>
         </div>
     </div>

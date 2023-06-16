@@ -7,21 +7,21 @@ body {
 }
 
 .navbar {
-    background-color: #000;
+    background-color: #000000;
 }
 
 .navbar-brand {
-    color: #fff;
+    color: #ffffff !important;
     font-size: 24px;
     font-weight: bold;
-}
+    }
 
 .navbar-brand:hover {
     color: #ff0;
 }
 
 .nav-link {
-    color: #fff;
+    color: #ffffff !important;
     font-size: 18px;
 }
 

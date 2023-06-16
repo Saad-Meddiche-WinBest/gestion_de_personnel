@@ -1,45 +1,72 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .container-formule {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            margin: 10px;
-        }
-
-        .formule {
-            background-color: aqua;
-
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .field {
-            width: 50%;
-        }
-
-        .field input {
-            width: 80%
-        }
-    </style>
     <div class="container-formule">
-        <form action="">
-            <div class="formule">
-                @foreach ($columnData as $column)
-                    <pre>{{ print_r($column) }}</pre>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        <div class="formule">
+            <h5 style="color:black; width:100%; text-align:center;">Informations de base</h5>
+            <form action="{{ route('Gerer.store') }}" method='POST' class="formule">
+                @csrf
+                <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
 
+                @foreach ($informations_of_columns as $column)
                     <div class="field">
-                        <label for="">{{ ucfirst($column['name']) }}</label>
-                        <br>
-                        <input type="tel" name="{{ $column['name'] }}">
+                        {!! choose_input($column) !!}
                     </div>
                 @endforeach
-            </div>
-        </form>
+                @if ($name_of_model == 'personne')
+                    <div class="field">
+                        <label for="">Notify</label>
+                        <br>
+                        <input type="date" name="date_notification">
+                    </div>
+                @endif
+                <div class="Sumbit_Button">
+
+                    <button class="btn btn-primary" type="submit">Ajouter</button>
+                </div>
+            </form>
+        </div>
+
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#Poste').change(function() {
+                var selectedPoste = $(this).val();
+                var sourceSelect = $('#Source');
+
+                if (selectedPoste) {
+                    $.ajax({
+                        url: '/get-sources/' + selectedPoste,
+                        type: 'GET',
+                        success: function(response) {
+                            console.log(response.sources.length);
+                            if (response.sources.length != 0) {
+                                sourceSelect.html('<option value="">Selectionner</option>');
+
+                                $.each(response.sources, function(key, value) {
+                                    sourceSelect.append('<option value="' + value.id +
+                                        '">' + value.nom + '</option>');
+                                });
+                            } else {
+                                sourceSelect.html(
+                                    '<option value="">No Source For This Poste</option>');
+
+                            }
+
+                            sourceSelect.prop('disabled', false);
+                        }
+                    });
+                } else {
+                    sourceSelect.prop('disabled', true);
+                    sourceSelect.html('<option value="">Selectionner</option>');
+                }
+            });
+        });
+    </script>
 @endsection

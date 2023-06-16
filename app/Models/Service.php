@@ -9,5 +9,6 @@ class Service extends Model
 {
     use HasFactory;
     protected $table = 'services';
+    protected $guarded = ['name_of_model', '_token', '_method'];
     protected $fillable = ['nom'];
 }
