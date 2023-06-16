@@ -69,7 +69,7 @@
             let columns = table.columns().header().toArray().map(header => header.innerText);
             let data = table.data().toArray();
 
-            console.log(columns)
+           
             // Find the index of the "Action" column
             let actionColumnIndex = columns.findIndex(column => column === 'Action');
 
