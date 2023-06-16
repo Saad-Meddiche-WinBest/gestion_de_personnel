@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\DynamicValidation;
+
 
 
 
@@ -15,7 +17,14 @@ class CrudController extends Controller
 
     public function index(Request $request)
     {
+
         /*=====================================================================*/
+        if (isset($_GET['user_id'])) {
+            $path1 = $_GET['user_id'];
+            $request->session()->put('user_id', $path1);
+        }
+        /*=====================================================================*/
+
         $name_of_model = $request->name_of_model;
 
         if (empty($name_of_model)) {
@@ -36,9 +45,9 @@ class CrudController extends Controller
         /*=====================================================================*/
         $data_of_table = $responce_data['content'];
 
+
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
-
 
         return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
     }

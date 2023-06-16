@@ -30,6 +30,7 @@ class mdlacces
             // Handle the case when the user does not have the required permission
             return redirect('/');
         }
+       
         
 
             

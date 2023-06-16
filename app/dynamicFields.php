@@ -50,7 +50,7 @@ function fetch_columns_of_table($name_of_table)
         ];
     }
 
-    $columns_of_table = array_diff_key($columns_of_table, array_flip(['id', 'created_at', 'updated_at', 'password']));
+    $columns_of_table = array_diff_key($columns_of_table, array_flip(['id','guard_name' ,'created_at', 'updated_at', 'password']));
 
     $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
