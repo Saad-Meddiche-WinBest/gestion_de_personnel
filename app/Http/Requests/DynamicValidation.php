@@ -31,7 +31,7 @@ class DynamicValidation extends FormRequest
             $rules[$key] = 'required';
         }
 
-        if (in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service'])) {
+        if (in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason'])) {
             $table_name = $inputs['name_of_model'] . 's';
             $rules['nom'] = 'required|unique:' . $table_name . ',nom';
         }

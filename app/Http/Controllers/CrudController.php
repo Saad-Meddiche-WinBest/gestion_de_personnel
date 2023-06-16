@@ -102,7 +102,7 @@ class CrudController extends Controller
             $extra_informations = Cache::get('extra_informations');
 
             foreach ($extra_informations as $info) {
-                $data[$info['column']] = $info['data'];
+                $data->{$info['column']} = $info['data'];
             }
 
             Cache::forget('extra_informations');
@@ -128,8 +128,24 @@ class CrudController extends Controller
             Event::create($data);
         }
         /*=====================================================================*/
+        $responce_columns = fetch_columns_of_table($name_of_table);
 
-        return redirect('/dashboard');
+        if ($responce_columns['status'] == 'error') {
+            return back()->with('error', $responce_columns['content']);
+        }
+
+        $informations_of_columns = $responce_columns['content'];
+        /*=====================================================================*/
+        $responce_data = fetch_data_of_table($name_of_table);
+
+        if ($responce_data['status'] == 'error') {
+
+            return back()->with('error', $responce_data['content']);
+        }
+
+        $data_of_table = $responce_data['content'];
+        /*=====================================================================*/
+        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
 
     public function show($id)

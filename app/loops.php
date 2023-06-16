@@ -64,6 +64,8 @@ function fetch_cards()
             'image' => 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
             'text' => 'Events',
             'name_of_model' => 'event',
+            'link' => '/Gerer'
+
         ],
         [
             'image' => 'https://tse3.mm.bing.net/th/id/OIP.sK04hKKc72wLGqDP4hKhugHaHa?pid=ImgDet&w=900&h=900&rs=1',

@@ -24,16 +24,11 @@ class mdlacces
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if ($user->hasPermissionTo('*') ) {
+        if (isset($user) && $user->hasPermissionTo('*')) {
             return $next($request);
         } else {
             // Handle the case when the user does not have the required permission
             return redirect('/');
         }
-       
-        
-
-            
     }
-    
 }

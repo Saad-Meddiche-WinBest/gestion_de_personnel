@@ -5,6 +5,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ControllerRole;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\RoleController;
 
