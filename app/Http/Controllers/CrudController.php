@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -49,7 +50,9 @@ class CrudController extends Controller
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
 
-        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
+        $date_today = Carbon::today();
+
+        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns', 'date_today']));
     }
     public function markNotification(Request $request)
     {
