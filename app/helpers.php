@@ -43,7 +43,7 @@ function fetch_columns($name_of_table)
 
     $columns = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
 
-    $columns = array_diff_key($columns, array_flip(['id', 'created_at', 'updated_at', 'password']));
+    $columns = array_diff_key($columns, array_flip(['id','guard_name' ,'created_at', 'updated_at', 'password']));
 
     $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
@@ -154,3 +154,4 @@ function fetch_post($id_post)
     $columnData = fetch_columns('personnes');
     return view('index', compact(['data', 'name_of_model', 'columnData']));
 }
+

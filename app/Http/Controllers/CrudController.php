@@ -1,20 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 // use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\QueryException;
-
+ use Spatie\Permission\Models\Role;
 class CrudController extends Controller
 {
+   
+
+
+    
 
     public function index(Request $request)
     {
+        
 
+        if(isset($_GET['user_id'])){
+            $path1 = $_GET['user_id'];
+            $request->session()->put('user_id', $path1);   
+        }  
+        // $request->session()->flush();
+        global $New_Class;
         $name_of_model = $request->name_of_model;
         $name_of_table = $request->name_of_model . 's';
 
@@ -22,11 +33,33 @@ class CrudController extends Controller
 
         $columnData = fetch_columns($name_of_table);
 
-        $New_Class = 'App\\Models\\' . ucfirst($name_of_model);
+        $array = [ "Spatie\\Permission\\Models\\" , "App\\Models\\"];
+        foreach($array as $chemain){
+            $file = $chemain . ucfirst($name_of_model);
+            if(class_exists($file)){
+                $New_Class = $file;
+                break;
+            }
+        }
         $data = $New_Class::all();
+
+        
+
 
         return view('index', compact(['data', 'name_of_model', 'columnData']));
     }
+
+    public function markNotification(Request $request)
+{
+    auth()->user()
+        ->unreadNotifications
+        ->when($request->input('id'), function ($query) use ($request) {
+            return $query->where('id', $request->input('id'));
+        })
+        ->markAsRead();
+
+    return response()->noContent();
+}
 
     public function create(Request $request)
     {
@@ -128,4 +161,5 @@ class CrudController extends Controller
 
         return view('index', compact(['data', 'name_of_model', ['columnData']]));
     }
+
 }

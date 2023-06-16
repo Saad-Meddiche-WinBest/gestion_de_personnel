@@ -19,13 +19,13 @@
     justify-content: center;
     flex-wrap: wrap;
     align-content: center !important;
-    background-color: rgb(233, 239, 250);
+    background-color: rgb(246, 246, 250);
 }
 
 
 .dataTables_wrapper{
     height: 80% !important;
-    overflow-x: scroll;
+    
     max-height: 100vh;
     font-size: 1.2vh;
     width: 100%;
@@ -38,17 +38,6 @@
   }
 
 
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-::-webkit-scrollbar-track{
-    background-color: orangered;
-
-}
-::-webkit-scrollbar-thumb{
-    background-color: #58abfb;
-}
 
 
 
@@ -87,7 +76,7 @@
 }
 #myTable_filter label input{
    border: none;
-   border-bottom: 3px solid rgb(250, 137, 0);
+   border-bottom: 3px solid rgb(0, 171, 250);
    margin-bottom: 5px;
 }
 .table.dataTable.no-footer {

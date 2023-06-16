@@ -33,7 +33,8 @@ class creationRoles extends Command
     {
        
     $owner = Role::create(['name' => 'Owner', 'guard_name' => 'web']);
-    $admin = Role::create(['name' => 'Admin', 'guard_name' => 'web']);
+    $admin = Role::create(['name' => 'admin', 'guard_name' => 'web']);
+    //$admin2 = Role::create(['name' => 'Admin2', 'guard_name' => 'web']);
 
     $all = Permission::create(['name' => '*' , 'guard_name' => 'web']);
 
@@ -62,21 +63,25 @@ class creationRoles extends Command
     // Assigner les permissions aux rôles si nécessaire
     $owner->givePermissionTo($all);
     $admin->givePermissionTo($accesToDashboard);
+    //$admin2->givePermissionTo($accesToDashboard);
 
     $users = [
         ['name' => 'Owner', 'email' => 'owner@gmail.com', 'password' => Hash::make('123456789')],
-        ['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => Hash::make('123456789')]
+       ['name' => 'admin', 'email' => 'admin@gmail.com', 'password' => Hash::make('123456789')],
+        //['name' => 'Admin2', 'email' => 'admin2@gmail.com', 'password' => Hash::make('123456789')]
     ];
 
     for ($i = 0; $i < count($users); $i++) {
         User::create($users[$i]);
     }
 
-    $Admin_User = User::where('name', 'Admin')->first();
+    $Admin_User = User::where('name', 'admin')->first();
     $Owner_User = User::where('name', 'Owner')->first();
+    //$Admin2_User = User::where('name', 'Admin2')->first();
     
     $Owner_User->assignRole($owner); // Affecter le rôle à luti'lisateur
     $Admin_User->assignRole($admin); // Affecter le rôle à l'utilisateur
+    //$Admin2_User->assignRole($admin2); // Affecter le rôle à l'utilisateur
     
 }
 }

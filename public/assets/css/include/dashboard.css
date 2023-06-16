@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&display=swap');
    .box-container {
         width: 93vw;
         background-color: #ffffff;
@@ -85,5 +85,18 @@
         display: flex;
         gap: 10px;
     }
-
-       
+    #btn20{
+        border: none;
+        background-color: #ffffff;
+        font-weight: bold;
+        color: gray;
+        font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    #btn20:hover{
+        color: rgb(41, 134, 241);
+    }
+    .notif{
+        width:  93vw;
+        font-size: 1.4vh;
+    }
+   
