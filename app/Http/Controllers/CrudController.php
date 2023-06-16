@@ -77,28 +77,29 @@ class CrudController extends Controller
     public function store(DynamicValidation $request)
     {
 
-        $request = $request->validated();
+        $data = (object) $request->validated();
+
         /*=====================================================================*/
-        $name_of_model = $request->name_of_model;
+        $name_of_model = $data->name_of_model;
 
         if (empty($name_of_model)) {
             return back()->with('error', 'Name Of Model Is Empty');
         }
 
-        $name_of_table = $request->name_of_model . 's';
+        $name_of_table = $data->name_of_model . 's';
         /*=====================================================================*/
         if (Cache::has('extra_informations')) {
 
             $extra_informations = Cache::get('extra_informations');
 
             foreach ($extra_informations as $info) {
-                $request[$info['column']] = $info['data'];
+                $data[$info['column']] = $info['data'];
             }
 
             Cache::forget('extra_informations');
         }
         /*=====================================================================*/
-        $responce_insert = insert_data_to_table($request->all(), $name_of_table);
+        $responce_insert = insert_data_to_table((array) $data, $name_of_table);
 
         if ($responce_insert['status'] == 'error') {
 
@@ -108,11 +109,11 @@ class CrudController extends Controller
         $id_of_last_row = $responce_insert['content'];
         /*=====================================================================*/
 
-        if ($name_of_model == 'personne' && isset($request->date_notification)) {
+        if ($name_of_model == 'personne' && isset($data->date_notification)) {
             $data = [
                 'id_personne' => $id_of_last_row,
                 'comment' => 'Le Stage touche à son fin',
-                'date' => $request->date_notification
+                'date' => $data->date_notification
             ];
 
             Event::create($data);
@@ -122,12 +123,10 @@ class CrudController extends Controller
         return redirect('/dashboard');
     }
 
-
     public function show($id)
     {
         return view('welcome');
     }
-
 
     public function edit(Request $request, $id_of_row)
     {
@@ -162,19 +161,20 @@ class CrudController extends Controller
         return view('edit', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
 
-
-    public function update(Request $request, $id_of_row)
+    public function update(DynamicValidation $request, $id_of_row)
     {
+        $data = (object) $request->validated();
+
         /*=====================================================================*/
-        $name_of_model = $request->name_of_model;
+        $name_of_model = $data->name_of_model;
 
         if (empty($name_of_model)) {
             return back()->with('error', 'Name Of Model Is Empty');
         }
 
-        $name_of_table = $request->name_of_model . 's';
+        $name_of_table = $data->name_of_model . 's';
         /*=====================================================================*/
-        $responce_update = update_data_of_table($request->all(), $name_of_table, $id_of_row);
+        $responce_update = update_data_of_table((array) $data, $name_of_table, $id_of_row);
 
         if ($responce_update['status'] == 'error') {
             return back()->with('error', $responce_update['content']);
@@ -199,7 +199,6 @@ class CrudController extends Controller
         /*=====================================================================*/
         return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
-
 
     public function destroy(Request $request, $id_of_row)
     {

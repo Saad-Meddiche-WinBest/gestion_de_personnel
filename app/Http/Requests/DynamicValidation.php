@@ -25,24 +25,32 @@ class DynamicValidation extends FormRequest
     {
         $rules = [];
 
-
-
         $inputs = $this->all();
-
         // dd($inputs);
         foreach ($inputs as $key => $value) {
             $rules[$key] = 'required';
         }
 
-        if (isset($rules['email'])) {
-            $rules['email'] = 'required|email';
+        $cin =  (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,cin';
+        $email = (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,email';
+        $telephone = (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,telephone';
+
+        $data = [
+            'telephone' => 'required|' . $telephone,
+            'email' => 'required|email|' . $email,
+            'date_naissance' => 'required|date|before:date_debut',
+            'date_debut' => 'required|date',
+            'date_fin' => 'nullable|date|after:date_debut',
+            'date_notification' => 'nullable|date|after:date_debut|before:date_fin',
+            'cin' => 'required|' . $cin,
+        ];
+
+        foreach ($data as $key => $value) {
+            if (isset($rules[$key])) {
+                $rules[$key] = $value;
+            }
         }
 
-        if (isset($rules['date_fin'])) {
-            $rules['date_fin'] = 'nullable';
-        }
-
-       
 
         return $rules;
     }

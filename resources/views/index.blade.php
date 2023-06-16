@@ -76,7 +76,7 @@
                                 </form>
                                 <form action="{{ route('Gerer.create') }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-primary">Evenement</button>
-                                    <input type="hidden" name="name_of_model" value="expiration">
+                                    <input type="hidden" name="name_of_model" value="event">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
