@@ -31,6 +31,11 @@ class DynamicValidation extends FormRequest
             $rules[$key] = 'required';
         }
 
+        if (in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service'])) {
+            $table_name = $inputs['name_of_model'] . 's';
+            $rules['nom'] = 'required|unique:' . $table_name . ',nom';
+        }
+
         $cin =  (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,cin';
         $email = (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,email';
         $telephone = (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,telephone';
