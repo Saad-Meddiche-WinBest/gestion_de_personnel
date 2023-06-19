@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerRole;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AccountController;
 
 
 /*
@@ -64,6 +65,9 @@ Route::middleware(['accessDashboard'])->group(function () {
         $persons = Event::whereDate('date', Carbon::today())->get();
         return response()->json(['notifications' => count($persons)]);
     });
+
+    Route::get('/account', [AccountController::class, "edit"])->name('account.edit');
+    Route::put('/account/update', [AccountController::class, "update"])->name('account.update');
 });
 
 
