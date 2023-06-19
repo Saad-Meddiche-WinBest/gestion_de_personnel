@@ -19,13 +19,13 @@
 
 </head>
 
-<body style="height:100%;">
+<body style="height:100%;overflow-y:hidden">
     <div id="app" style="height:100%;">
 
         @include('layouts.include.navbar')
 
         <main style="height: 100%;">
-                @yield('content')
+            @yield('content')
         </main>
 
     </div>

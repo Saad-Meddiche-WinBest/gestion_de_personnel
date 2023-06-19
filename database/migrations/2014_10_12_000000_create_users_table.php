@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name')->comment('grp1-text');
             $table->string('email')->comment('grp1-email');
             $table->string('password')->comment('grp2-password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
