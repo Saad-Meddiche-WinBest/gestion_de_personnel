@@ -13,7 +13,7 @@ class RoleController extends Controller
     //
     public function create()
     {
-        $this->authorize('create', Role::class);
+        $this->authorize('create', Model::class);
 
         return view('createe');
     }

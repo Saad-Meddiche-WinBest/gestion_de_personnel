@@ -55,7 +55,7 @@
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    
     <script>
         let table = new DataTable('#myTable');
     </script>
@@ -85,7 +85,9 @@
                 });
             });
         });
-    </script>
+
+</script>
+
 </body>
 
 </html>

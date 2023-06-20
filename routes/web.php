@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerRole;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RoleContrll;
 
 
 /*
@@ -64,6 +65,22 @@ Route::middleware(['accessDashboard'])->group(function () {
         $persons = Event::whereDate('date', Carbon::today())->get();
         return response()->json(['notifications' => count($persons)]);
     });
+    
+
+Route::get('/roles', [RoleContrll::class, 'index'])->name('roles.index');
+Route::get('/roles/create', [RoleContrll::class, 'create'])->name('roles.create');
+Route::post('/roles', [RoleContrll::class, 'store'])->name('roles.store');
+Route::get('/roles/{role}/edit', [RoleContrll::class, 'edit'])->name('roles.edit');
+Route::post('/roles/{role}', [RoleContrll::class, 'update'])->name('roles.update');
+Route::delete('/roles/{role}', [RoleContrll::class, 'destroy'])->name('roles.destroy');
+
+
+Route::get('/showRoles', [ControllerRole::class, 'voir_roles_utilisateur'])->name('roles');
+
+Route::get('/showRolesOfUser/{user}', [ControllerRole::class, 'show_Roles_Of_User'])->name('roles.user');
+
+
+
 });
 
 
