@@ -72,7 +72,13 @@ function fetch_cards()
             'text' => 'Role',
             'name_of_model' => 'role',
             'link' => '/Gerer'
-        ]
+        ],
+        [
+            'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
+            'text' => 'Celibrations',
+            'name_of_model' => 'celebration',
+            'link' => '/Gerer'
+        ],
 
     ];
 

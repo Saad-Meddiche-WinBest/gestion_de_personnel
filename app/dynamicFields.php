@@ -50,7 +50,7 @@ function fetch_columns_of_table($name_of_table)
         ];
     }
 
-    $columns_of_table = array_diff_key($columns_of_table, array_flip(['id','guard_name' ,'created_at', 'updated_at', 'password']));
+    $columns_of_table = array_diff_key($columns_of_table, array_flip(['id', 'guard_name', 'created_at', 'updated_at', 'password', 'email_verified_at', 'remember_token']));
 
     $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
@@ -164,5 +164,3 @@ function choose_data($looking_for, $column)
 
     return $looking_for;
 }
-
-
