@@ -89,14 +89,14 @@
        
     }
     .Quick_Add button{
-       border: 2px solid  rgb(1, 55, 136);
+       border: 2px solid  #1f1975;
        border-radius: 50px;
        padding: 10px;
        color: #0d3d97;
        background-color: #ffffff;
     }
     .Quick_Add button:hover{
-        background-color: #0d3d97;
+        background-color: #1f1975;
         color: white;
      }
 

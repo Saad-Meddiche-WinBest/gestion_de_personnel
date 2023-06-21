@@ -10,7 +10,7 @@ class ControllerRole extends Controller
     //
     public function assignRole(Request $request)
     {
-        $user_id = $request->session()->get('user_id');
+        $user_id = $request->user_id;
         $role_id = $request->role_id;
         $user = User::find($user_id);
         $role = Role::find($role_id);
@@ -57,7 +57,7 @@ class ControllerRole extends Controller
    
     public function revokeRole(Request $request)
     {
-        $user_id = $request->session()->get('user_id');
+        $user_id = $request->user_id;
         $role_id = $request->role_id;
     
         $user = User::find($user_id);
@@ -120,7 +120,11 @@ class ControllerRole extends Controller
         $informations_of_columns = $responce_columns['content'];
     
         return view('index', compact('data_of_table', 'name_of_model', 'informations_of_columns','user'));
-    }    
+    } 
+    
+    
+
+    
     public function show_Roles_Of_User(Request $request,User $user){
         $rolesOfUser = $user->getRoleNames();
         $data_of_table = Role::whereNotIn('name', $rolesOfUser)->get();
@@ -137,9 +141,9 @@ class ControllerRole extends Controller
         $informations_of_columns = $responce_columns['content'];
     
         /*=====================================================================*/
-        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
+        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model','user']));
     }
-
+    
    
 
     

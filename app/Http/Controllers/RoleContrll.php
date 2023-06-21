@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleContrll extends Controller
 {
@@ -61,7 +62,96 @@ class RoleContrll extends Controller
 
         return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
     }
-   
+
+    public function permission(Request $request, Role $role_id ){
+        $permissions = Permission::all();
+        $role = $request->role_id;
+       
+
+        return view('permission', compact('permissions','role_id','role'));
+    }
+
+
+    public function assignPermission(Request $request)
+    {
+        // $role_id = $request->role_id;
+        // $permission_id = $request->permission_id;
+        // $role = Role::find($role_id);
+        // $permission = Permission::find($permission_id);
+        // $role->assignPermission($permission);
+        // $table = 'permissions';
+        // $model = 'permission';
+        // dd($model);
+        // return back()->with([
+        //     'table' => $table,
+        //     'model' => $model,
+        // ])->with('success', 'Le rôle a été affecter avec succès.');
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // $role = Role::findOrFail($role_id);
+        // // Get the permissions selected through the form
+        // $permissionIds = $request->input('permissions', []);
+
+        // // Retrieve the permissions
+        // $permissions = Permission::whereIn('id', $permissionIds)->get();
+
+        // // Sync the permissions with the role
+        // $role->givePermissionTo($permissions);
+        // return view('permission', compact('role_id'));
+
+
+
+
+        $role_id = $request->role_id;
+        $permissions = Permission::all();
+        $permission_id = $request->permission_id;
+        
+        $role = Role::find($role_id);
+        $permission = Permission::find($permission_id);
+
+        // Recherche de la permission par son nom
+
+        // Affecter la permission au rôle
+        $role->givePermissionTo($permission);
+        //return view('permission', compact('role_id','permissions'));
+
+        return back()->with([
+                'role_id' => $role_id,
+                'permissions' => $permissions,
+            ])->with('success', 'La permission a été affecter avec succès.');
+        }
+        
+        public function revokePermission(Request $request)
+        {
+            $role_id = $request->role_id;
+            $permissions = Permission::all();
+            $permission_id = $request->permission_id;
+            $role = Role::find($role_id);
+            $permission = Permission::find($permission_id);
     
-  
+            // Recherche de la permission par son nom
+    
+            // Affecter la permission au rôle
+            $role->revokePermissionTo($permission);;
+            //return view('permission', compact('role_id','permissions'));
+    
+            return back()->with([
+                    'role_id' => $role_id,
+                    'permissions' => $permissions,
+                ])->with('success', 'La permission a été retirer avec succès.');
+            }
+            
+        
 }
