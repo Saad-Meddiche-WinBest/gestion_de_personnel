@@ -17,11 +17,7 @@
 
 
 .ContentS1 {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content: center !important;
-    background-color: rgb(246, 246, 250);
+  
 }
 
 .by-default-hidden{

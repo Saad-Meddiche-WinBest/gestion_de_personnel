@@ -60,6 +60,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+
     <script>
         let table = new DataTable('#myTable');
 
@@ -86,6 +88,8 @@
 
             // Save the workbook as an Excel file
             XLSX.writeFile(workbook, 'table_data.xlsx');
+
+
         });
     </script>
     <script>

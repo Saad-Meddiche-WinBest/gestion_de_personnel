@@ -9,6 +9,8 @@ use App\Http\Controllers\ControllerRole;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AccountController;
+use App\Models\Absence;
+use Illuminate\Http\Request;
 
 
 /*
@@ -44,17 +46,10 @@ Route::middleware(['accessDashboard'])->group(function () {
 
     Route::post('/assignRole', [ControllerRole::class, "assignRole"])->name('affecterRole');
     Route::post('/revokeRole', [ControllerRole::class, "revokeRole"])->name('retirerRole');
+
     Auth::routes();
 
     Route::post('/mark-as-read',  [CrudController::class, "markNotification"])->name('markNotification');
-
-    // Route::get('/roles/create', [RoleController::class, 'create'])->name('create')->middleware('can:create,App\Models\Role');
-    // Route::post('/roles', [RoleController::class, 'store'])->name('store')->middleware('can:create,App\Models\Role');
-    // Route::get('/roles/{role}/assign', [RoleController::class, 'assign'])->name('.assign')->middleware('can:assign,role');
-    // Route::post('/roles/{role}/store', [RoleController::class, 'storeRole'])->name('storeRole')->middleware('can:assign,role');
-    // Route::get('/roles/{role}/revoke', [RoleController::class, 'revoke'])->name('revoke')->middleware('can:revoke,role');
-    // Route::post('/roles/{role}/revoke', [RoleController::class, 'revokeRole'])->name('revokeRole')->middleware('can:revoke,role');
-
 
     Route::get('/get-sources/{id_poste}', function ($id_poste) {
         $sources = DB::table('sources')->where('id_poste', $id_poste)->get();
@@ -65,6 +60,13 @@ Route::middleware(['accessDashboard'])->group(function () {
         $persons = Event::whereDate('date', Carbon::today())->get();
         return response()->json(['notifications' => count($persons)]);
     });
+
+    Route::post('/set-persiode-absence', function (Request $request) {
+        $from_date = $request->input('from_date');
+        $to_date = $request->input('to_date');
+
+        return fetch_absence_in_this_period($from_date, $to_date);
+    })->name('set-persiode-absence');
 
     Route::get('/account', [AccountController::class, "edit"])->name('account.edit');
     Route::put('/account/update', [AccountController::class, "update"])->name('account.update');

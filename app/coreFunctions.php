@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Absence;
 use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
@@ -102,6 +103,25 @@ function fetch_personnes_with_this_poste($id_post)
 
     if ($responce_columns['status'] == 'error' || empty($responce_columns['content'])) {
 
+
+        return back()->with('error', 'Table not found');
+    }
+
+    $informations_of_columns = $responce_columns['content'];
+
+    return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
+}
+
+function fetch_absence_in_this_period($from_date, $to_date)
+{
+    $name_of_model = 'absence';
+    $name_of_table = 'absences';
+
+    $data_of_table = DB::table($name_of_table)->whereBetween('date', [$from_date, $to_date])->get();
+
+    $responce_columns = fetch_columns_of_table($name_of_table);
+
+    if ($responce_columns['status'] == 'error' || empty($responce_columns['content'])) {
 
         return back()->with('error', 'Table not found');
     }
