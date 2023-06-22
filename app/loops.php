@@ -71,8 +71,16 @@ function fetch_cards()
             'image' => 'https://tse3.mm.bing.net/th/id/OIP.sK04hKKc72wLGqDP4hKhugHaHa?pid=ImgDet&w=900&h=900&rs=1',
             'text' => 'Roles',
             'name_of_model' => 'role',
+
             'link' => '/roles'
-        ]
+        ],
+        [
+            'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
+            'text' => 'Celibrations',
+            'name_of_model' => 'celebration',
+            'link' => '/Gerer'
+        ],
+
 
     ];
 

@@ -48,18 +48,51 @@
 
     {{-- scripts --}}
     <script src="{{ asset('assets/js/main.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     
     <script>
         let table = new DataTable('#myTable');
+
+        let exportButton = document.getElementById('exportButton');
+        exportButton.addEventListener('click', function() {
+            // Retrieve the DataTable columns and data
+            let columns = table.columns().header().toArray().map(header => header.innerText);
+            let data = table.data().toArray();
+
+
+            // Find the index of the "Action" column
+            let actionColumnIndex = columns.findIndex(column => column === 'Action');
+
+            // Filter out the "Action" column from the columns and data
+            let filteredColumns = columns.filter((column, index) => index !== actionColumnIndex);
+            let filteredData = data.map(row => row.filter((_, index) => index !== actionColumnIndex));
+
+            // Create a new workbook and worksheet
+            let workbook = XLSX.utils.book_new();
+            let worksheet = XLSX.utils.aoa_to_sheet([filteredColumns, ...filteredData]);
+
+            // Add the worksheet to the workbook
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(workbook, 'table_data.xlsx');
+
+
+        });
     </script>
-     <script>
+    <script>
         function sendMarkRequest(id = null) {
             return $.ajax("{{ route('markNotification') }}", {
                 method: 'POST',

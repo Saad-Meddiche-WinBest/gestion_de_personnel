@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 
+
+use Carbon\Carbon;
+
 use App\Models\Post;
 use App\Models\User;
+
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,17 +22,6 @@ use App\Http\Requests\DynamicValidation;
 
 class CrudController extends Controller
 {
-    public function getRoleId(Request $request)
-    {
-        $user_id = $request->session()->get('user_id');
-        $user = User::find($user_id);
-        $role_id = $user->roles->pluck('id')->first();
-    
-        // Use the $role_id as needed
-        // ...
-    
-        return response()->json(['role_id' => $role_id]);
-    }
     public function index(Request $request)
     {
         /*=====================================================================*/
@@ -68,7 +61,20 @@ class CrudController extends Controller
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
 
-        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
+        $date_today = Carbon::today();
+
+        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns', 'date_today']));
+    }
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+
+        return response()->noContent();
     }
         public function markNotification(Request $request)
     {

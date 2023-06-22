@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+
 class ControllerRole extends Controller
 {
+    
     //
     public function assignRole(Request $request)
     {
+
         $user_id = $request->user_id;
         $role_id = $request->role_id;
         $user = User::find($user_id);
         $role = Role::find($role_id);
         $user->assignRole($role);
+
         $name_of_model= "role";
         $name_of_table ="roles";
         $notifications = auth()->user()->unreadNotifications;
@@ -41,11 +45,7 @@ class ControllerRole extends Controller
 
         $data_of_table = $responce_data['content'];
         /*=====================================================================*/
-    
-        // Autres opérations ou redirections après l'assignation du rôle
-        //  return back()->with([
-        // 'success' => 'Le rôle a été attribué avec succès.'
-        // ])->with(compact('notifications', 'user_id'));
+
         
         return back()->with([
             'data_of_table' => $data_of_table,
@@ -62,10 +62,11 @@ class ControllerRole extends Controller
     {
         $user_id = $request->user_id;
         $role_id = $request->role_id;
-    
+
         $user = User::find($user_id);
         $role = Role::find($role_id);
         $user->removeRole($role);
+
     
         $name_of_model= "role";
         $name_of_table ="roles";
@@ -152,5 +153,5 @@ class ControllerRole extends Controller
 
    
 
-    
+  
 }
