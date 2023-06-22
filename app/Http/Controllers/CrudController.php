@@ -65,7 +65,7 @@ class CrudController extends Controller
 
         return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns', 'date_today']));
     }
-   
+
     public function create(Request $request)
     {
 
@@ -97,10 +97,8 @@ class CrudController extends Controller
 
             return back()->with('error', 'Table not found');
         }
+
         $informations_of_columns = $responce_columns['content'];
-
-
-
         /*=====================================================================*/
 
         return view('create', compact(['informations_of_columns', 'name_of_model']));
@@ -183,8 +181,6 @@ class CrudController extends Controller
 
     public function edit(Request $request, $id_of_row)
     {
-
-
         /*=====================================================================*/
         $name_of_model = $request->name_of_model;
 

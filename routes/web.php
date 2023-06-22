@@ -16,8 +16,7 @@ use App\Http\Controllers\ControllerRole;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AccountController;
-
-
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +53,7 @@ Route::middleware(['accessDashboard'])->group(function () {
     });
 
 
-    Route::post('/mark-as-read',  [CrudController::class, "markNotification"])->name('markNotification');
+    Route::post('/mark-as-read',  [NotificationController::class, "mark_notification"])->name('markNotification');
 
     Route::get('/get-sources/{id_poste}', function ($id_poste) {
         $sources = DB::table('sources')->where('id_poste', $id_poste)->get();
