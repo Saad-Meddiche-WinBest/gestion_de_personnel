@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('telephone')->comment('grp1-tel');
             $table->string('email')->comment('grp1-email');
             $table->date('date_debut')->comment('grp1-date');
-            $table->date('date_fin')->comment('grp1-date')->default(null);
+            $table->date('date_fin')->nullable()->comment('grp1-date');
             $table->string('cin')->comment('grp1-text');
             $table->boolean('sexe')->comment('grp1-bool-Male-Female');
             $table->boolean('etat_civil')->comment('grp1-bool-Marie-Single');
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_service')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_employement')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_poste')->comment('grp1-foreign');
-            $table->unsignedBigInteger('id_source')->comment('grp1-foreign')->default(null);;
+            $table->unsignedBigInteger('id_source')->nullable()->comment('grp1-foreign');
 
             $table->foreign('id_poste')->references('id')->on('postes');
             $table->foreign('id_service')->references('id')->on('services');

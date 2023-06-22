@@ -2,18 +2,20 @@
 
 use Carbon\Carbon;
 use App\Models\Event;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ControllerRole;
-use App\Http\Controllers\CrudController;
-use App\Http\Controllers\RoleController;
-
-use App\Http\Controllers\AccountController;
+use App\Models\Poste;
 use App\Models\Absence;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use App\Http\Controllers\RoleContrll;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ControllerRole;
+
+use App\Http\Controllers\CrudController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AccountController;
 
 
 
@@ -44,6 +46,9 @@ Route::middleware(['accessDashboard'])->group(function () {
 
 
     Route::get('/poste/{id_poste}', function ($id_poste) {
+        if (Gate::denies('viewAll', Poste::class)) {
+            abort(403, 'Unauthorized');
+        }
         return fetch_personnes_with_this_poste($id_poste);
     });
 
@@ -76,28 +81,24 @@ Route::middleware(['accessDashboard'])->group(function () {
     Route::get('/account', [AccountController::class, "edit"])->name('account.edit');
     Route::put('/account/update', [AccountController::class, "update"])->name('account.update');
 
-    
-
-Route::get('/roles', [RoleContrll::class, 'index'])->name('roles.index');
-Route::get('/roles/create', [RoleContrll::class, 'create'])->name('roles.create');
-Route::post('/roles', [RoleContrll::class, 'store'])->name('roles.store');
-Route::get('/roles/{role}/edit', [RoleContrll::class, 'edit'])->name('roles.edit');
-Route::post('/roles/{role}', [RoleContrll::class, 'update'])->name('roles.update');
-Route::delete('/roles/{role}', [RoleContrll::class, 'destroy'])->name('roles.destroy');
-Route::get('/permission/{role_id}', [RoleContrll::class, 'permission'])->name('AllPermission');
-Route::post('/assign-permissions', [RoleContrll::class, 'assignPermission'])->name('affectPermission');
-Route::post('/revoke-permissions', [RoleContrll::class, 'revokePermission'])->name('retirPermission');
 
 
-
-
-Route::get('/showRoles', [ControllerRole::class, 'voir_roles_utilisateur'])->name('roles');
-
-Route::get('/showRolesOfUser/{user}', [ControllerRole::class, 'show_Roles_Of_User'])->name('roles.user');
+    Route::get('/roles', [RoleContrll::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RoleContrll::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleContrll::class, 'store'])->name('roles.store');
+    Route::get('/roles/{role}/edit', [RoleContrll::class, 'edit'])->name('roles.edit');
+    Route::post('/roles/{role}', [RoleContrll::class, 'update'])->name('roles.update');
+    Route::delete('/roles/{role}', [RoleContrll::class, 'destroy'])->name('roles.destroy');
+    Route::get('/permission/{role_id}', [RoleContrll::class, 'permission'])->name('AllPermission');
+    Route::post('/assign-permissions', [RoleContrll::class, 'assignPermission'])->name('affectPermission');
+    Route::post('/revoke-permissions', [RoleContrll::class, 'revokePermission'])->name('retirPermission');
 
 
 
 
+    Route::get('/showRoles', [ControllerRole::class, 'voir_roles_utilisateur'])->name('roles');
+
+    Route::get('/showRolesOfUser/{user}', [ControllerRole::class, 'show_Roles_Of_User'])->name('roles.user');
 });
 
 

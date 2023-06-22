@@ -37,13 +37,13 @@ class CrudController extends Controller
 
             return back()->with('error', 'Name Of Model Is Empty');
         }
-       
+
         $name_of_table = $request->name_of_model . 's';
         /*=====================================================================*/
 
-        $model = 'App\\Models\\'. ucfirst($name_of_model);
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
         $this->authorize('viewAll', $model);
-        
+
         /*=====================================================================*/
 
         $responce_columns = fetch_columns_of_table($name_of_table);
@@ -76,21 +76,10 @@ class CrudController extends Controller
 
         return response()->noContent();
     }
-        public function markNotification(Request $request)
-    {
-        auth()->user()
-            ->unreadNotifications
-            ->when($request->input('id'), function ($query) use ($request) {
-                return $query->where('id', $request->input('id'));
-            })
-            ->markAsRead();
-
-        return response()->noContent();
-    }
 
     public function create(Request $request)
     {
-        
+
         /*=====================================================================*/
 
         $name_of_model = $request->name_of_model;
@@ -101,7 +90,7 @@ class CrudController extends Controller
 
         $name_of_table = $request->name_of_model . 's';
         /*=====================================================================*/
-        $model = 'App\\Models\\'. ucfirst($name_of_model);
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
         $this->authorize('create', $model);
 
         /*=====================================================================*/
@@ -122,7 +111,7 @@ class CrudController extends Controller
         $informations_of_columns = $responce_columns['content'];
 
 
-       
+
         /*=====================================================================*/
 
         return view('create', compact(['informations_of_columns', 'name_of_model']));
@@ -143,7 +132,7 @@ class CrudController extends Controller
         $name_of_table = $data->name_of_model . 's';
         /*=====================================================================*/
 
-        $model = 'App\\Models\\'. ucfirst($name_of_model);
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
         $this->authorize('create', $model);
 
         /*=====================================================================*/
@@ -206,7 +195,7 @@ class CrudController extends Controller
     public function edit(Request $request, $id_of_row)
     {
 
-        
+
         /*=====================================================================*/
         $name_of_model = $request->name_of_model;
 
@@ -218,20 +207,9 @@ class CrudController extends Controller
 
         /*=====================================================================*/
 
-        $model = 'App\\Models\\'. ucfirst($name_of_model);
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
         $this->authorize('update', $model);
-        
-        /*=====================================================================*/
 
-        // $id = Auth::id();
-        // if(Auth::id() !== 1 && $name_of_model !=='absence'){
-        //     // abort(403); 
-        //     session()->flash('message', "Vous n'avez pas le droit de modifier ces informations.");
-        //     return redirect()->back();
-        // }
-       
-
-        //$user = $model::where('id' ,$id)->get();
         /*=====================================================================*/
         $responce_data = fetch_data_of_table($name_of_table, $id_of_row);
 
@@ -251,20 +229,14 @@ class CrudController extends Controller
 
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
-      
-        // if(!Gate::allows('update',$name_of_model)){
-        //     abort(403);
-        // }
 
-       
-       
+
 
         return view('edit', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
 
-    public function update(DynamicValidation $request, $id_of_row, Post $post)
+    public function update(DynamicValidation $request, $id_of_row)
     {
-        // $this->authorize('update', $post);
 
         $data = (object) $request->validated();
 
@@ -278,11 +250,11 @@ class CrudController extends Controller
         $name_of_table = $data->name_of_model . 's';
         /*=====================================================================*/
 
-        $model = 'App\\Models\\'. ucfirst($name_of_model);
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
         $this->authorize('update', $model);
-        
+
         /*=====================================================================*/
-       
+
         $responce_update = update_data_of_table((array) $data, $name_of_table, $id_of_row);
 
         if ($responce_update['status'] == 'error') {
@@ -306,7 +278,7 @@ class CrudController extends Controller
 
         $data_of_table = $responce_data['content'];
         /*=====================================================================*/
-        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model','post']));
+        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
 
     public function destroy(Request $request, $id_of_row)
@@ -319,12 +291,12 @@ class CrudController extends Controller
         }
 
         $name_of_table = $request->name_of_model . 's';
-       /*=====================================================================*/
+        /*=====================================================================*/
 
-       $model = 'App\\Models\\'. ucfirst($name_of_model);
-       $this->authorize('destroy', $model);
-       
-       /*=====================================================================*/
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('destroy', $model);
+
+        /*=====================================================================*/
 
         $responce_delete = delete_data_from_table($name_of_table, $id_of_row);
 
