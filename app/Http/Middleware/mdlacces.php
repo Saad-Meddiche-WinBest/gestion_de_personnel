@@ -24,7 +24,7 @@ class mdlacces
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if (isset($user) && $user->hasPermissionTo('*')) {
+        if (isset($user) && ($user->hasPermissionTo('*') || $user->hasPermissionTo('acces_to_dashboard')) ) {
             return $next($request);
         } else {
             // Handle the case when the user does not have the required permission

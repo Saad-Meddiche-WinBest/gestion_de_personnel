@@ -3,8 +3,16 @@
 namespace App\Http\Controllers;
 
 
+
+use Carbon\Carbon;
+
+use App\Models\Post;
+use App\Models\User;
+
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\DynamicValidation;
 
@@ -14,10 +22,8 @@ use App\Http\Requests\DynamicValidation;
 
 class CrudController extends Controller
 {
-
     public function index(Request $request)
     {
-
         /*=====================================================================*/
         if (isset($_GET['user_id'])) {
             $path1 = $_GET['user_id'];
@@ -34,6 +40,12 @@ class CrudController extends Controller
 
         $name_of_table = $request->name_of_model . 's';
         /*=====================================================================*/
+
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('viewAll', $model);
+
+        /*=====================================================================*/
+
         $responce_columns = fetch_columns_of_table($name_of_table);
 
         $responce_data = fetch_data_of_table($name_of_table);
@@ -49,11 +61,14 @@ class CrudController extends Controller
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
 
-        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns']));
-    }
+        $date_today = Carbon::today();
 
+        return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns', 'date_today']));
+    }
+   
     public function create(Request $request)
     {
+
         /*=====================================================================*/
 
         $name_of_model = $request->name_of_model;
@@ -64,6 +79,11 @@ class CrudController extends Controller
 
         $name_of_table = $request->name_of_model . 's';
         /*=====================================================================*/
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('create', $model);
+
+        /*=====================================================================*/
+
         if (isset($request->extra_informations)) {
 
             $extra_informations = $request->extra_informations;
@@ -78,6 +98,9 @@ class CrudController extends Controller
             return back()->with('error', 'Table not found');
         }
         $informations_of_columns = $responce_columns['content'];
+
+
+
         /*=====================================================================*/
 
         return view('create', compact(['informations_of_columns', 'name_of_model']));
@@ -96,6 +119,11 @@ class CrudController extends Controller
         }
 
         $name_of_table = $data->name_of_model . 's';
+        /*=====================================================================*/
+
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('create', $model);
+
         /*=====================================================================*/
         if (Cache::has('extra_informations')) {
 
@@ -155,6 +183,8 @@ class CrudController extends Controller
 
     public function edit(Request $request, $id_of_row)
     {
+
+
         /*=====================================================================*/
         $name_of_model = $request->name_of_model;
 
@@ -163,6 +193,12 @@ class CrudController extends Controller
         }
 
         $name_of_table = $request->name_of_model . 's';
+
+        /*=====================================================================*/
+
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('update', $model);
+
         /*=====================================================================*/
         $responce_data = fetch_data_of_table($name_of_table, $id_of_row);
 
@@ -183,11 +219,14 @@ class CrudController extends Controller
         $informations_of_columns = $responce_columns['content'];
         /*=====================================================================*/
 
+
+
         return view('edit', compact(['data_of_table', 'informations_of_columns', 'name_of_model']));
     }
 
     public function update(DynamicValidation $request, $id_of_row)
     {
+
         $data = (object) $request->validated();
 
         /*=====================================================================*/
@@ -199,6 +238,12 @@ class CrudController extends Controller
 
         $name_of_table = $data->name_of_model . 's';
         /*=====================================================================*/
+
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('update', $model);
+
+        /*=====================================================================*/
+
         $responce_update = update_data_of_table((array) $data, $name_of_table, $id_of_row);
 
         if ($responce_update['status'] == 'error') {
@@ -235,6 +280,11 @@ class CrudController extends Controller
         }
 
         $name_of_table = $request->name_of_model . 's';
+        /*=====================================================================*/
+
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('destroy', $model);
+
         /*=====================================================================*/
 
         $responce_delete = delete_data_from_table($name_of_table, $id_of_row);

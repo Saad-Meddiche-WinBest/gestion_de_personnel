@@ -2,11 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&display=swap');
 
 .container-sidebar {
-    background-color: #2b2b2b;
-    width: 7vw;
+    background-color: #1f1975;
+    width: 8vw;
     height: 100%;
 
-    overflow-y: scroll;
 }
 
 .route {
@@ -23,7 +22,7 @@
 }
 
 .route:hover {
-    border-left: 3px solid rgb(248, 86, 11);
+    border-left: 3px solid rgb(248, 94, 23);
    
 }
 

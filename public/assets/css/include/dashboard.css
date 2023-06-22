@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&display=swap');
    .box-container {
-        width: 93vw;
+        width: 92vw;
         background-color: #ffffff;
         display: flex;
         align-items: center;
@@ -84,7 +84,22 @@
         margin: 20px;
         display: flex;
         gap: 10px;
+        position: fixed;
+        top: 90vh;
+       
     }
+    .Quick_Add button{
+       border: 2px solid  #1f1975;
+       border-radius: 50px;
+       padding: 10px;
+       color: #0d3d97;
+       background-color: #ffffff;
+    }
+    .Quick_Add button:hover{
+        background-color: #1f1975;
+        color: white;
+     }
+
     #btn20{
         border: none;
         background-color: #ffffff;
@@ -96,7 +111,8 @@
         color: rgb(41, 134, 241);
     }
     .notif{
-        width:  93vw;
+        width:  92vw;
         font-size: 1.4vh;
+        color: rgb(18, 49, 133);
     }
    

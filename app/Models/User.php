@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
     ];
 
+    
     public function isAdmin()
     {
         return $this->hasPermissionTo('admin');

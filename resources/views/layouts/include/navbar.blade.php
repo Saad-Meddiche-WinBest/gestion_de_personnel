@@ -43,6 +43,11 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('account.edit') }}"
+                            onclick="event.preventDefault();
+                                                     document.getElementById('account-form).submit();">
+                            Account
+                        </a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -50,6 +55,10 @@
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
+                        <form id="account-form" action="{{ route('account.edit') }}" method="GET" class="d-none">
                             @csrf
                         </form>
                     </div>

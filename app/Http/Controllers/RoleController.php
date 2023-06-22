@@ -2,78 +2,306 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Service;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use App\Models\User;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
     //
+    public function index()
+    {
+        $roles = Role::all(); // Récupérer tous les rôles depuis la base de données
+
+        $model = Role::class;
+        // dd($model);
+        $this->authorize('viewAll', Role::class);
+
+        return view('roles', compact('roles'));
+    }
+
     public function create()
     {
-        $this->authorize('create', Role::class);
-
-        return view('createe');
+        $model = Role::class;
+        $this->authorize('create', $model);
+        return view('createRoles');
     }
 
     public function store(Request $request)
     {
-        $this->authorize('createe', Role::class);
+        $model = Role::class;
+        $this->authorize('create', $model);
+        // Valider les données du formulaire de création
+        $validatedData = $request->validate([
+            'name' => 'required|string',
 
-        $request->validate([
-            'name' => 'required|unique:roles',
         ]);
 
-        $role = Role::create(['name' => $request->name]);
+        // Créer un nouveau rôle dans la base de données
+        $role = Role::create($validatedData);
 
-        return redirect()->route('index')->with('success', 'Role created successfully.');
+        return redirect()->route('roles.index')->with('success', 'Role created successfully');
     }
 
-    public function assign(Role $role)
+    public function edit(Request $request, $id)
     {
-        $this->authorize('assign', Role::class);
-
-        $users = User::all();
-
-        return view('assign', compact('role', 'users'));
+        $role = Role::findOrFail($id);
+        $model = Role::class;
+        $this->authorize('update', $model);
+        return view('editRoles', compact('role'));
     }
 
-    public function storeRole(Request $request, Role $role)
+    public function update(Request $request, Role $role)
     {
-        $this->authorize('assign', Role::class);
-
-        $request->validate([
-            'users' => 'required|array',
+        $model = Role::class;
+        $this->authorize('update', $model);
+        // Valider les données du formulaire de modification
+        $validatedData = $request->validate([
+            'name' => 'required|string',
         ]);
 
-        $role->syncPermissions($request->permissions);
-        $role->users()->sync($request->users);
+        // Mettre à jour le rôle dans la base de données
+        $role->update($validatedData);
 
-        return redirect()->route('index')->with('success', 'Roles assigned successfully.');
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
 
-    public function revoke(Role $role)
+    public function destroy(Role $role)
     {
-        $this->authorize('revoke', Role::class);
+        // Supprimer le rôle de la base de données
+        $model = Role::class;
+        $this->authorize('destroy', $model);
+        $role->delete();
 
-        $users = $role->users;
-
-        return view('revoke', compact('role', 'users'));
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
     }
 
-    public function revokeRole(Request $request, Role $role)
+    public function permission(Request $request, Role $role_id)
     {
-        $this->authorize('revoke', Role::class);
+        $permissions = Permission::all();
+        $role = $request->role_id;
+        $model = Role::class;
+        $this->authorize('viewAllP', $model);
 
-        $request->validate([
-            'users' => 'required|array',
-        ]);
-
-        $role->users()->detach($request->users);
-
-        return redirect()->route('index')->with('success', 'Roles revoked successfully.');
+        return view('permission', compact('permissions', 'role_id', 'role'));
     }
 
+    public function assignPermission(Request $request)
+    {
+        // $role_id = $request->role_id;
+        // $permission_id = $request->permission_id;
+        // $role = Role::find($role_id);
+        // $permission = Permission::find($permission_id);
+        // $role->assignPermission($permission);
+        // $table = 'permissions';
+        // $model = 'permission';
+        // dd($model);
+        // return back()->with([
+        //     'table' => $table,
+        //     'model' => $model,
+        // ])->with('success', 'Le rôle a été affecter avec succès.');
+
+
+
+        // $role = Role::findOrFail($role_id);
+        // // Get the permissions selected through the form
+        // $permissionIds = $request->input('permissions', []);
+
+        // // Retrieve the permissions
+        // $permissions = Permission::whereIn('id', $permissionIds)->get();
+
+        // // Sync the permissions with the role
+        // $role->givePermissionTo($permissions);
+        // return view('permission', compact('role_id'));
+
+
+
+
+        $role_id = $request->role_id;
+        $permissions = Permission::all();
+        $permission_id = $request->permission_id;
+
+        $role = Role::find($role_id);
+        $permission = Permission::find($permission_id);
+        $model = Role::class;
+        $this->authorize('assignPermission', $model);
+        // Recherche de la permission par son nom
+
+        // Affecter la permission au rôle
+        $role->givePermissionTo($permission);
+        //return view('permission', compact('role_id','permissions'));
+
+        return back()->with([
+            'role_id' => $role_id,
+            'permissions' => $permissions,
+        ])->with('success', 'La permission a été affecter avec succès.');
+    }
+
+    public function revokePermission(Request $request)
+    {
+        $role_id = $request->role_id;
+        $permissions = Permission::all();
+        $permission_id = $request->permission_id;
+        $role = Role::find($role_id);
+        $permission = Permission::find($permission_id);
+        $model = Role::class;
+        $this->authorize('revokePermission', $model);
+        // Recherche de la permission par son nom
+
+        // Affecter la permission au rôle
+        $role->revokePermissionTo($permission);;
+        //return view('permission', compact('role_id','permissions'));
+
+        return back()->with([
+            'role_id' => $role_id,
+            'permissions' => $permissions,
+        ])->with('success', 'La permission a été retirer avec succès.');
+    }
+
+    public function assignRole(Request $request)
+    {
+
+        $user_id = $request->user_id;
+        $role_id = $request->role_id;
+        $user = User::find($user_id);
+        $role = Role::find($role_id);
+        $user->assignRole($role);
+
+        $name_of_model = "role";
+        $name_of_table = "roles";
+        $notifications = auth()->user()->unreadNotifications;
+
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('assignRole', $model);
+
+        $test = 'test';
+        /*=====================================================================*/
+        $responce_columns = fetch_columns_of_table($name_of_table);
+
+        if ($responce_columns['status'] == 'error') {
+            return back()->with('error', $responce_columns['content']);
+        }
+
+        $informations_of_columns = $responce_columns['content'];
+        /*=====================================================================*/
+        $responce_data = fetch_data_of_table($name_of_table);
+
+        if ($responce_data['status'] == 'error') {
+
+            return back()->with('error', $responce_data['content']);
+        }
+
+        $data_of_table = $responce_data['content'];
+        /*=====================================================================*/
+
+
+        return back()->with([
+            'data_of_table' => $data_of_table,
+            'informations_of_columns' => $informations_of_columns,
+            'name_of_model' => $name_of_model,
+            'notifications' => $notifications,
+            'test' => $test,
+        ])->with('success', 'Le rôle a été affecter avec succès.');
+    }
+
+    public function revokeRole(Request $request)
+    {
+        $user_id = $request->user_id;
+        $role_id = $request->role_id;
+
+        $user = User::find($user_id);
+        $role = Role::find($role_id);
+        $user->removeRole($role);
+
+
+        $name_of_model = "role";
+        $name_of_table = "roles";
+        $notifications = auth()->user()->unreadNotifications;
+        $model = 'App\\Models\\' . ucfirst($name_of_model);
+        $this->authorize('revokeRole', $model);
+        $test = 'test';
+        /*=====================================================================*/
+        $responce_columns = fetch_columns_of_table($name_of_table);
+
+        if ($responce_columns['status'] == 'error') {
+            return back()->with('error', $responce_columns['content']);
+        }
+
+        $informations_of_columns = $responce_columns['content'];
+        /*=====================================================================*/
+        $responce_data = fetch_data_of_table($name_of_table);
+
+        if ($responce_data['status'] == 'error') {
+
+            return back()->with('error', $responce_data['content']);
+        }
+
+        $data_of_table = $responce_data['content'];
+        /*=====================================================================*/
+
+        // Autres opérations ou redirections après l'assignation du rôle
+        //  return back()->with([
+        // 'success' => 'Le rôle a été attribué avec succès.'
+        // ])->with(compact('notifications', 'user_id'));
+
+        return back()->with([
+            'data_of_table' => $data_of_table,
+            'informations_of_columns' => $informations_of_columns,
+            'name_of_model' => $name_of_model,
+            'notifications' => $notifications,
+            'test' => $test,
+        ])->with('success', 'Le rôle a été retiré avec succès.');
+    }
+
+    public function voir_roles_utilisateur(Request $request)
+    {
+        $user_id = $request->user_id;
+        $user = User::findOrFail($user_id);
+        $roles = $user->getRoleNames();
+
+        $data_of_table = Role::whereIn('name', $roles)->get();
+
+        $name_of_model = $request->name_of_model;
+        $name_of_table = $request->name_of_model . 's';
+
+
+        $this->authorize('viewAllP', Role::class);
+        $responce_columns = fetch_columns_of_table($name_of_table);
+        $informations_of_columns = $responce_columns['content'];
+
+        return view('index', compact('data_of_table', 'name_of_model', 'informations_of_columns', 'user'));
+    }
+
+    public function show_Roles_Of_User(Request $request, User $user)
+    {
+        $rolesOfUser = $user->getRoleNames();
+        $data_of_table = Role::whereNotIn('name', $rolesOfUser)->get();
+        $name_of_table = 'roles';
+        $name_of_model = 'role';
+        $this->authorize('viewAllP',  Role::class);
+        /*=====================================================================*/
+        $responce_columns = fetch_columns_of_table($name_of_table);
+
+        if ($responce_columns['status'] == 'error') {
+            return back()->with('error', $responce_columns['content']);
+        }
+
+        $informations_of_columns = $responce_columns['content'];
+
+        /*=====================================================================*/
+        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model', 'user']));
+    }
+
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+
+        return response()->noContent();
+    }
 }
