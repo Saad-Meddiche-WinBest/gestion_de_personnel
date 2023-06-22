@@ -8,9 +8,11 @@ use Spatie\Permission\Models\Role;
 
 class ControllerRole extends Controller
 {
+    
     //
     public function assignRole(Request $request)
     {
+       
         $user_id = $request->session()->get('user_id');
         $role_id = $request->role_id;
         $user = User::find($user_id);
