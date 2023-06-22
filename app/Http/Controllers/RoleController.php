@@ -237,8 +237,9 @@ class RoleController extends Controller
         $data_of_table = Role::whereNotIn('name', $rolesOfUser)->get();
         $name_of_table = 'roles';
         $name_of_model = 'role';
+
         $this->authorize('viewAllP',  Role::class);
 
-        return view('index', compact(['name_of_model', 'user']));
+        return view('index', compact(['name_of_model', 'data_of_table', 'user']));
     }
 }
