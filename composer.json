@@ -28,7 +28,8 @@
         "files": [
             "app/dynamicFields.php",
             "app/loops.php",
-            "app/coreFunctions.php"
+            "app/coreFunctions.php",
+            "app/helpers.php"
         ],
         "psr-4": {
             "App\\": "app/",
