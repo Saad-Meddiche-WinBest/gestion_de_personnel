@@ -37,5 +37,14 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('informations_of_columns', $columns);
             }
         });
+
+        View::composer(['edit', 'create'], function ($view) {
+            $name_of_table = $view->name_of_model . 's';
+
+            if (!isset($view->informations_of_columns)) {
+                $columns = fetch_columns_of_table($name_of_table);
+                $view->with('informations_of_columns', $columns);
+            }
+        });
     }
 }

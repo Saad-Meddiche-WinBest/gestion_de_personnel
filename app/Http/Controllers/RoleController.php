@@ -176,29 +176,8 @@ class RoleController extends Controller
         $this->authorize('assignRole', $model);
 
         $test = 'test';
-        /*=====================================================================*/
-        $responce_columns = fetch_columns_of_table($name_of_table);
-
-        if ($responce_columns['status'] == 'error') {
-            return back()->with('error', $responce_columns['content']);
-        }
-
-        $informations_of_columns = $responce_columns['content'];
-        /*=====================================================================*/
-        $responce_data = fetch_data_of_table($name_of_table);
-
-        if ($responce_data['status'] == 'error') {
-
-            return back()->with('error', $responce_data['content']);
-        }
-
-        $data_of_table = $responce_data['content'];
-        /*=====================================================================*/
-
 
         return back()->with([
-            'data_of_table' => $data_of_table,
-            'informations_of_columns' => $informations_of_columns,
             'name_of_model' => $name_of_model,
             'notifications' => $notifications,
             'test' => $test,
@@ -221,24 +200,7 @@ class RoleController extends Controller
         $model = 'App\\Models\\' . ucfirst($name_of_model);
         $this->authorize('revokeRole', $model);
         $test = 'test';
-        /*=====================================================================*/
-        $responce_columns = fetch_columns_of_table($name_of_table);
 
-        if ($responce_columns['status'] == 'error') {
-            return back()->with('error', $responce_columns['content']);
-        }
-
-        $informations_of_columns = $responce_columns['content'];
-        /*=====================================================================*/
-        $responce_data = fetch_data_of_table($name_of_table);
-
-        if ($responce_data['status'] == 'error') {
-
-            return back()->with('error', $responce_data['content']);
-        }
-
-        $data_of_table = $responce_data['content'];
-        /*=====================================================================*/
 
         // Autres opérations ou redirections après l'assignation du rôle
         //  return back()->with([
@@ -246,8 +208,6 @@ class RoleController extends Controller
         // ])->with(compact('notifications', 'user_id'));
 
         return back()->with([
-            'data_of_table' => $data_of_table,
-            'informations_of_columns' => $informations_of_columns,
             'name_of_model' => $name_of_model,
             'notifications' => $notifications,
             'test' => $test,
@@ -267,10 +227,8 @@ class RoleController extends Controller
 
 
         $this->authorize('viewAllP', Role::class);
-        $responce_columns = fetch_columns_of_table($name_of_table);
-        $informations_of_columns = $responce_columns['content'];
 
-        return view('index', compact('data_of_table', 'name_of_model', 'informations_of_columns', 'user'));
+        return view('index', compact('data_of_table', 'name_of_model', 'user'));
     }
 
     public function show_Roles_Of_User(Request $request, User $user)
@@ -280,16 +238,7 @@ class RoleController extends Controller
         $name_of_table = 'roles';
         $name_of_model = 'role';
         $this->authorize('viewAllP',  Role::class);
-        /*=====================================================================*/
-        $responce_columns = fetch_columns_of_table($name_of_table);
 
-        if ($responce_columns['status'] == 'error') {
-            return back()->with('error', $responce_columns['content']);
-        }
-
-        $informations_of_columns = $responce_columns['content'];
-
-        /*=====================================================================*/
-        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model', 'user']));
+        return view('index', compact(['name_of_model', 'user']));
     }
 }

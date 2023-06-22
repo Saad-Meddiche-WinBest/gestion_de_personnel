@@ -43,24 +43,15 @@ class CrudController extends Controller
 
     public function index(Request $request)
     {
-        if (isset($_GET['user_id'])) {
-            $path1 = $_GET['user_id'];
-            $request->session()->put('user_id', $path1);
-        }
-
         $this->authorize('viewAll', $this->class);
-
-        $date_today = Carbon::today();
 
         return view('index', [
             'name_of_model' => $this->name_of_model,
-            'date_today' => $date_today
         ]);
     }
 
     public function create(Request $request)
     {
-
         $this->authorize('create', $this->class);
 
         if (isset($request->extra_informations)) {
@@ -70,20 +61,16 @@ class CrudController extends Controller
             Cache::forever('extra_informations', $extra_informations);
         }
 
-        $informations_of_columns = fetch_columns_of_table($this->name_of_table);
-
         return view('create', [
             'name_of_model' => $this->name_of_model,
-            'informations_of_columns' => $informations_of_columns
         ]);
     }
 
     public function store(DynamicValidation $request)
     {
+        $this->authorize('create', $this->class);
 
         $data = (object) $request->validated();
-
-        $this->authorize('create', $this->class);
 
         if (Cache::has('extra_informations')) {
 
@@ -126,11 +113,8 @@ class CrudController extends Controller
         $data_of_table = fetch_data_of_table($this->name_of_table, $id_of_row);
         $data_of_table = $data_of_table[0];
 
-        $informations_of_columns = fetch_columns_of_table($this->name_of_table);
-
         return view('edit', [
             'name_of_model' => $this->name_of_model,
-            'informations_of_columns' => $informations_of_columns,
             'data_of_table' => $data_of_table
         ]);
     }

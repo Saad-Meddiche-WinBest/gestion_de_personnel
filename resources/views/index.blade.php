@@ -169,6 +169,9 @@
                                 <!-- <input type="text" name="assigned_role_id" value=""> Affichez l'ID du rôle ici -->
                             </form>
                         </td>
+                    @elseif($name_of_model == 'user')
+                        <td>
+                        </td>
                     @endif
 
                 </tr>

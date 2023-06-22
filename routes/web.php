@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerRole;
 
 use App\Http\Controllers\CrudController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\NotificationController;
