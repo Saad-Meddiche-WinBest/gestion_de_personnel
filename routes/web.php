@@ -45,7 +45,7 @@ Route::middleware(['accessDashboard'])->group(function () {
 
     Route::get('/get-sources/{poste}',  [GeneralController::class, "get_all_sources_of_poste"]);
 
-    Route::post('/set-persiode-absence',  [GeneralController::class, "get_all_sources_of_poste"])
+    Route::post('/set-persiode-absence',  [GeneralController::class, "get_absences_in_this_periode"])
         ->name('set-persiode-absence');
 
     Route::post('/mark-as-read',  [NotificationController::class, "mark_notification"])

@@ -2,8 +2,9 @@
 
 use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Schema;
+
 
 function filter_name($name)
 {
@@ -41,13 +42,14 @@ function fetch_columns_of_table($name_of_table)
     //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
     //Salah Starup
 
+    if (!Schema::hasTable($name_of_table)) {
+        abort(403, 'Table Not Found');
+    }
+
     try {
         $columns_of_table = Schema::getConnection()->getDoctrineSchemaManager()->listTableColumns($name_of_table);
     } catch (QueryException $e) {
-        return [
-            'status' => 'error',
-            'content' => $e->getMessage()
-        ];
+        abort(403, $e->getMessage());
     }
 
     $columns_of_table = array_diff_key($columns_of_table, array_flip(['id', 'guard_name', 'created_at', 'updated_at', 'password', 'email_verified_at', 'remember_token']));
@@ -75,10 +77,7 @@ function fetch_columns_of_table($name_of_table)
         ];
     }
 
-    return [
-        'status' => 'ok',
-        'content' => $informations_of_columns
-    ];
+    return $informations_of_columns;
 }
 
 function get_foreign_key_details($columnName, $foreignKeys)
