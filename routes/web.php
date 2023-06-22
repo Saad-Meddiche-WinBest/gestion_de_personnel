@@ -83,22 +83,22 @@ Route::middleware(['accessDashboard'])->group(function () {
 
 
 
-    Route::get('/roles', [RoleContrll::class, 'index'])->name('roles.index');
-    Route::get('/roles/create', [RoleContrll::class, 'create'])->name('roles.create');
-    Route::post('/roles', [RoleContrll::class, 'store'])->name('roles.store');
-    Route::get('/roles/{role}/edit', [RoleContrll::class, 'edit'])->name('roles.edit');
-    Route::post('/roles/{role}', [RoleContrll::class, 'update'])->name('roles.update');
-    Route::delete('/roles/{role}', [RoleContrll::class, 'destroy'])->name('roles.destroy');
-    Route::get('/permission/{role_id}', [RoleContrll::class, 'permission'])->name('AllPermission');
-    Route::post('/assign-permissions', [RoleContrll::class, 'assignPermission'])->name('affectPermission');
-    Route::post('/revoke-permissions', [RoleContrll::class, 'revokePermission'])->name('retirPermission');
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::get('/permission/{role_id}', [RoleController::class, 'permission'])->name('AllPermission');
+    Route::post('/assign-permissions', [RoleController::class, 'assignPermission'])->name('affectPermission');
+    Route::post('/revoke-permissions', [RoleController::class, 'revokePermission'])->name('retirPermission');
 
 
 
 
-    Route::get('/showRoles', [ControllerRole::class, 'voir_roles_utilisateur'])->name('roles');
+    Route::get('/showRoles', [RoleController::class, 'voir_roles_utilisateur'])->name('roles');
 
-    Route::get('/showRolesOfUser/{user}', [ControllerRole::class, 'show_Roles_Of_User'])->name('roles.user');
+    Route::get('/showRolesOfUser/{user}', [RoleController::class, 'show_Roles_Of_User'])->name('roles.user');
 });
 
 

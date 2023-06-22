@@ -164,3 +164,11 @@ function choose_data($looking_for, $column)
 
     return $looking_for;
 }
+
+function check_if_already_exists($name_of_table, $column_of_table, $data)
+{
+
+    $record = DB::table($name_of_table)->where($column_of_table, $data)->get();
+
+    dd($record);
+}
