@@ -34,12 +34,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
 Route::middleware(['accessDashboard'])->group(function () {
 
     Route::resource('/Gerer', CrudController::class);
 
     Route::get('/dashboard', function () {
-
         $notifications = auth()->user()->unreadNotifications;
         return view('dashboard', compact('notifications'));
     })->name('dashboard');
@@ -52,11 +53,6 @@ Route::middleware(['accessDashboard'])->group(function () {
         return fetch_personnes_with_this_poste($id_poste);
     });
 
-
-    Route::post('/assignRole', [ControllerRole::class, "assignRole"])->name('affecterRole');
-    Route::post('/revokeRole', [ControllerRole::class, "revokeRole"])->name('retirerRole');
-
-    Auth::routes();
 
     Route::post('/mark-as-read',  [CrudController::class, "markNotification"])->name('markNotification');
 
@@ -90,17 +86,13 @@ Route::middleware(['accessDashboard'])->group(function () {
     Route::post('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
     Route::get('/permission/{role_id}', [RoleController::class, 'permission'])->name('AllPermission');
+
     Route::post('/assign-permissions', [RoleController::class, 'assignPermission'])->name('affectPermission');
     Route::post('/revoke-permissions', [RoleController::class, 'revokePermission'])->name('retirPermission');
+    Route::post('/assign-role', [RoleController::class, "assignRole"])->name('affecterRole');
+    Route::post('/revoke-role', [RoleController::class, "revokeRole"])->name('retirerRole');
 
+    Route::get('/show-roles', [RoleController::class, 'voir_roles_utilisateur'])->name('roles');
 
-
-
-    Route::get('/showRoles', [RoleController::class, 'voir_roles_utilisateur'])->name('roles');
-
-    Route::get('/showRolesOfUser/{user}', [RoleController::class, 'show_Roles_Of_User'])->name('roles.user');
+    Route::get('/show-roles-of-user/{user}', [RoleController::class, 'show_Roles_Of_User'])->name('roles.user');
 });
-
-
-
-Auth::routes();

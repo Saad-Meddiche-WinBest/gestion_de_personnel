@@ -65,18 +65,7 @@ class CrudController extends Controller
 
         return view('index', compact(['data_of_table', 'name_of_model', 'informations_of_columns', 'date_today']));
     }
-    public function markNotification(Request $request)
-    {
-        auth()->user()
-            ->unreadNotifications
-            ->when($request->input('id'), function ($query) use ($request) {
-                return $query->where('id', $request->input('id'));
-            })
-            ->markAsRead();
-
-        return response()->noContent();
-    }
-
+   
     public function create(Request $request)
     {
 

@@ -292,4 +292,16 @@ class RoleController extends Controller
         /*=====================================================================*/
         return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model', 'user']));
     }
+
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+
+        return response()->noContent();
+    }
 }
