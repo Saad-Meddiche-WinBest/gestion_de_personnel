@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -16,5 +18,11 @@ class NotificationController extends Controller
             ->markAsRead();
 
         return response()->noContent();
+    }
+
+    public function get_events_with_today_date()
+    {
+        $persons = Event::whereDate('date', Carbon::today())->get();
+        return response()->json(['notifications' => count($persons)]);
     }
 }

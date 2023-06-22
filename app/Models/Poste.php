@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Source;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Poste extends Model
 {
@@ -11,4 +12,9 @@ class Poste extends Model
     protected $table = 'postes';
     protected $guarded = ['name_of_model', '_token', '_method'];
     protected $fillable = ['nom'];
+
+    public function sources()
+    {
+        return $this->hasMany(Source::class, 'id_poste');
+    }
 }
