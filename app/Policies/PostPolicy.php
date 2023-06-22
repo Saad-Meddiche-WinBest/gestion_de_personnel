@@ -4,9 +4,11 @@ namespace App\Policies;
 
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Service;
+use App\Models\Personne;
+use Illuminate\Auth\GenericUser;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Spatie\Permission\Models\Role;
+
 class PostPolicy
 {
     use HandlesAuthorization;
@@ -16,25 +18,17 @@ class PostPolicy
      *
      * @return void
      */
-    public function before($user)
+    public function __construct()
     {
-        if ($user->isAdmin()) {
-            return true; // L'administrateur a toujours accès
+        //
+    }
+
+    public function update()
+    {
+        // return $user->id === $post->user_id;
+        Gate::define('update', function(GenericUser $user, Personne $personne){
+            return $user->id !== $personne->user_id;
         }
-    }
-
-    public function create(User $user)
-    {
-        return false; // Seul l'administrateur peut créer des rôles
-    }
-
-    public function assign(User $user, Role $role)
-    {
-        return $user->hasRole('admin'); // Seul l'administrateur peut affecter des rôles
-    }
-
-    public function revoke(User $user, Role $role)
-    {
-        return $user->hasRole('admin'); // Seul l'administrateur peut retirer des rôles
+    );
     }
 }

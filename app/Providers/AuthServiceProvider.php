@@ -16,8 +16,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Post::class => PostPolicy::class,
-        User::class => subs::class,
+        'App\Models\Absence' => 'App\Policies\AbsencePolicy',
+        'App\Models\Employement' => 'App\Policies\EmployementPolicy',
+        'App\Models\Event' => 'App\Policies\EventPolicy',
+        'App\Models\Personne' => 'App\Policies\PersonnePolicy',
+        'App\Models\Poste' => 'App\Policies\PostePolicy',
+        'App\Models\Reason' => 'App\Policies\RaisonPolicy',
+        'App\Models\Service' => 'App\Policies\ServicePolicy',
+        'App\Models\Source' => 'App\Policies\SourcePolicy',
+        'Spatie\Permission\Models\Role' => 'App\Policies\RolePolicy',
     ];
 
     /**
@@ -25,12 +32,12 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+     public function boot()
     {
-        $this->registerPolicies();
-        Gate::define('subs-only','App\Policies\subs@subs_only');
+     $this->registerPolicies();
+    //     Gate::define('subs-only','App\Policies\subs@subs_only');
 
 
-        //
-    }
+    //     //
+     }
 }

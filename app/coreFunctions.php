@@ -16,7 +16,13 @@ function fetch_data_of_table($name_of_table, $id = null)
         if ($id !== null) {
             $query->where('id', $id);
         }
-
+        
+        if($id !== null && $id == 0){
+            return [
+                'status' => 'error',
+                'content' => "Fetching failed: you have no access "
+            ];
+        }
         $data = $query->get();
     } catch (QueryException $e) {
         return [
