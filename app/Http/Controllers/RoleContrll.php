@@ -13,16 +13,25 @@ class RoleContrll extends Controller
     public function index()
     {
         $roles = Role::all(); // Récupérer tous les rôles depuis la base de données
+
+        $model = Role::class;
+        // dd($model);
+        $this->authorize('viewAll', Role::class);
+
         return view('roles', compact('roles'));
     }
 
     public function create()
     {
+        $model = Role::class;
+        $this->authorize('create', $model);
         return view('createRoles');
     }
 
     public function store(Request $request)
     {
+        $model = Role::class;
+        $this->authorize('create', $model);
         // Valider les données du formulaire de création
         $validatedData = $request->validate([
             'name' => 'required|string',
@@ -38,12 +47,15 @@ class RoleContrll extends Controller
     public function edit(Request $request, $id)
 {
     $role = Role::findOrFail($id);
-    
+    $model = Role::class;
+    $this->authorize('update', $model);
     return view('editRoles', compact('role'));
 }
 
     public function update(Request $request, Role $role)
     {
+        $model = Role::class;
+        $this->authorize('update', $model);
         // Valider les données du formulaire de modification
         $validatedData = $request->validate([
             'name' => 'required|string',
@@ -58,6 +70,8 @@ class RoleContrll extends Controller
     public function destroy(Role $role)
     {
         // Supprimer le rôle de la base de données
+        $model = Role::class;
+        $this->authorize('destroy', $model);
         $role->delete();
 
         return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
@@ -66,7 +80,8 @@ class RoleContrll extends Controller
     public function permission(Request $request, Role $role_id ){
         $permissions = Permission::all();
         $role = $request->role_id;
-       
+        $model = Role::class;
+        $this->authorize('viewAllP', $model);
 
         return view('permission', compact('permissions','role_id','role'));
     }
@@ -113,14 +128,15 @@ class RoleContrll extends Controller
 
 
 
-
+        
         $role_id = $request->role_id;
         $permissions = Permission::all();
         $permission_id = $request->permission_id;
         
         $role = Role::find($role_id);
         $permission = Permission::find($permission_id);
-
+        $model = Role::class;
+        $this->authorize('assignPermission', $model);
         // Recherche de la permission par son nom
 
         // Affecter la permission au rôle
@@ -140,7 +156,8 @@ class RoleContrll extends Controller
             $permission_id = $request->permission_id;
             $role = Role::find($role_id);
             $permission = Permission::find($permission_id);
-    
+            $model = Role::class;
+            $this->authorize('revokePermission', $model);
             // Recherche de la permission par son nom
     
             // Affecter la permission au rôle

@@ -93,7 +93,17 @@ class creationRoles extends Command
     $SupprimerUser = Permission::create(['name' => 'supprimer_user', 'guard_name' => 'web']);
     $voirUser = Permission::create(['name' => 'voir_users', 'guard_name' => 'web']);
 
-   
+    
+    $ajouterRole = Permission::create(['name' => 'ajouter_role', 'guard_name' => 'web']);
+    $ModifierRole = Permission::create(['name' => 'modifier_role', 'guard_name' => 'web']);
+    $SupprimerRole = Permission::create(['name' => 'supprimer_role', 'guard_name' => 'web']);
+    $voirRoles = Permission::create(['name' => 'voir_roles', 'guard_name' => 'web']);
+    $affecterRoles = Permission::create(['name' => 'affecter_roles', 'guard_name' => 'web']);
+    $retirerRoles = Permission::create(['name' => 'retirer_roles', 'guard_name' => 'web']);
+    $voirPermissions = Permission::create(['name' => 'voir_permissions', 'guard_name' => 'web']);
+    $affecterPermissions = Permission::create(['name' => 'affecter_permissions', 'guard_name' => 'web']);
+    $retirerPermisions = Permission::create(['name' => 'retirer_permissions', 'guard_name' => 'web']);
+
 
 
     $accesToDashboard = Permission::create(['name' => 'acces_to_dashboard' , 'guard_name' => 'web']);

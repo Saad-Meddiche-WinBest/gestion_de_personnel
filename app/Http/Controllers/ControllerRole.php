@@ -18,7 +18,10 @@ class ControllerRole extends Controller
         $name_of_model= "role";
         $name_of_table ="roles";
         $notifications = auth()->user()->unreadNotifications;
-
+        
+        $model = 'App\\Models\\'. ucfirst($name_of_model);
+        $this->authorize('assignRole', $model);
+        
         $test = 'test';
         /*=====================================================================*/
         $responce_columns = fetch_columns_of_table($name_of_table);
@@ -67,7 +70,8 @@ class ControllerRole extends Controller
         $name_of_model= "role";
         $name_of_table ="roles";
         $notifications = auth()->user()->unreadNotifications;
-
+        $model = 'App\\Models\\'. ucfirst($name_of_model);
+        $this->authorize('revokeRole', $model);
         $test = 'test';
         /*=====================================================================*/
         $responce_columns = fetch_columns_of_table($name_of_table);
@@ -110,12 +114,14 @@ class ControllerRole extends Controller
         $user_id = $request->user_id;
         $user = User::findOrFail($user_id);
         $roles = $user->getRoleNames();
-    
+        
         $data_of_table = Role::whereIn('name', $roles)->get();
     
         $name_of_model = $request->name_of_model;
         $name_of_table = $request->name_of_model . 's';
-    
+
+      
+        $this->authorize('viewAllP', Role::class);
         $responce_columns = fetch_columns_of_table($name_of_table);
         $informations_of_columns = $responce_columns['content'];
     
@@ -130,7 +136,7 @@ class ControllerRole extends Controller
         $data_of_table = Role::whereNotIn('name', $rolesOfUser)->get();
         $name_of_table = 'roles';
         $name_of_model= 'role';
-
+        $this->authorize('viewAllP',  Role::class);    
         /*=====================================================================*/
         $responce_columns = fetch_columns_of_table($name_of_table);
 
@@ -143,7 +149,7 @@ class ControllerRole extends Controller
         /*=====================================================================*/
         return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model','user']));
     }
-    
+
    
 
     
