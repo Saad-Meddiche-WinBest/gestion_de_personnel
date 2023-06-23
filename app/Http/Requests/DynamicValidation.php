@@ -41,8 +41,6 @@ class DynamicValidation extends FormRequest
             }
         }
 
-
-
         foreach ($inputs as $key => $value) {
             $rules[$key] = 'required';
         }
