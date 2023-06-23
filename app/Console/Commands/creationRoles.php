@@ -104,6 +104,10 @@ class creationRoles extends Command
     $affecterPermissions = Permission::create(['name' => 'affecter_permissions', 'guard_name' => 'web']);
     $retirerPermisions = Permission::create(['name' => 'retirer_permissions', 'guard_name' => 'web']);
 
+    $ajouterCelebration = Permission::create(['name' => 'ajouter_celebration', 'guard_name' => 'web']);
+    $ModifierCelebration = Permission::create(['name' => 'modifier_celebration', 'guard_name' => 'web']);
+    $SupprimerCelebration = Permission::create(['name' => 'supprimer_celebration', 'guard_name' => 'web']);
+    $voirCelebration = Permission::create(['name' => 'voir_celebrations', 'guard_name' => 'web']);
 
 
     $accesToDashboard = Permission::create(['name' => 'acces_to_dashboard' , 'guard_name' => 'web']);

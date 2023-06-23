@@ -38,16 +38,16 @@
 
         <div class="content-dashboard" id="box-container">
             @foreach (fetch_cards() as $card)
-                <div class="box box1">
+                <div class="box box1" data-route-id="{{$card['text']}}">
 
                     <img src="{{ $card['image'] }}" class="image">
-                    <form action="{{ $card['link'] }}" method="GET">
+                    <form action="{{ $card['link'] }}" method="GET" id="myForm{{$card['text']}}">
                         <input type="hidden" name="name_of_model" value="{{ $card['name_of_model'] }}">
-                        <button id="btn20" type="submit">{{ $card['text'] }}
+                        <div id="btn20" type="submit">{{ $card['text'] }}
                             @if ($card['text'] == 'Events')
                                 <span id="notifications">0</span>
                             @endif
-                        </button>
+                        </div>
                     </form>
                 </div>
             @endforeach
@@ -93,4 +93,16 @@
             }
         });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var routes = document.querySelectorAll('.box');
+        routes.forEach(function(route) {
+            route.addEventListener('click', function() {
+                var routeId = this.getAttribute('data-route-id');
+                var form = document.getElementById('myForm' + routeId);
+                form.submit();
+            });
+        });
+    });
+</script>
 @endsection

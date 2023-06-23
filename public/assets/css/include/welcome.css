@@ -46,7 +46,7 @@ p{
     .Inscrire_Button button{
         border: none; 
         padding:10px  26px 10px 26px;
-        background-color: rgb(233, 56, 86);
+        background-color: rgb(228, 58, 95);
         color: aliceblue; 
         margin-left: 20px;
         margin-bottom: 10px;
@@ -71,7 +71,7 @@ p{
     }
 
     #btn2:hover{
-        background-color: #39b5fd;
+        background-color:  #047ec5;
         transition: 1s;
     }
     .Image img{

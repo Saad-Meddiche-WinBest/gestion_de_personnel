@@ -54,7 +54,7 @@ Route::middleware(['accessDashboard'])->group(function () {
     });
 
 
-    Route::post('/mark-as-read',  [CrudController::class, "markNotification"])->name('markNotification');
+    Route::post('/mark-as-read',  [RoleController::class, "markNotification"])->name('markNotification');
 
     Route::get('/get-sources/{id_poste}', function ($id_poste) {
         $sources = DB::table('sources')->where('id_poste', $id_poste)->get();
@@ -83,7 +83,7 @@ Route::middleware(['accessDashboard'])->group(function () {
     Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
     Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
-    Route::post('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+    Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
     Route::get('/permission/{role_id}', [RoleController::class, 'permission'])->name('AllPermission');
 

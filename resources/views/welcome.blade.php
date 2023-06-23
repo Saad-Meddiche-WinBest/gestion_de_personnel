@@ -10,7 +10,7 @@
                 </div>
             @endif
             <div class="Title">
-                <h1>Offrez à vos employés des expériences exceptionnelles</h1>
+                <h1 style="color:deepskyblue">Offrez à vos employés des expériences exceptionnelles</h1>
             </div>
 
             <div class="Description">

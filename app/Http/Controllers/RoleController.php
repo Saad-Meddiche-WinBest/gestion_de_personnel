@@ -66,7 +66,7 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
-
+    
     public function destroy(Role $role)
     {
         // Supprimer le rôle de la base de données

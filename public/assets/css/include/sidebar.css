@@ -2,10 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300&display=swap');
 
 .container-sidebar {
-    background-color: #1f1975;
+    background-color: #0a3c58;
     width: 8vw;
     height: 100%;
-
 }
 
 .route {
@@ -23,7 +22,6 @@
 
 .route:hover {
     border-left: 3px solid rgb(248, 94, 23);
-   
 }
 
 .icon {
@@ -42,9 +40,7 @@
     text-align: center;
     /*font-family: 'Lato', sans-serif;*/
     font-family: 'Be Vietnam Pro', sans-serif;
-
     font-size: 1.3vh;
-
 }
 
 a{
@@ -53,3 +49,9 @@ a{
     flex-direction: column;
     align-items: center;
 }
+
+@media only screen and (max-width: 900px) {
+    .container-sidebar {
+        width:0vw;
+    }
+  }

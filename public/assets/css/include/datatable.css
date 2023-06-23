@@ -1,9 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 .dataTables_wrapper{
     height: 80% !important;
-    
     max-height: 100vh;
-    font-size: 1.2vh;
+    font-size: 1.4vh;
+    /* max-width: 950px !important;
+    min-width: 900px !important; */
     width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+@media only screen and (max-width: 1400px) {
+  .dataTables_wrapper {
+    overflow-x: scroll;
+    max-width: 1000px !important;
+  }
 }
 @media only screen and (max-width: 1200px) {
     .dataTables_wrapper {
@@ -45,7 +56,7 @@
 }
 #myTable_filter label input{
    border: none;
-   border-bottom: 3px solid rgb(0, 171, 250);
+   border: 1px solid rgb(201, 208, 211);
    margin-bottom: 5px;
 }
 .table.dataTable.no-footer {

@@ -27,7 +27,31 @@
 .by-default-showen{
     display: block;
 }
-
+#fresh:hover{
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+#fresh{
+    font-size: 1vh;
+    font-weight: bold;
+    padding: 5px 10px 5px 10px;
+}
+#exportButton{
+    background-color: rgb(83, 206, 119);
+    border:1px solid rgb(83, 206, 119);
+    color: rgb(231, 231, 231);
+    font-weight: 600;
+    width: 100%;
+}
+#exportButton:hover{
+    background-color: rgb(255, 255, 255);
+    border:1px dashed  rgb(83, 206, 119);
+    color:  rgb(83, 206, 119);
+    font-weight: 600;
+}
+#date1{
+    font-size: 1.4vh;
+}
 
 
 

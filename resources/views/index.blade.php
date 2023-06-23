@@ -8,13 +8,13 @@
         </div>
     @endif
     @if (session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success" style="width: 100%;">
             {{ session('success') }}
         </div>
     @endif
 
     @if (session()->has('message'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" style="width: 100%;">
             {{ session('message') }}
         </div>
     @endif
@@ -24,27 +24,15 @@
         <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
             <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
             <div style="width:100%;">
-                <button type="submit" class="btn btn-primary" style="float:right;  margin-bottom:15px; font-size:1.5vh; ">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px" width="16" height="16"
-                        fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                        <path
-                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                    </svg>Add {{ ucfirst($name_of_model) }}</button>
+                <button type="submit" class="btn btn-primary" style="float:right;  margin-top:15px;  margin-bottom:15px; font-size:1.5vh; ">
+                   
+                    <svg xmlns="http://www.w3.org/2000/svg"  style="margin-right:5px; margin-bottom: 2.5px;" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+</svg>Add {{ ucfirst($name_of_model) }}</button>
             </div>
+            <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px">Liste {{ ucfirst($name_of_model) }} </h2>
         </form>
-    @else
-        <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
 
-            <input type="hidden" name="name_of_model" value="reason">
-            <div style="width:100%;">
-                <button type="submit" class="btn btn-primary" style="float:right;  margin-bottom:15px; font-size:1.5vh; ">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:20px" width="16" height="16"
-                        fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                        <path
-                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                    </svg>Add Date</button>
-            </div>
-        </form>
     @endif
 
 
@@ -52,24 +40,25 @@
         <form action="{{ route('set-persiode-absence') }}" method="POST">
             <div class="d-flex gap-4">
                 @csrf
-                <div>
+                <div id="date1">
                     <label for="">from_date</label>
-                    <br>
+                    
                     <input type="date" name="from_date" id="from_date">
                 </div>
-                <div>
+                <div  id="date1">
                     <label for="">to_date</label>
-                    <br>
+                   
                     <input type="date" name="to_date" id="to_date">
                 </div>
+                
+                <button id="fresh" type="submit" name="periode"  class="btn btn-dark">Fresh</button>
 
-                <button type="submit" name="periode"> Ok</button>
             </div>
         </form>
     @endif
 
-    <table id="myTable" class="table table-borderless" style="background-color:white;">
-        <button id="exportButton">Export to Excel</button>
+    <table  id="myTable" class="table table-hover" style="background-color:white;">
+        <button id="exportButton"  class="btn btn-success" style="margin-top:15px; margin-bottom:15px;">Export to Excel</button>
         <thead>
             <tr>
                 @foreach ($informations_of_columns as $column)
@@ -77,7 +66,7 @@
                 @endforeach
                 <th>Action</th>
                 @if ($name_of_model == 'user')
-                    <th>Role</th>
+                <th>Role</th>
                 @endif
             </tr>
         </thead>
@@ -86,7 +75,7 @@
                 <tr @if (
                     $name_of_model == 'event' &&
                         $column['name'] == 'date' &&
-                        $data->{$column['name']} == Carbon\Carbon::today()->format('Y-m-d')) style="background-color: grey" @endif>
+                        $data->{$column['name']} == Carbon\Carbon::today()->format('Y-m-d')) style="background-color: rgb(255, 224, 224);" @endif>
                     @foreach ($informations_of_columns as $column)
                         <td>
                             {{ choose_data($data->{$column['name']}, $column) }}
@@ -98,13 +87,19 @@
 
                             @if ($name_of_model !== 'role' && $data->id !== 0)
                                 <form action="{{ route('Gerer.edit', $data->id) }}" method="GET">
-                                    <button id="btn1" type="sumbit" class="btn btn-warning">Edit</button>
+                                    <button id="btn1" type="sumbit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg></button>
                                     <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
                                 </form>
                                 <form action="{{ route('Gerer.destroy', $data->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button id="btn1" type="sumbit" class="btn btn-danger">Delete</button>
+                                    <button id="btn1" type="sumbit" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg></button>
                                     <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
                                 </form>
                             @endif
@@ -145,13 +140,13 @@
                             {{-- Absence Button --}}
                             @if ($name_of_model == 'personne')
                                 <form action="{{ route('Gerer.create') }}" method="GET">
-                                    <button id="btn1" type="sumbit" class="btn btn-primary">Absence</button>
+                                    <button id="btn1" type="sumbit" class="btn btn-outline-success">Absence</button>
                                     <input type="hidden" name="name_of_model" value="Absence">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
                                 <form action="{{ route('Gerer.create') }}" method="GET">
-                                    <button id="btn1" type="sumbit" class="btn btn-primary">Evenement</button>
+                                    <button id="btn1" type="sumbit" class="btn btn-warning">Evenement</button>
                                     <input type="hidden" name="name_of_model" value="event">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
@@ -159,17 +154,26 @@
                             @endif
                         </div>
                     </td>
-                    @if ($name_of_model == 'user' && $data->id !== 0)
+                       
+                        @if ($name_of_model == 'user' && $data->id !== 0)
                         <td>
                             <form action="{{ route('roles') }}" method="GET">
                                 @csrf
                                 <input type="hidden" name="name_of_model" value="role">
                                 <input type="hidden" name="user_id" value="{{ $data->id }}">
-                                <button id="btn1" type="submit" class="btn btn-primary">See Roles</button>
+                                <button id="btn1" type="submit" class="btn btn-outline-info" style="font-weight: 700;"><svg xmlns="http://www.w3.org/2000/svg" style="padding-right: 6px; padding-bottom:2.5px;" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+</svg>See Roles</button>
                                 <!-- <input type="text" name="assigned_role_id" value=""> Affichez l'ID du rôle ici -->
                             </form>
-                        </td>
-                    @endif
+                            </td>
+                            @elseif($name_of_model == 'user')
+                            <td>
+
+                            </td>
+                            @endif
+                    
 
                 </tr>
             @endforeach

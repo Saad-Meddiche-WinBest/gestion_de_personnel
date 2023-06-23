@@ -51,7 +51,6 @@
     border:none;
     
     border-bottom: 1px solid rgb(221, 220, 220);
-    cursor: pointer;
 }
 .field select {
     width: 500px;

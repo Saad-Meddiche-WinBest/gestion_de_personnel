@@ -29,9 +29,11 @@
 
         <main style="flex: 1;display:flex;">
             @include('layouts.include.sidebar')
+     
 
 
-            <div class="ContentS1" style="flex: 1;display:flex;flex-direction:column;">
+            <div class="ContentS1" style="flex: 1;display:flex;flex-direction:column; justify-content: center;
+  align-items: center;">
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -92,6 +94,7 @@
 
         });
     </script>
+    
     <script>
         function sendMarkRequest(id = null) {
             return $.ajax("{{ route('markNotification') }}", {

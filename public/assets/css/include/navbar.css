@@ -28,3 +28,6 @@ body {
 .nav-link:hover {
     color: #ff0;
 }
+#logoPersonnel{
+    width: 200px;
+}

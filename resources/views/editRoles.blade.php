@@ -13,6 +13,7 @@
             <h5 style="color:black; width:100%; text-align:center;">Informations de base</h5>
             <form action="{{ route('roles.update', ['role' => $role->id]) }}" method='POST' class="formule">
                 @csrf
+                @method("PUT");
                 <label>Name of Role : </label>
                 <input type="text" name="name" value="{{$role['name']}}">
 
