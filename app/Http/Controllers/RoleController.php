@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Http\Requests\DynamicValidation;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -28,18 +29,14 @@ class RoleController extends Controller
         return view('createRoles');
     }
 
-    public function store(Request $request)
+    public function store(DynamicValidation $request)
     {
-        $model = Role::class;
-        $this->authorize('create', $model);
-        // Valider les données du formulaire de création
-        $validatedData = $request->validate([
-            'name' => 'required|string',
+        $validatedData  = $request->validated();
 
-        ]);
+        $this->authorize('create', Role::class);
 
         // Créer un nouveau rôle dans la base de données
-        $role = Role::create($validatedData);
+        Role::create($validatedData);
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully');
     }
@@ -52,14 +49,11 @@ class RoleController extends Controller
         return view('editRoles', compact('role'));
     }
 
-    public function update(Request $request, Role $role)
+    public function update(DynamicValidation $request, Role $role)
     {
-        $model = Role::class;
-        $this->authorize('update', $model);
-        // Valider les données du formulaire de modification
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-        ]);
+        $validatedData  = $request->validated();
+
+        $this->authorize('update', Role::class);
 
         // Mettre à jour le rôle dans la base de données
         $role->update($validatedData);

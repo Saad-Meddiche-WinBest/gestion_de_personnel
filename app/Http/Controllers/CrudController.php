@@ -111,21 +111,20 @@ class CrudController extends Controller
         $this->authorize('update', $this->class);
 
         $data_of_table = fetch_data_of_table($this->name_of_table, $id_of_row);
-        $data_of_table = $data_of_table[0];
 
         return view('edit', [
             'name_of_model' => $this->name_of_model,
-            'data_of_table' => $data_of_table
+            'data_of_table' => $data_of_table[0]
         ]);
     }
 
     public function update(DynamicValidation $request, $id_of_row)
     {
-
-        $data = (object) $request->validated();
-
+        $request->merge(['id' => $id_of_row]);
 
         $this->authorize('update', $this->class);
+
+        $data = (object) $request->validated();
 
         update_data_of_table((array) $data, $this->name_of_table, $id_of_row);
 

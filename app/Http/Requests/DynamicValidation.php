@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DynamicValidation extends FormRequest
 {
@@ -25,20 +26,37 @@ class DynamicValidation extends FormRequest
     {
         $rules = [];
 
+        global $id_of_record;
+
         $inputs = $this->all();
+
+        //Get The Id Of The Record
+        $url = $_SERVER['REQUEST_URI'];
+        $parts = explode('/', $url);
+
+        foreach ($parts as $part) {
+            if (is_numeric($part)) {
+                $id_of_record = $part;
+                break;
+            }
+        }
+
+
 
         foreach ($inputs as $key => $value) {
             $rules[$key] = 'required';
         }
 
-        if (in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason'])) {
+        if (isset($inputs['name_of_model']) && in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason'])) {
             $table_name = $inputs['name_of_model'] . 's';
-            $rules['nom'] = 'required|unique:' . $table_name . ',nom';
+
+            $rules['nom'] = (isset($_REQUEST['_method'])) ? 'unique:' . $table_name . ',nom,' . $id_of_record : 'unique:' . $table_name . ',nom';
         }
 
-        $cin =  (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,cin';
-        $email = (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,email';
-        $telephone = (isset($_REQUEST['_method'])) ? '' : 'unique:personnes,telephone';
+        $cin =  (isset($_REQUEST['_method'])) ? 'unique:personnes,cin,' . $id_of_record : 'unique:personnes,cin';
+        $email = (isset($_REQUEST['_method'])) ? 'unique:personnes,email,' . $id_of_record : 'unique:personnes,email';
+        $telephone = (isset($_REQUEST['_method'])) ? 'unique:personnes,telephone,' . $id_of_record  : 'unique:personnes,telephone';
+        $name = (isset($_REQUEST['_method'])) ? 'unique:roles,name,' . $id_of_record : 'unique:roles,name';
 
         $data = [
             'telephone' => 'required|' . $telephone,
@@ -49,6 +67,7 @@ class DynamicValidation extends FormRequest
             'date_notification' => 'nullable|date|after:date_debut|before:date_fin',
             'cin' => 'required|' . $cin,
             'id_source' => 'nullable',
+            'name' => 'required|' . $name,
 
         ];
 
