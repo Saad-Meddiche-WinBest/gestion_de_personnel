@@ -92,13 +92,13 @@
        border: 2px solid  #06c082;
        border-radius: 50px;
        padding: 10px;
-       color: #ffffff;
-       background-color: #06c082;
+       color:  #06c082;
+       background-color: #ffffff;
        font-size: 1.2vh;
     }
     .Quick_Add button:hover{
-        background-color: #ffffff;
-        color:  #06c082;
+        background-color: #06c082;
+        color:  #ffffff;
      }
 
     #btn20{
