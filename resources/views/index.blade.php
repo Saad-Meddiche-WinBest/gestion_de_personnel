@@ -20,7 +20,7 @@
     @endif
 
 
-    @if ($name_of_model != 'absence')
+    @if ($name_of_model != 'absence' && $name_of_model != 'role')
         <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
             <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
             <div style="width:100%;">
@@ -35,7 +35,10 @@
             </div>
             <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px">Liste {{ ucfirst($name_of_model) }} </h2>
         </form>
-    @else
+    @endif
+
+    @if ($name_of_model == 'absence')
+
         <form action="{{ route('set-persiode-absence') }}" method="POST">
             <div class="d-flex gap-4">
                 @csrf
@@ -62,9 +65,9 @@
         <thead>
             <tr>
                 @foreach ($informations_of_columns as $column)
-                    <th>{{ filter_name($column['name']) }}</th>
+                    <th style="font-size:0.7rem;">{{ filter_name($column['name']) }}</th>
                 @endforeach
-                <th>Action</th>
+                <th style="font-size:0.7rem;">Action</th>
                 @if ($name_of_model == 'user')
                     <th>Role</th>
                 @endif
@@ -75,7 +78,7 @@
                 <tr {{ color_expired_event($name_of_model, $column, $data) }}>
 
                     @foreach ($informations_of_columns as $column)
-                        <td>
+                        <td style="font-size:0.7rem;">
                             {{ choose_data($data->{$column['name']}, $column) }}
                         </td>
                     @endforeach
@@ -112,7 +115,9 @@
 
                             @if ($name_of_model == 'user' && $data->id !== 0)
                                 <form action="{{ route('roles.user', $data->id) }}" method="GET">
-                                    <button id="btn1" type="sumbit" class="btn btn-success">Gérer Roles</button>
+                                    <button id="btn1" type="sumbit" class="btn btn-success"
+                                        style="height:100%; font-size:0.5rem;">Gérer
+                                        Roles</button>
                                     <input type="hidden" name="name_of_model" value="role">
                                     <input type="hidden" name="user_id" value="{{ $data->id }}">
                                 </form>
@@ -146,14 +151,15 @@
                             {{-- Absence Button --}}
                             @if ($name_of_model == 'personne')
                                 <form action="{{ route('Gerer.create') }}" method="GET">
-                                    <button id="btn1" type="sumbit"
-                                        class="btn btn-outline-success">Absence</button>
+                                    <button id="btn1" type="sumbit" class="btn btn-outline-success"
+                                        style="font-size:0.7rem;">Absence</button>
                                     <input type="hidden" name="name_of_model" value="Absence">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
                                 <form action="{{ route('Gerer.create') }}" method="GET">
-                                    <button id="btn1" type="sumbit" class="btn btn-warning">Evenement</button>
+                                    <button id="btn1" type="sumbit" class="btn btn-warning"
+                                        style="font-size:0.7rem;">Evenement</button>
                                     <input type="hidden" name="name_of_model" value="event">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
@@ -169,7 +175,8 @@
                                 <input type="hidden" name="name_of_model" value="role">
                                 <input type="hidden" name="user_id" value="{{ $data->id }}">
                                 <button id="btn1" type="submit" class="btn btn-outline-info"
-                                    style="font-weight: 700;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    style="font-size:0.7rem;padding:height:100%"><svg
+                                        xmlns="http://www.w3.org/2000/svg"
                                         style="padding-right: 6px; padding-bottom:2.5px;" width="20" height="20"
                                         fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                         <path
