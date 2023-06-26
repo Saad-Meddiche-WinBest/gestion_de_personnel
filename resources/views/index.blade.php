@@ -116,7 +116,7 @@
                             @if ($name_of_model == 'user' && $data->id !== 0)
                                 <form action="{{ route('roles.user', $data->id) }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-success"
-                                        style="height:100%; font-size:0.5rem;">Gérer
+                                        style="height:100%; font-size:0.6rem;">Gérer
                                         Roles</button>
                                     <input type="hidden" name="name_of_model" value="role">
                                     <input type="hidden" name="user_id" value="{{ $data->id }}">
@@ -175,7 +175,7 @@
                                 <input type="hidden" name="name_of_model" value="role">
                                 <input type="hidden" name="user_id" value="{{ $data->id }}">
                                 <button id="btn1" type="submit" class="btn btn-outline-info"
-                                    style="font-size:0.7rem;padding:height:100%"><svg
+                                    style="font-size:0.7rem; padding:5px ;height:100%"><svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         style="padding-right: 6px; padding-bottom:2.5px;" width="20" height="20"
                                         fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
