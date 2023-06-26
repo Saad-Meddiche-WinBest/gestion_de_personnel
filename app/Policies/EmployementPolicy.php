@@ -28,9 +28,6 @@ class EmployementPolicy
         }
     }
 
-    
-
-
     public function create(User $user)
     {
         // Vérifier si l'utilisateur a la permission spécifique pour ajouter les une employement

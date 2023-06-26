@@ -41,7 +41,6 @@ class AccountValidation extends FormRequest
                 'min:8',
                 function ($attribute, $value, $fail) {
                     if (!Hash::check($value, auth()->user()->password)) {
-                        // call back function
                         $fail('The current password Is Incorrect');
                     }
                 },

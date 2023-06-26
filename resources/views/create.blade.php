@@ -45,7 +45,7 @@
                         url: '/get-sources/' + selectedPoste,
                         type: 'GET',
                         success: function(response) {
-                            console.log(response.sources.length);
+                           
                             if (response.sources.length != 0) {
                                 sourceSelect.html('<option value="">Selectionner</option>');
 

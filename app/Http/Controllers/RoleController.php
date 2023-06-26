@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Http\Requests\DynamicValidation;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -28,18 +29,14 @@ class RoleController extends Controller
         return view('createRoles');
     }
 
-    public function store(Request $request)
+    public function store(DynamicValidation $request)
     {
-        $model = Role::class;
-        $this->authorize('create', $model);
-        // Valider les données du formulaire de création
-        $validatedData = $request->validate([
-            'name' => 'required|string',
+        $validatedData  = $request->validated();
 
-        ]);
+        $this->authorize('create', Role::class);
 
         // Créer un nouveau rôle dans la base de données
-        $role = Role::create($validatedData);
+        Role::create($validatedData);
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully');
     }
@@ -52,14 +49,11 @@ class RoleController extends Controller
         return view('editRoles', compact('role'));
     }
 
-    public function update(Request $request, Role $role)
+    public function update(DynamicValidation $request, Role $role)
     {
-        $model = Role::class;
-        $this->authorize('update', $model);
-        // Valider les données du formulaire de modification
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-        ]);
+        $validatedData  = $request->validated();
+
+        $this->authorize('update', Role::class);
 
         // Mettre à jour le rôle dans la base de données
         $role->update($validatedData);
@@ -176,29 +170,8 @@ class RoleController extends Controller
         $this->authorize('assignRole', $model);
 
         $test = 'test';
-        /*=====================================================================*/
-        $responce_columns = fetch_columns_of_table($name_of_table);
-
-        if ($responce_columns['status'] == 'error') {
-            return back()->with('error', $responce_columns['content']);
-        }
-
-        $informations_of_columns = $responce_columns['content'];
-        /*=====================================================================*/
-        $responce_data = fetch_data_of_table($name_of_table);
-
-        if ($responce_data['status'] == 'error') {
-
-            return back()->with('error', $responce_data['content']);
-        }
-
-        $data_of_table = $responce_data['content'];
-        /*=====================================================================*/
-
 
         return back()->with([
-            'data_of_table' => $data_of_table,
-            'informations_of_columns' => $informations_of_columns,
             'name_of_model' => $name_of_model,
             'notifications' => $notifications,
             'test' => $test,
@@ -221,24 +194,7 @@ class RoleController extends Controller
         $model = 'App\\Models\\' . ucfirst($name_of_model);
         $this->authorize('revokeRole', $model);
         $test = 'test';
-        /*=====================================================================*/
-        $responce_columns = fetch_columns_of_table($name_of_table);
 
-        if ($responce_columns['status'] == 'error') {
-            return back()->with('error', $responce_columns['content']);
-        }
-
-        $informations_of_columns = $responce_columns['content'];
-        /*=====================================================================*/
-        $responce_data = fetch_data_of_table($name_of_table);
-
-        if ($responce_data['status'] == 'error') {
-
-            return back()->with('error', $responce_data['content']);
-        }
-
-        $data_of_table = $responce_data['content'];
-        /*=====================================================================*/
 
         // Autres opérations ou redirections après l'assignation du rôle
         //  return back()->with([
@@ -246,8 +202,6 @@ class RoleController extends Controller
         // ])->with(compact('notifications', 'user_id'));
 
         return back()->with([
-            'data_of_table' => $data_of_table,
-            'informations_of_columns' => $informations_of_columns,
             'name_of_model' => $name_of_model,
             'notifications' => $notifications,
             'test' => $test,
@@ -267,10 +221,8 @@ class RoleController extends Controller
 
 
         $this->authorize('viewAllP', Role::class);
-        $responce_columns = fetch_columns_of_table($name_of_table);
-        $informations_of_columns = $responce_columns['content'];
 
-        return view('index', compact('data_of_table', 'name_of_model', 'informations_of_columns', 'user'));
+        return view('index', compact('data_of_table', 'name_of_model', 'user'));
     }
 
     public function show_Roles_Of_User(Request $request, User $user)
@@ -279,29 +231,9 @@ class RoleController extends Controller
         $data_of_table = Role::whereNotIn('name', $rolesOfUser)->get();
         $name_of_table = 'roles';
         $name_of_model = 'role';
+
         $this->authorize('viewAllP',  Role::class);
-        /*=====================================================================*/
-        $responce_columns = fetch_columns_of_table($name_of_table);
 
-        if ($responce_columns['status'] == 'error') {
-            return back()->with('error', $responce_columns['content']);
-        }
-
-        $informations_of_columns = $responce_columns['content'];
-
-        /*=====================================================================*/
-        return view('index', compact(['data_of_table', 'informations_of_columns', 'name_of_model', 'user']));
-    }
-
-    public function markNotification(Request $request)
-    {
-        auth()->user()
-            ->unreadNotifications
-            ->when($request->input('id'), function ($query) use ($request) {
-                return $query->where('id', $request->input('id'));
-            })
-            ->markAsRead();
-
-        return response()->noContent();
+        return view('index', compact(['name_of_model', 'data_of_table', 'user']));
     }
 }

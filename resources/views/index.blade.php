@@ -33,10 +33,8 @@
             <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px">Liste {{ ucfirst($name_of_model) }} </h2>
         </form>
 
-    @endif
+    @else
 
-
-    @if ($name_of_model == 'absence')
         <form action="{{ route('set-persiode-absence') }}" method="POST">
             <div class="d-flex gap-4">
                 @csrf
@@ -72,10 +70,9 @@
         </thead>
         <tbody>
             @foreach ($data_of_table as $data)
-                <tr @if (
-                    $name_of_model == 'event' &&
-                        $column['name'] == 'date' &&
-                        $data->{$column['name']} == Carbon\Carbon::today()->format('Y-m-d')) style="background-color: rgb(255, 224, 224);" @endif>
+
+                <tr {{ color_expired_event($name_of_model, $column, $data) }}>
+
                     @foreach ($informations_of_columns as $column)
                         <td>
                             {{ choose_data($data->{$column['name']}, $column) }}
@@ -167,13 +164,13 @@
 </svg>See Roles</button>
                                 <!-- <input type="text" name="assigned_role_id" value=""> Affichez l'ID du rôle ici -->
                             </form>
-                            </td>
-                            @elseif($name_of_model == 'user')
-                            <td>
 
-                            </td>
-                            @endif
-                    
+                        </td>
+                    @elseif($name_of_model == 'user')
+                        <td>
+                        </td>
+                    @endif
+
 
                 </tr>
             @endforeach
