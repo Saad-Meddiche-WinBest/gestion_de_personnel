@@ -53,7 +53,7 @@ Route::middleware(['accessDashboard'])->group(function () {
 
     Route::post('/mark-as-read',  [NotificationController::class, "mark_notification"])
         ->name('markNotification');
-
+        
     Route::get('/check-expiration',  [NotificationController::class, "get_events_with_today_date"]);
 
     Route::get('/account', [AccountController::class, "edit"])->name('account.edit');
