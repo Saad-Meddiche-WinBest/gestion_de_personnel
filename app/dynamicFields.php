@@ -99,7 +99,7 @@ function choose_input($column, $data = null)
     $input = '<label>' . filter_name($column['name']) . '</label><br>';
 
     $comments = explode('-', $column['comment']);
-    
+
     if ($comments[0] != 'grp1') {
         return;
     }
@@ -107,7 +107,7 @@ function choose_input($column, $data = null)
     if ($comments[1] == 'foreign') {
         $options = fetch_options($column['foreign_key']['referenced_table'], isset($data->{$column['name']}) ? $data->{$column['name']} : null);
 
-        $input .= '<select id="' . choose_id($column['name']) . '" name="' . $column['name'] . '">' . $options . '</select>';
+        $input .= '<select id="' . choose_id($column['name']) . '" name="' . $column['name'] . '"' . requiredness($column['name']) . '>' . $options . '</select>';
         return $input;
     }
 
@@ -118,17 +118,17 @@ function choose_input($column, $data = null)
         $options = '<option value="1" ' . $selectedOption1 . '>' . $comments[2] . '</option>';
         $options .= '<option value="0" ' . $selectedOption2 . '>' . $comments[3] . '</option>';
 
-        $input .= '<select name="' . $column['name'] . '">' . $options . '</select>';
+        $input .= '<select name="' . $column['name'] . '"' . requiredness($column['name']) . '>' . $options . '</select>';
 
         return $input;
     }
 
     if ($comments[1] == 'datetime') {
-        $input .= '<input id="' . $column['name'] . '" type="datetime-local" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
+        $input .= '<input id="' . $column['name'] . '" type="datetime-local" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '"required>';
         return $input;
     }
 
-    $input .= '<input id="' . $column['name'] . '" type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
+    $input .= '<input id="' . $column['name'] . '" type="' . $comments[1] . '" name="' . $column['name'] . '" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '"' . requiredness($column['name']) . '>';
     return $input;
 }
 
@@ -163,4 +163,14 @@ function choose_data($looking_for, $column)
 
 
     return $looking_for;
+}
+
+function requiredness($name_of_column)
+{
+
+    if (in_array($name_of_column, ['date_fin', 'id_source', 'comment'])) {
+        return '';
+    } else {
+        return 'required';
+    }
 }

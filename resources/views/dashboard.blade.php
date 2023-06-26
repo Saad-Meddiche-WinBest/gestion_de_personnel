@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        
+
 
         <div class="notif">
             @if (auth()->user())
@@ -38,10 +38,10 @@
 
         <div class="content-dashboard" id="box-container">
             @foreach (fetch_cards() as $card)
-                <div class="box box1" data-route-id="{{$card['text']}}">
+                <div class="box box1" data-route-id="{{ $card['text'] }}">
 
                     <img src="{{ $card['image'] }}" class="image">
-                    <form action="{{ $card['link'] }}" method="GET" id="myForm{{$card['text']}}">
+                    <form action="{{ $card['link'] }}" method="GET" id="myForm{{ $card['text'] }}">
                         <input type="hidden" name="name_of_model" value="{{ $card['name_of_model'] }}">
                         <div id="btn20" type="submit">{{ $card['text'] }}
                             @if ($card['text'] == 'Events')
@@ -55,26 +55,26 @@
 
         <div class="Quick_Add">
 
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="service">
-            <button>Services</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="personne">
-            <button>Personnes</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="poste">
-            <button>Postes</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="source">
-            <button>Source</button>
-        </form>
-        <form action="{{ route('Gerer.create') }}" method="GET">
-            <input type="hidden" name="name_of_model" value="employement">
-            <button>Employements</button>
-        </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="service">
+                <button style="font-size:1rem">Services</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="personne">
+                <button style="font-size:1rem">Personnes</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="poste">
+                <button style="font-size:1rem">Postes</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="source">
+                <button style="font-size:1rem">Source</button>
+            </form>
+            <form action="{{ route('Gerer.create') }}" method="GET">
+                <input type="hidden" name="name_of_model" value="employement">
+                <button style="font-size:1rem">Employements</button>
+            </form>
 
         </div>
 
@@ -94,15 +94,15 @@
         });
     </script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var routes = document.querySelectorAll('.box');
-        routes.forEach(function(route) {
-            route.addEventListener('click', function() {
-                var routeId = this.getAttribute('data-route-id');
-                var form = document.getElementById('myForm' + routeId);
-                form.submit();
+        document.addEventListener('DOMContentLoaded', function() {
+            var routes = document.querySelectorAll('.box');
+            routes.forEach(function(route) {
+                route.addEventListener('click', function() {
+                    var routeId = this.getAttribute('data-route-id');
+                    var form = document.getElementById('myForm' + routeId);
+                    form.submit();
+                });
             });
         });
-    });
-</script>
+    </script>
 @endsection

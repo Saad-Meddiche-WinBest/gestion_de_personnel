@@ -11,7 +11,7 @@
 
         <div class="formule">
             <h5 style="color:black; width:100%; text-align:center;">Informations de base</h5>
-            <form action="{{ route('roles.store') }}" method='POST' class="formule">
+            <form action="{{ route('roles.store') }}" method='POST' class="formule" >
                 @csrf
                 <label>Name of Role : </label>
                 <input type="text" name="name">

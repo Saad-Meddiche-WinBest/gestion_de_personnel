@@ -9,7 +9,7 @@
         @endif
         <div class="formule">
             <h5 style="color:black; width:100%; text-align:center;">Informations de base</h5>
-            <form action="{{ route('Gerer.store') }}" method='POST' class="formule">
+            <form action="{{ route('Gerer.store') }}" method='POST' class="formule" data-parsley-validate>
                 @csrf
                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
 
@@ -45,7 +45,7 @@
                         url: '/get-sources/' + selectedPoste,
                         type: 'GET',
                         success: function(response) {
-                           
+
                             if (response.sources.length != 0) {
                                 sourceSelect.html('<option value="">Selectionner</option>');
 
