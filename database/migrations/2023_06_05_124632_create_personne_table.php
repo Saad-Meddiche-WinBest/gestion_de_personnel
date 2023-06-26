@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('personnes', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('grp1-number');
             $table->string('nom')->comment('grp1-text');
             $table->string('prenom')->comment('grp1-text');
             $table->date('date_naissance')->comment('grp1-date');

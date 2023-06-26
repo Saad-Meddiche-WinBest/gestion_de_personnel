@@ -52,7 +52,7 @@ function fetch_columns_of_table($name_of_table)
         abort(403, $e->getMessage());
     }
 
-    $columns_of_table = array_diff_key($columns_of_table, array_flip(['id', 'guard_name', 'created_at', 'updated_at', 'password', 'email_verified_at', 'remember_token']));
+    $columns_of_table = array_diff_key($columns_of_table, array_flip(['guard_name', 'created_at', 'updated_at', 'password', 'email_verified_at', 'remember_token']));
 
     $foreignKeys = DB::select(DB::raw("SELECT 
         COLUMN_NAME, 
@@ -162,12 +162,4 @@ function choose_data($looking_for, $column)
 
 
     return $looking_for;
-}
-
-function check_if_already_exists($name_of_table, $column_of_table, $data)
-{
-
-    $record = DB::table($name_of_table)->where($column_of_table, $data)->get();
-
-    dd($record);
 }

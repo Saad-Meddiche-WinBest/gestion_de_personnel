@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('sources', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('grp1-number');
             $table->string('nom')->comment('grp1-text');
             $table->unsignedBigInteger('id_poste')->comment('grp1-foreign');
             $table->foreign('id_poste')->references('id')->on('postes')->onDelete("cascade");;

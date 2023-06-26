@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('grp1-number');
             $table->string('nom')->comment('grp1-text');
           
             $table->timestamps();

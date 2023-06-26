@@ -29,10 +29,11 @@
 
         <main style="flex: 1;display:flex;">
             @include('layouts.include.sidebar')
-     
 
 
-            <div class="ContentS1" style="flex: 1;display:flex;flex-direction:column; justify-content: center;
+
+            <div class="ContentS1"
+                style="flex: 1;display:flex;flex-direction:column; justify-content: center;
   align-items: center;">
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -63,7 +64,7 @@
 
 
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    
+
     <script>
         let table = new DataTable('#myTable');
 
@@ -76,10 +77,14 @@
 
             // Find the index of the "Action" column
             let actionColumnIndex = columns.findIndex(column => column === 'Action');
+            let roleColumnIndex = columns.findIndex(column => column === 'Role');
 
             // Filter out the "Action" column from the columns and data
-            let filteredColumns = columns.filter((column, index) => index !== actionColumnIndex);
-            let filteredData = data.map(row => row.filter((_, index) => index !== actionColumnIndex));
+            let filteredColumns = columns.filter((column, index) => index !== actionColumnIndex && index !==
+                roleColumnIndex);
+
+            let filteredData = data.map(row => row.filter((_, index) => index !== actionColumnIndex && index !==
+                roleColumnIndex));
 
             // Create a new workbook and worksheet
             let workbook = XLSX.utils.book_new();
@@ -94,7 +99,7 @@
 
         });
     </script>
-    
+
     <script>
         function sendMarkRequest(id = null) {
             return $.ajax("{{ route('markNotification') }}", {
@@ -121,8 +126,7 @@
                 });
             });
         });
-
-</script>
+    </script>
 
 </body>
 

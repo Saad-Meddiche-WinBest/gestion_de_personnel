@@ -15,11 +15,10 @@ return new class extends Migration
     {
         //
         Schema::create('employements', function (Blueprint $table) {
-        $table->id();
-        $table->string('nom')->comment('grp1-text');
-        $table->timestamps();
+            $table->id()->comment('grp1-number');
+            $table->string('nom')->comment('grp1-text');
+            $table->timestamps();
         });
-        
     }
 
     /**
@@ -30,6 +29,6 @@ return new class extends Migration
     public function down()
     {
         //
-         Schema::dropIfExists('employements');
+        Schema::dropIfExists('employements');
     }
 };

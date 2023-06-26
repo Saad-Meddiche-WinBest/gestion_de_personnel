@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('absences', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('grp1-number');
             $table->unsignedBigInteger('id_personne')->comment('grp2-foreign');
             $table->unsignedBigInteger('id_reason')->comment('grp1-foreign');
             $table->date('date')->comment('grp1-date');

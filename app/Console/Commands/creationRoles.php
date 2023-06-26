@@ -133,10 +133,8 @@ class creationRoles extends Command
     
     
     $Owner_User->assignRole($owner); // Affecter le rôle à luti'lisateur
-    // $Admin_User->removeRole($admin); // Affecter le rôle à l'utilisateur
     $support_user->assignRole($support); // Affecter le rôle à l'utilisateur
-    //$Owner_User->removeRole($owner); // Affecter le rôle à l'utilisateur
-    //$Admin2_User->assignRole($admin2); // Affecter le rôle à l'utilisateur
+  
     
 }
 }
