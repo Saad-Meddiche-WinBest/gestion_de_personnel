@@ -59,6 +59,8 @@ class CrudController extends Controller
             $extra_informations = $request->extra_informations;
 
             Cache::forever('extra_informations', $extra_informations);
+        } else {
+            Cache::forget('extra_informations');
         }
 
         return view('create', [
