@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //
         Schema::create('employements', function (Blueprint $table) {
-            $table->id()->comment('grp1-number');
+            $table->id()->comment('grp2-number');
             $table->string('nom')->comment('grp1-text');
             $table->timestamps();
         });

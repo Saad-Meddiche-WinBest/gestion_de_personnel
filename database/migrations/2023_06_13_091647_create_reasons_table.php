@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reasons', function (Blueprint $table) {
-            $table->id()->comment('grp1-number');
+            $table->id()->comment('grp2-number');
             $table->string('nom')->comment('grp1-text');
             $table->timestamps();
         });

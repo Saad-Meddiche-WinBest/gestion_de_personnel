@@ -45,10 +45,11 @@ class DynamicValidation extends FormRequest
             $rules[$key] = 'required';
         }
 
+        $nom = '';
         if (isset($inputs['name_of_model']) && in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason'])) {
             $table_name = $inputs['name_of_model'] . 's';
 
-            $rules['nom'] = (isset($_REQUEST['_method'])) ? 'unique:' . $table_name . ',nom,' . $id_of_record : 'unique:' . $table_name . ',nom';
+            $nom = (isset($_REQUEST['_method'])) ? 'unique:' . $table_name . ',nom,' . $id_of_record : 'unique:' . $table_name . ',nom';
         }
 
         $cin =  (isset($_REQUEST['_method'])) ? 'unique:personnes,cin,' . $id_of_record : 'unique:personnes,cin';
@@ -66,15 +67,16 @@ class DynamicValidation extends FormRequest
             'cin' => 'required|' . $cin,
             'id_source' => 'nullable',
             'name' => 'required|' . $name,
+            'nom' => 'required|' . $nom,
 
         ];
+
 
         foreach ($data as $key => $value) {
             if (isset($rules[$key])) {
                 $rules[$key] = $value;
             }
         }
-
 
         return $rules;
     }

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('celebrations', function (Blueprint $table) {
-            $table->id()->comment('grp1-number');
+            $table->id()->comment('grp2-number');
             $table->date('date')->comment('grp1-date');
             $table->string('evenement')->comment('grp1-text');
             $table->timestamps();

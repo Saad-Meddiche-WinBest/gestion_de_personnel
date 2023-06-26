@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->id()->comment('grp1-number');
+            $table->id()->comment('grp2-number');
             $table->unsignedBigInteger('id_personne')->comment('grp2-foreign');
             $table->string('comment')->comment('grp1-text');
             $table->string('date')->comment('grp1-date');

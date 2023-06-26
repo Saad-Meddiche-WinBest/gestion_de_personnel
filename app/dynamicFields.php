@@ -99,6 +99,7 @@ function choose_input($column, $data = null)
     $input = '<label>' . filter_name($column['name']) . '</label><br>';
 
     $comments = explode('-', $column['comment']);
+    
     if ($comments[0] != 'grp1') {
         return;
     }
