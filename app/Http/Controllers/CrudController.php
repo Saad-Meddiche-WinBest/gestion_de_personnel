@@ -80,7 +80,7 @@ class CrudController extends Controller
 
 
             foreach ($extra_informations as $info) {
-               
+
                 $data->{$info['column']} = $info['data'];
             }
 
@@ -128,7 +128,22 @@ class CrudController extends Controller
 
         $this->authorize('update', $this->class);
 
+
         $data = (object) $request->validated();
+
+        if (Cache::has('extra_informations')) {
+
+            $extra_informations = Cache::get('extra_informations');
+
+
+            foreach ($extra_informations as $info) {
+
+                $data->{$info['column']} = $info['data'];
+            }
+
+            Cache::forget('extra_informations');
+        }
+
 
         update_data_of_table((array) $data, $this->name_of_table, $id_of_row);
 

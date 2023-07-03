@@ -38,7 +38,6 @@
     @endif
 
     @if ($name_of_model == 'absence')
-
         <form action="{{ route('set-persiode-absence') }}" method="POST">
             <div class="d-flex gap-4">
                 @csrf
@@ -65,7 +64,7 @@
         <thead>
             <tr>
                 @foreach ($informations_of_columns as $column)
-                    <th style="font-size:0.7rem;">{{ filter_name($column['name']) }}</th>
+                        <th style="font-size:0.7rem;">{{ filter_name($column['name']) }}</th>
                 @endforeach
                 <th style="font-size:0.7rem;">Action</th>
                 @if ($name_of_model == 'user')
@@ -78,9 +77,10 @@
                 <tr {{ color_expired_event($name_of_model, $column, $data) }}>
 
                     @foreach ($informations_of_columns as $column)
-                        <td style="font-size:0.7rem;">
-                            {{ choose_data($data->{$column['name']}, $column) }}
-                        </td>
+                            <td style="font-size:0.7rem;">
+                                {{ choose_data($data->{$column['name']}, $column) }}
+
+                            </td>
                     @endforeach
 
                     <td>
@@ -175,8 +175,7 @@
                                 <input type="hidden" name="name_of_model" value="role">
                                 <input type="hidden" name="user_id" value="{{ $data->id }}">
                                 <button id="btn1" type="submit" class="btn btn-outline-info"
-                                    style="font-size:0.7rem;padding:height:100%"><svg
-                                        xmlns="http://www.w3.org/2000/svg"
+                                    style="font-size:0.7rem;padding:height:100%"><svg xmlns="http://www.w3.org/2000/svg"
                                         style="padding-right: 6px; padding-bottom:2.5px;" width="20" height="20"
                                         fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                         <path
@@ -200,5 +199,4 @@
 
         <tbody>
     </table>
-    
 @endsection

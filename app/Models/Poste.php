@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Icon;
 use App\Models\Source;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,6 @@ class Poste extends Model
 
     public function icon()
     {
-        return $this->hasOne(Icon::class , 'id');
+        return $this->belongsTo(Icon::class, 'id_icon');
     }
 }

@@ -111,7 +111,7 @@ function choose_input($column, $data = null)
 
     $comments = explode('-', $column['comment']);
 
-    if ($comments[0] != 'grp1') {
+    if (!in_array($comments[0], ['grp1', 'grp3'])) {
         return;
     }
 
@@ -166,6 +166,7 @@ function choose_data($looking_for, $column)
 {
     $comments = explode('-', $column['comment']);
 
+
     if ($comments[1] == 'foreign') {
         $referenced_table = $column['foreign_key']['referenced_table'];
         $data = DB::table($referenced_table)->where('id', $looking_for)->value('nom');
@@ -180,7 +181,6 @@ function choose_data($looking_for, $column)
                 return $comments[3];
         }
     }
-
 
     return $looking_for;
 }

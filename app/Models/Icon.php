@@ -12,8 +12,5 @@ class Icon extends Model
     protected $guarded = ['name_of_model', '_token', '_method'];
     protected $fillable = ['nom'];
 
-    public function poste()
-    {
-        return $this->belongsTohasOne(Poste::class, 'id_icon');
-    }
+
 }
