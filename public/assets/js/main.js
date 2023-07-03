@@ -12,9 +12,6 @@ function display_inputs(){
 }
 
 function stock_id_icon(id_icon){
-
-    alert(id_icon)
-     
     $.ajax({
         url: '/stock-id_icon/' + id_icon,
         type: 'GET',

@@ -7,9 +7,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div style="display: flex;gap:10px;justify-content:space-around;" >
+                <div style="display: flex;gap:10px;justify-content:space-around;">
                     @foreach (fetch_data_of_table('icons') as $icon)
-                        <img src="{{ $icon->nom }}" alt="" style="width: 100px" onclick="stock_id_icon({{$icon->id}})">
+                        <img src="{{ $icon->nom }}" alt="" style="width: 100px"
+                            onclick="stock_id_icon({{ $icon->id }})" data-bs-dismiss="modal">
                     @endforeach
                 </div>
 
@@ -20,4 +21,3 @@
         </div>
     </div>
 </div>
-

@@ -64,7 +64,9 @@
         <thead>
             <tr>
                 @foreach ($informations_of_columns as $column)
+                    @if ($column['name'] != 'id_icon')
                         <th style="font-size:0.7rem;">{{ filter_name($column['name']) }}</th>
+                    @endif
                 @endforeach
                 <th style="font-size:0.7rem;">Action</th>
                 @if ($name_of_model == 'user')
@@ -77,10 +79,12 @@
                 <tr {{ color_expired_event($name_of_model, $column, $data) }}>
 
                     @foreach ($informations_of_columns as $column)
+                        @if ($column['name'] != 'id_icon')
                             <td style="font-size:0.7rem;">
                                 {{ choose_data($data->{$column['name']}, $column) }}
 
                             </td>
+                        @endif
                     @endforeach
 
                     <td>
