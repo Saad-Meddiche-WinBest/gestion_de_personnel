@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('postes', function (Blueprint $table) {
-            $table->id()->comment('grp2-number');
+        Schema::create('icons', function (Blueprint $table) {
+            $table->id();
             $table->string('nom')->comment('grp1-text');
-            $table->unsignedBigInteger('id_icon')->comment('grp1-icons');
-            $table->foreign('id_icon')->references('id')->on('icons');
             $table->timestamps();
         });
     }
@@ -30,7 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('postes');
+        Schema::dropIfExists('icons');
     }
 };
