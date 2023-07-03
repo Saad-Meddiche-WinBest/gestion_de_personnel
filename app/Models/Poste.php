@@ -11,10 +11,15 @@ class Poste extends Model
     use HasFactory;
     protected $table = 'postes';
     protected $guarded = ['name_of_model', '_token', '_method'];
-    protected $fillable = ['nom'];
+    protected $fillable = ['nom', 'id_icon'];
 
     public function sources()
     {
         return $this->hasMany(Source::class, 'id_poste');
+    }
+
+    public function icon()
+    {
+        return $this->hasOne(Icon::class , 'id');
     }
 }
