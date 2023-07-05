@@ -88,6 +88,12 @@ function fetch_cards()
             'text' => 'Block Notes',
             'name_of_model' => 'note',
             'link' => '/Gerer'
+        ],
+        [
+            'image' => 'https://th.bing.com/th?id=OIP.z4EClIdEDnPAFgKqmPvBMQHaHa&w=249&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
+            'text' => 'Black List',
+            'name_of_model' => 'ban',
+            'link' => '/Gerer'
         ]
         
 

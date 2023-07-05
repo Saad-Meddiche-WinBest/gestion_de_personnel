@@ -178,6 +178,18 @@
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
+                                <form action="{{ route('Gerer.create') }}" method="GET">
+                                    <button id="btn1" type="sumbit" class="btn btn-warning"
+                                        style="font-size:0.7rem;">Banner</button>
+                                    <input type="hidden" name="name_of_model" value="ban">
+
+                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data->nom }}>
+                                    <input type="hidden" name="extra_informations[0][column]" value="nom">
+                                    <input type="hidden" name="extra_informations[1][data]" value={{ $data->prenom }}>
+                                    <input type="hidden" name="extra_informations[1][column]" value="prenom">
+                                    <input type="hidden" name="extra_informations[2][data]" value={{ $data->cin }}>
+                                    <input type="hidden" name="extra_informations[2][column]" value="cin">
+                                </form>
                             @endif
                         </div>
                     </td>

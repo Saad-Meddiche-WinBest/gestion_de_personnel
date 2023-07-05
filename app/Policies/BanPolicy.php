@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DepartementPolicy
+class BanPolicy
 {
     use HandlesAuthorization;
 
