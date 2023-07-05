@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_personne')->comment('grp2-foreign');
             $table->unsignedBigInteger('id_reason')->comment('grp1-foreign');
             $table->date('date')->comment('grp1-date');
-            $table->string('comment')->comment('grp1-text')->default(null);
+            $table->string('comment')->nullable()->comment('grp1-text');
             $table->foreign('id_personne')->references('id')->on('personnes')->onDelete("cascade");
             $table->foreign('id_reason')->references('id')->on('reasons');
             $table->timestamps();

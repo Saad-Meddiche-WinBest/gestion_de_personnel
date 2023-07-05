@@ -68,6 +68,7 @@ class DynamicValidation extends FormRequest
             'id_source' => 'nullable',
             'name' => 'required|' . $name,
             'nom' => 'required|' . $nom,
+            'comment' => 'nullable'
 
         ];
 
