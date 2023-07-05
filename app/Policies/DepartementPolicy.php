@@ -11,28 +11,28 @@ class DepartementPolicy
 
     public function viewAll(User $user)
     {
-        if ($user->hasPermissionTo('voir_services') || $user->hasPermissionTo('*')) {
+        if ($user->hasPermissionTo('voir_Departements') || $user->hasPermissionTo('*')) {
             return true;
         }
     }
 
     public function create(User $user)
     {
-        if ($user->hasPermissionTo('ajouter_service') || $user->hasPermissionTo('*')) {
+        if ($user->hasPermissionTo('ajouter_Departement') || $user->hasPermissionTo('*')) {
             return true;
         }
     }
 
     public function update(User $user)
     {
-        if ($user->hasPermissionTo('modifier_service') || $user->hasPermissionTo('*')) {
+        if ($user->hasPermissionTo('modifier_Departement') || $user->hasPermissionTo('*')) {
             return true;
         }
     }
 
     public function destroy(User $user)
     {
-        if ($user->hasPermissionTo('supprimer_service') || $user->hasPermissionTo('*')) {
+        if ($user->hasPermissionTo('supprimer_Departement') || $user->hasPermissionTo('*')) {
             return true;
         }
     }

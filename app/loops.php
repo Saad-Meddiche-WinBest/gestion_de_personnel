@@ -60,7 +60,6 @@ function fetch_cards()
             'link' => '/Gerer'
         ],
         [
-
             'image' => 'https://cdn-icons-png.flaticon.com/512/1168/1168776.png',
             'text' => 'Raisons d\'absence',
             'name_of_model' => 'reason',
@@ -71,13 +70,11 @@ function fetch_cards()
             'text' => 'Events',
             'name_of_model' => 'event',
             'link' => '/Gerer'
-
         ],
         [
             'image' => 'https://tse3.mm.bing.net/th/id/OIP.sK04hKKc72wLGqDP4hKhugHaHa?pid=ImgDet&w=900&h=900&rs=1',
             'text' => 'Roles',
             'name_of_model' => 'role',
-
             'link' => '/roles'
         ],
         [
@@ -86,6 +83,12 @@ function fetch_cards()
             'name_of_model' => 'celebration',
             'link' => '/Gerer'
         ],
+        [
+            'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
+            'text' => 'Block Notes',
+            'name_of_model' => 'note',
+            'link' => '/Gerer'
+        ]
         
 
 
