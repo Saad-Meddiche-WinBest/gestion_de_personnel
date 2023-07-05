@@ -2,23 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
-
-use Carbon\Carbon;
-
-use App\Models\Post;
-use App\Models\User;
-
 use App\Models\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\DynamicValidation;
-
-
-
-
 
 class CrudController extends Controller
 {
@@ -78,7 +65,9 @@ class CrudController extends Controller
 
             $extra_informations = Cache::get('extra_informations');
 
+
             foreach ($extra_informations as $info) {
+
                 $data->{$info['column']} = $info['data'];
             }
 
@@ -126,7 +115,21 @@ class CrudController extends Controller
 
         $this->authorize('update', $this->class);
 
+
         $data = (object) $request->validated();
+
+        if (Cache::has('extra_informations')) {
+
+            $extra_informations = Cache::get('extra_informations');
+
+
+            foreach ($extra_informations as $info) {
+
+                $data->{$info['column']} = $info['data'];
+            }
+
+            Cache::forget('extra_informations');
+        }
 
         update_data_of_table((array) $data, $this->name_of_table, $id_of_row);
 

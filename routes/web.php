@@ -53,11 +53,13 @@ Route::middleware(['accessDashboard'])->group(function () {
 
     Route::post('/mark-as-read',  [NotificationController::class, "mark_notification"])
         ->name('markNotification');
-        
+
     Route::get('/check-expiration',  [NotificationController::class, "get_events_with_today_date"]);
 
     Route::get('/account', [AccountController::class, "edit"])->name('account.edit');
     Route::put('/account/update', [AccountController::class, "update"])->name('account.update');
+
+    Route::get('/stock-id_icon/{id_icon}',  [GeneralController::class, "stock_id_of_icon"]);
 
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');

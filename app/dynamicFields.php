@@ -37,6 +37,17 @@ function fetch_options($name_of_table, $id = Null)
     return $options;
 }
 
+function fetch_icons($name_of_table)
+{
+    if (!$name_of_table) {
+        return '';
+    }
+
+    $options = '';
+
+    return $options;
+}
+
 function fetch_columns_of_table($name_of_table)
 {
     //Sources:https://stackoverflow.com/questions/18562684/how-to-get-database-field-type-in-laravel
@@ -100,7 +111,7 @@ function choose_input($column, $data = null)
 
     $comments = explode('-', $column['comment']);
 
-    if ($comments[0] != 'grp1') {
+    if (!in_array($comments[0], ['grp1', 'grp3'])) {
         return;
     }
 
@@ -108,6 +119,15 @@ function choose_input($column, $data = null)
         $options = fetch_options($column['foreign_key']['referenced_table'], isset($data->{$column['name']}) ? $data->{$column['name']} : null);
 
         $input .= '<select id="' . choose_id($column['name']) . '" name="' . $column['name'] . '"' . requiredness($column['name']) . '>' . $options . '</select>';
+        return $input;
+    }
+
+    if ($comments[1] == 'icons') {
+
+        $input = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Choose Icon
+      </button>';
+
         return $input;
     }
 
@@ -146,6 +166,7 @@ function choose_data($looking_for, $column)
 {
     $comments = explode('-', $column['comment']);
 
+
     if ($comments[1] == 'foreign') {
         $referenced_table = $column['foreign_key']['referenced_table'];
         $data = DB::table($referenced_table)->where('id', $looking_for)->value('nom');
@@ -160,7 +181,6 @@ function choose_data($looking_for, $column)
                 return $comments[3];
         }
     }
-
 
     return $looking_for;
 }

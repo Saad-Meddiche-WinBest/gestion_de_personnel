@@ -11,3 +11,12 @@ function display_inputs(){
     $(".clear").val("");
 }
 
+function stock_id_icon(id_icon){
+    $.ajax({
+        url: '/stock-id_icon/' + id_icon,
+        type: 'GET',
+    });
+      
+}
+
+

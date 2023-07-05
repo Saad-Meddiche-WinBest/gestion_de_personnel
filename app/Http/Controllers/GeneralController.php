@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Poste;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Cache;
+
 
 class GeneralController extends Controller
 {
@@ -13,7 +15,7 @@ class GeneralController extends Controller
         $notifications = auth()->user()->unreadNotifications;
         return view('dashboard', compact('notifications'));
     }
-    
+
     public function get_all_sources_of_poste(Poste $poste)
     {
         $sources = $poste->sources;
@@ -34,5 +36,20 @@ class GeneralController extends Controller
             abort(403, 'Unauthorized');
         }
         return fetch_personnes_with_this_poste($poste->id);
+    }
+
+    public function stock_id_of_icon($id_icon)
+    {
+        Cache::forget('extra_informations');
+
+        $data = [
+            [
+                'data' => $id_icon,
+                'column' => 'id_icon'
+            ]
+
+        ];
+
+        Cache::forever('extra_informations', $data);
     }
 }

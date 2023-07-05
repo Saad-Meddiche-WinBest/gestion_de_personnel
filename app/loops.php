@@ -88,7 +88,7 @@ function fetch_cards()
 
     foreach ($postes as $poste) {
         $routes[] = [
-            'image' => 'https://cdn-icons-png.flaticon.com/512/3616/3616927.png',
+            'image' => $poste->icon->nom,
             'text' => $poste->nom,
             'name_of_model' => 'personne',
             'link' => '/poste/' . $poste->id
@@ -127,8 +127,7 @@ function fill_sidebar()
                         </svg>',
             'name_of_model' => 'user',
             'link' => '/Gerer'
-        ]
-        ,
+        ],
         [
             'title' => 'Services',
             'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-fill-check" viewBox="0 0 16 16">
@@ -136,7 +135,7 @@ function fill_sidebar()
           </svg>',
             'name_of_model' => 'service',
             'link' => '/Gerer'
-        ] ,
+        ],
         [
             'title' => 'Sources',
             'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
@@ -192,6 +191,4 @@ function fill_sidebar()
     }
 
     return $routes;
-
-   
 }
