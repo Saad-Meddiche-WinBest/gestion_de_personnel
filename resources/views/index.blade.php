@@ -20,7 +20,7 @@
     @endif
 
 
-    @if ($name_of_model != 'absence' && $name_of_model != 'role')
+    @if ($name_of_model != 'absence' && $name_of_model != 'role' && $name_of_model != 'ban')
         @if ($name_of_model != 'user')
             <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">

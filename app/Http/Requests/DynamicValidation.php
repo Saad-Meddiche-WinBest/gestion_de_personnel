@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Http\FormRequest;
 
 class DynamicValidation extends FormRequest
 {
@@ -46,7 +47,7 @@ class DynamicValidation extends FormRequest
         }
 
         $nom = '';
-        if (isset($inputs['name_of_model']) && in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason' ,'departement'])) {
+        if (isset($inputs['name_of_model']) && in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason', 'departement'])) {
             $table_name = $inputs['name_of_model'] . 's';
 
             $nom = (isset($_REQUEST['_method'])) ? 'unique:' . $table_name . ',nom,' . $id_of_record : 'unique:' . $table_name . ',nom';
@@ -64,7 +65,12 @@ class DynamicValidation extends FormRequest
             'date_debut' => 'required|date',
             'date_fin' => 'nullable|date|after:date_debut',
             'date_notification' => 'nullable|date|after:date_debut|before:date_fin',
-            'cin' => 'required|' . $cin,
+            'cin' => ['required', function ($attribute, $value, $fail) {
+                if (DB::table('bans')->where('cin', $value)->exists()) {
+                    $fail('Already Banned');
+                }
+            }],
+
             'id_source' => 'nullable',
             'id_service' => 'nullable',
             'name' => 'required|' . $name,

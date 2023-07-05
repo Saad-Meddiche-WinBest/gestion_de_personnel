@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('etat_civil')->comment('grp1-bool-Marie-Single');
 
             $table->unsignedBigInteger('id_departement')->comment('grp1-foreign');
-            $table->unsignedBigInteger('id_service')->comment('grp1-foreign');
+            $table->unsignedBigInteger('id_service')->nullable()->comment('grp1-foreign');
             $table->unsignedBigInteger('id_employement')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_poste')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_source')->nullable()->comment('grp1-foreign');

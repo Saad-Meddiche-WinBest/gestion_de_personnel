@@ -65,7 +65,6 @@ class CrudController extends Controller
 
             $extra_informations = Cache::get('extra_informations');
 
-
             foreach ($extra_informations as $info) {
 
                 $data->{$info['column']} = $info['data'];
