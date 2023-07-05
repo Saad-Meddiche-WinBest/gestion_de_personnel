@@ -45,6 +45,7 @@ Route::middleware(['accessDashboard'])->group(function () {
     Route::get('/poste/{poste}',  [GeneralController::class, "get_personnes_with_this_poste"]);
 
     Route::get('/get-sources/{poste}',  [GeneralController::class, "get_all_sources_of_poste"]);
+    Route::get('/get-services/{departement}',  [GeneralController::class, "get_all_services_of_departement"]);
 
 
     Route::post('/set-persiode-absence',  [GeneralController::class, "get_absences_in_this_periode"])

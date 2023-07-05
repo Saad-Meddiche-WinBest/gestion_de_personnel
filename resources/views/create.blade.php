@@ -67,6 +67,37 @@
                     sourceSelect.html('<option value="">Selectionner</option>');
                 }
             });
+            $('#Departement').change(function() {
+                var selectedDepartement = $(this).val();
+                var ServiceSelect = $('#Service');
+
+                if (selectedDepartement) {
+                    $.ajax({
+                        url: '/get-services/' + selectedDepartement,
+                        type: 'GET',
+                        success: function(response) {
+
+                            if (response.services.length != 0) {
+                                ServiceSelect.html('<option value="">Selectionner</option>');
+
+                                $.each(response.services, function(key, value) {
+                                    ServiceSelect.append('<option value="' + value.id +
+                                        '">' + value.nom + '</option>');
+                                });
+                            } else {
+                                ServiceSelect.html(
+                                    '<option value="">No Services For This Departement</option>');
+
+                            }
+
+                            ServiceSelect.prop('disabled', false);
+                        }
+                    });
+                } else {
+                    ServiceSelect.prop('disabled', true);
+                    ServiceSelect.html('<option value="">Selectionner</option>');
+                }
+            });
         });
     </script>
 @endsection

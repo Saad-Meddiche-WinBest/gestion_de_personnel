@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departement;
 use App\Models\Poste;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -20,6 +21,12 @@ class GeneralController extends Controller
     {
         $sources = $poste->sources;
         return response()->json(['sources' => $sources]);
+    }
+
+    public function get_all_services_of_departement(Departement $departement)
+    {
+        $services = $departement->services;
+        return response()->json(['services' => $services]);
     }
 
     public function get_absences_in_this_periode(Request $request)

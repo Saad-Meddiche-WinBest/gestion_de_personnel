@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('postes', function (Blueprint $table) {
             $table->id()->comment('grp2-number');
             $table->string('nom')->comment('grp1-text');
-            $table->unsignedBigInteger('id_icon')->comment('grp3-icons')->nullable()->default(1);
+            $table->unsignedBigInteger('id_icon')->comment('grp3-icons')->default(1);
             $table->foreign('id_icon')->references('id')->on('icons');
             $table->timestamps();
         });

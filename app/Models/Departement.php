@@ -11,4 +11,11 @@ class Departement extends Model
     protected $table = 'departements';
     protected $guarded = ['name_of_model', '_token', '_method'];
     protected $fillable = ['nom'];
+
+    
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'id_departement');
+    }
+
 }

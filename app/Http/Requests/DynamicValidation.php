@@ -46,7 +46,7 @@ class DynamicValidation extends FormRequest
         }
 
         $nom = '';
-        if (isset($inputs['name_of_model']) && in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason'])) {
+        if (isset($inputs['name_of_model']) && in_array($inputs['name_of_model'], ['poste', 'source', 'employement', 'service', 'reason' ,'departement'])) {
             $table_name = $inputs['name_of_model'] . 's';
 
             $nom = (isset($_REQUEST['_method'])) ? 'unique:' . $table_name . ',nom,' . $id_of_record : 'unique:' . $table_name . ',nom';
@@ -66,6 +66,7 @@ class DynamicValidation extends FormRequest
             'date_notification' => 'nullable|date|after:date_debut|before:date_fin',
             'cin' => 'required|' . $cin,
             'id_source' => 'nullable',
+            'id_service' => 'nullable',
             'name' => 'required|' . $name,
             'nom' => 'required|' . $nom,
             'comment' => 'nullable'
