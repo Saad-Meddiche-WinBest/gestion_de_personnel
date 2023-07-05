@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 function  fetch_data_of_table($name_of_table, $id = null)
 {
     try {
+
         $query = DB::table($name_of_table);
 
         if ($id !== null) {
@@ -18,6 +19,7 @@ function  fetch_data_of_table($name_of_table, $id = null)
         }
 
         $data = $query->get();
+
     } catch (QueryException $e) {
         abort(403, $e->getMessage());
     }
