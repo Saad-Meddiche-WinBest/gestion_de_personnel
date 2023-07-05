@@ -117,7 +117,7 @@
                                 </form>
                             @endif
 
-                            @if ($name_of_model == 'user' && $data->id !== 0)
+                            @if ($name_of_model == 'user')
                                 <form action="{{ route('roles.user', $data->id) }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-success"
                                         style="height:100%; font-size:0.5rem;">Gérer

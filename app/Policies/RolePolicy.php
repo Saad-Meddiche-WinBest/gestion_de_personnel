@@ -20,7 +20,6 @@ class RolePolicy
         //
     }
 
-
     public function viewAll(User $user)
     {
         // Vérifier si l'utilisateur a la permission spécifique pour voir les une personne

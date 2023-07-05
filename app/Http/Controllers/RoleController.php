@@ -15,8 +15,10 @@ class RoleController extends Controller
     {
         $roles = Role::all(); // Récupérer tous les rôles depuis la base de données
 
+        unset($roles[0]);
+
         $model = Role::class;
-        // dd($model);
+
         $this->authorize('viewAll', Role::class);
 
         return view('roles', compact('roles'));
@@ -74,6 +76,7 @@ class RoleController extends Controller
 
     public function permission(Request $request, Role $role_id)
     {
+      
         $permissions = Permission::all();
         $role = $request->role_id;
         $model = Role::class;
@@ -235,7 +238,7 @@ class RoleController extends Controller
         $name_of_table = 'roles';
         $name_of_model = 'role';
 
-        $this->authorize('viewAllP',  Role::class);
+        $this->authorize('viewAll',  Role::class);
 
         return view('index', compact(['name_of_model', 'data_of_table', 'user']));
     }
