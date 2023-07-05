@@ -28,12 +28,14 @@ return new class extends Migration
             $table->boolean('sexe')->comment('grp1-bool-Male-Female');
             $table->boolean('etat_civil')->comment('grp1-bool-Marie-Single');
 
+            $table->unsignedBigInteger('id_departement')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_service')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_employement')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_poste')->comment('grp1-foreign');
             $table->unsignedBigInteger('id_source')->nullable()->comment('grp1-foreign');
 
             $table->foreign('id_poste')->references('id')->on('postes');
+            $table->foreign('id_departement')->references('id')->on('departements');
             $table->foreign('id_service')->references('id')->on('services');
             $table->foreign('id_employement')->references('id')->on('employements');
             $table->foreign('id_source')->references('id')->on('sources');

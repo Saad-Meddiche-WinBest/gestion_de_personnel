@@ -30,6 +30,12 @@ function fetch_cards()
             'link' => '/Gerer'
         ],
         [
+            'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
+            'text' => 'Departements',
+            'name_of_model' => 'departement',
+            'link' => '/Gerer'
+        ],
+        [
             'image' => 'https://www.clipartkey.com/mpngs/m/73-731125_resources-icon-infographic-.png',
             'text' => 'Sources',
             'name_of_model' => 'source',
@@ -76,10 +82,11 @@ function fetch_cards()
         ],
         [
             'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
-            'text' => 'Celibrations',
+            'text' => 'Jours Férier',
             'name_of_model' => 'celebration',
             'link' => '/Gerer'
         ],
+        
 
 
     ];

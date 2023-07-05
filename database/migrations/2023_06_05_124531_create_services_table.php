@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        //
         Schema::create('services', function (Blueprint $table) {
             $table->id()->comment('grp2-number');
             $table->string('nom')->comment('grp1-text');
-
+            $table->unsignedBigInteger('id_departement')->comment('grp1-foreign');
+            $table->foreign('id_departement')->references('id')->on('departements')->onDelete("cascade");;
             $table->timestamps();
         });
     }
@@ -29,7 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
         Schema::dropIfExists('services');
     }
 };
