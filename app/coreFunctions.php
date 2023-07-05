@@ -8,17 +8,13 @@ use Illuminate\Support\Facades\Validator;
 
 /*=========Function That Have Contact With DataBase=========*/
 
-function fetch_data_of_table($name_of_table, $id = null)
+function  fetch_data_of_table($name_of_table, $id = null)
 {
     try {
         $query = DB::table($name_of_table);
 
         if ($id !== null) {
             $query->where('id', $id);
-        }
-
-        if ($id !== null && $id == 0) {
-            abort(403, 'No One Can Touch the Owner');
         }
 
         $data = $query->get();

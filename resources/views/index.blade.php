@@ -90,7 +90,7 @@
                     <td>
                         <div style="display:flex; ">
 
-                            @if ($name_of_model !== 'role' && $data->id !== 0)
+                            @if ($name_of_model !== 'role')
                                 <form action="{{ route('Gerer.edit', $data->id) }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-primary"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"

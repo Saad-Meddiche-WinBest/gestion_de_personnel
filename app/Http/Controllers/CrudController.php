@@ -115,7 +115,6 @@ class CrudController extends Controller
 
         $this->authorize('update', $this->class);
 
-
         $data = (object) $request->validated();
 
         if (Cache::has('extra_informations')) {
@@ -140,7 +139,8 @@ class CrudController extends Controller
 
     public function destroy($id_of_row)
     {
-        $this->authorize('destroy', $this->class);
+        $record = $this->class::find($id_of_row);
+        $this->authorize('destroy', [$this->class, $record]);
 
         delete_data_from_table($this->name_of_table, $id_of_row);
 
