@@ -4,7 +4,6 @@ use App\Models\Absence;
 use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Validator;
 
 /*=========Function That Have Contact With DataBase=========*/
 

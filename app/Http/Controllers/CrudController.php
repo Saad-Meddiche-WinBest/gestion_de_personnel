@@ -42,7 +42,7 @@ class CrudController extends Controller
         $this->authorize('create', $this->class);
 
         if (isset($request->extra_informations)) {
-
+          
             $extra_informations = $request->extra_informations;
 
             Cache::forever('extra_informations', $extra_informations);
@@ -60,30 +60,22 @@ class CrudController extends Controller
         $this->authorize('create', $this->class);
 
         $data = (object) $request->validated();
-
+        
         if (Cache::has('extra_informations')) {
-
+            
             $extra_informations = Cache::get('extra_informations');
-
+            
             foreach ($extra_informations as $info) {
-
+                
                 $data->{$info['column']} = $info['data'];
             }
-
+            
             Cache::forget('extra_informations');
         }
-
+     
         $id_of_last_row = insert_data_to_table((array) $data, $this->name_of_table);
 
-        if (isset($data->date_notification)) {
-            $data = [
-                'id_personne' => $id_of_last_row,
-                'comment' => 'Le Stage touche à son fin',
-                'date' => $data->date_notification
-            ];
-
-            Event::create($data);
-        }
+        addition_functions($this->name_of_table, [$data, $id_of_last_row]);
 
         return view('index', [
             'name_of_model' => $this->name_of_model,
@@ -110,6 +102,7 @@ class CrudController extends Controller
 
     public function update(DynamicValidation $request, $id_of_row)
     {
+        #merge the id to the request , so i can use in validation
         $request->merge(['id' => $id_of_row]);
 
         $this->authorize('update', $this->class);

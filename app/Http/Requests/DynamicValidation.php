@@ -67,7 +67,7 @@ class DynamicValidation extends FormRequest
             'date_notification' => 'nullable|date|after:date_debut|before:date_fin',
             'cin' => ['required', function ($attribute, $value, $fail) {
                 if (DB::table('bans')->where('cin', $value)->exists()) {
-                    $fail('Already Banned');
+                    $fail('Cette utilisateur est bloqué , voir la liste noir');
                 }
             }],
 
