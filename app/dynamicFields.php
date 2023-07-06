@@ -132,9 +132,12 @@ function choose_input($column, $data = null)
     }
 
     if ($comments[1] == 'textarea') {
-
         $input .= '<textarea id="' . $column['name'] . '" type="text" name="' . $column['name'] . '" ' . requiredness($column['name']) . ' style="width:500px">' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '</textarea>';
+        return $input;
+    }
 
+    if ($comments[1] == 'file') {
+        $input .= '<input type="file" name="file" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
         return $input;
     }
 
@@ -194,7 +197,7 @@ function choose_data($looking_for, $column)
 function requiredness($name_of_column)
 {
 
-    if (in_array($name_of_column, ['date_fin', 'id_source', 'comment', 'id_service'])) {
+    if (in_array($name_of_column, ['date_fin', 'id_source', 'comment', 'id_service', 'file'])) {
         return '';
     } else {
         return 'required';

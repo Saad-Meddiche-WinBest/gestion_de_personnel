@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
 use App\Models\Poste;
+use App\Models\Departement;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 
 class GeneralController extends Controller
@@ -58,5 +60,10 @@ class GeneralController extends Controller
         ];
 
         Cache::forever('extra_informations', $data);
+    }
+
+    public function download_file(Document $document)
+    {
+        return Storage::download($document->file);
     }
 }

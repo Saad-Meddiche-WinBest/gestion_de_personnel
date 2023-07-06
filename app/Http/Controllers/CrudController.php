@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\DynamicValidation;
 
 class CrudController extends Controller
@@ -15,6 +16,7 @@ class CrudController extends Controller
 
     function __construct(Request $request)
     {
+
         $name_of_model = $request->name_of_model;
 
         $class = 'App\\Models\\' . ucfirst($name_of_model);
@@ -42,7 +44,7 @@ class CrudController extends Controller
         $this->authorize('create', $this->class);
 
         if (isset($request->extra_informations)) {
-          
+
             $extra_informations = $request->extra_informations;
 
             Cache::forever('extra_informations', $extra_informations);
@@ -60,26 +62,28 @@ class CrudController extends Controller
         $this->authorize('create', $this->class);
 
         $data = (object) $request->validated();
-        
+
         if (Cache::has('extra_informations')) {
-            
+
             $extra_informations = Cache::get('extra_informations');
-            
+
             foreach ($extra_informations as $info) {
-                
+
                 $data->{$info['column']} = $info['data'];
             }
-            
+
             Cache::forget('extra_informations');
         }
-     
+
+        if ($request->hasFile('file')) {
+            $data->file = $request->file->store('files');
+        }
+
         $id_of_last_row = insert_data_to_table((array) $data, $this->name_of_table);
 
         addition_functions($this->name_of_table, [$data, $id_of_last_row]);
 
-        return view('index', [
-            'name_of_model' => $this->name_of_model,
-        ]);
+        return redirect()->route('Gerer.index', ['name_of_model' => $this->name_of_model]);
     }
 
     public function show($id)
@@ -122,11 +126,17 @@ class CrudController extends Controller
             Cache::forget('extra_informations');
         }
 
+        if ($request->hasFile('file')) {
+            Storage::delete($data->file);
+            $data->file = $request->file->store('files');
+        } else {
+            $record = $this->class::find($id_of_row);
+            $data->file = $record->file;
+        }
+
         update_data_of_table((array) $data, $this->name_of_table, $id_of_row);
 
-        return view('index', [
-            'name_of_model' => $this->name_of_model
-        ]);
+        return redirect()->route('Gerer.index', ['name_of_model' => $this->name_of_model]);
     }
 
     public function destroy($id_of_row)
@@ -134,10 +144,12 @@ class CrudController extends Controller
         $record = $this->class::find($id_of_row);
         $this->authorize('destroy', [$this->class, $record]);
 
+        if (isset($record->file)) {
+            Storage::delete($record->file);
+        }
+
         delete_data_from_table($this->name_of_table, $id_of_row);
 
-        return view('index', [
-            'name_of_model' => $this->name_of_model,
-        ]);
+        return redirect()->route('Gerer.index', ['name_of_model' => $this->name_of_model]);
     }
 }

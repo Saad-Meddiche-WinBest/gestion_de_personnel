@@ -75,4 +75,6 @@ Route::middleware(['accessDashboard'])->group(function () {
     Route::post('/revoke-role', [RoleController::class, "revokeRole"])->name('retirerRole');
     Route::get('/show-roles', [RoleController::class, 'voir_roles_utilisateur'])->name('roles');
     Route::get('/show-roles-of-user/{user}', [RoleController::class, 'show_Roles_Of_User'])->name('roles.user');
+
+    Route::get('/documents/{document}/download', [GeneralController::class, 'download_file'])->name('documents.download');
 });

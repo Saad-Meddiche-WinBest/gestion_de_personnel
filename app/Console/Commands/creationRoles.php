@@ -33,7 +33,7 @@ class creationRoles extends Command
     public function handle()
     {
 
-        $name_of_models = ['service', 'employement', 'source', 'poste', 'personne', 'absence', 'raison', 'event', 'user', 'role', 'departement', 'note', 'ban', 'celebration'];
+        $name_of_models = ['document', 'service', 'employement', 'source', 'poste', 'personne', 'absence', 'raison', 'event', 'user', 'role', 'departement', 'note', 'ban', 'celebration'];
 
         foreach ($name_of_models as $name_of_model) {
             ${"ajouter_" . $name_of_model} = Permission::create(['name' => 'ajouter_' . $name_of_model, 'guard_name' => 'web']);

@@ -9,7 +9,7 @@
         @endif
         <div class="formule">
             <h5 style="color:black; width:100%; text-align:center;">Informations de base</h5>
-            <form action="{{ route('Gerer.store') }}" method='POST' class="formule" data-parsley-validate>
+            <form action="{{ route('Gerer.store') }}" method='POST' class="formule" data-parsley-validate enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
 

@@ -89,10 +89,17 @@
                 <tr {{ color_expired_event($name_of_model, $column, $data) }}>
 
                     @foreach ($informations_of_columns as $column)
-                        @if ($column['name'] != 'id_icon')
+                        @if ($column['name'] != 'id_icon' && $column['name'] != 'file')
                             <td style="font-size:0.7rem;">
                                 {{ choose_data($data->{$column['name']}, $column) }}
+                            </td>
+                        @endif
 
+                        @if ($column['name'] == 'file')
+                            <td style="font-size:0.7rem;">
+                                @if (isset($data->file))
+                                    <a href="{{ route('documents.download', $data->id) }}">Download</a>
+                                @endif
                             </td>
                         @endif
                     @endforeach
