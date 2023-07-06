@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Icon;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Spatie\Permission\Models\Role;
@@ -70,5 +71,16 @@ class creationRoles extends Command
         $Owner_User = User::where('name', 'Owner')->first();
 
         $Owner_User->assignRole($owner);
+
+        $icons = [
+            ['nom' => 'https://th.bing.com/th/id/OIP.RJEdlV33eoLlVrcj3iTWkAHaHa?w=190&h=189&c=7&r=0&o=5&pid=1.7'],
+            ['nom' => 'https://th.bing.com/th/id/OIP.0BDXkzYJAz1-iWQ4LqqsYAHaD4?w=299&h=180&c=7&r=0&o=5&pid=1.7'],
+            ['nom' => 'https://th.bing.com/th/id/OIP.5SUhWWqg8sSvoML4a8qufgHaHa?w=190&h=190&c=7&r=0&o=5&pid=1.7'],
+            ['nom' => 'https://th.bing.com/th/id/OIP.ckTRtMPIqUCiPLf4b4Ik5wHaHa?w=212&h=212&c=7&r=0&o=5&pid=1.7'],
+        ];
+
+        for ($i = 0; $i < count($icons); $i++) {
+            Icon::create($icons[$i]);
+        }
     }
 }
