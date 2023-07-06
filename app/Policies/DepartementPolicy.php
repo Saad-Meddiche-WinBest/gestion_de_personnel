@@ -11,28 +11,28 @@ class DepartementPolicy
 
     public function viewAll(User $user)
     {
-        if ($user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'voir_departements'])) {
             return true;
         }
     }
 
     public function create(User $user)
     {
-        if ($user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'ajouter_departement'])) {
             return true;
         }
     }
 
     public function update(User $user)
     {
-        if ($user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'modifier_departement'])) {
             return true;
         }
     }
 
     public function destroy(User $user)
     {
-        if ( $user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'supprimer_departement'])) {
             return true;
         }
     }

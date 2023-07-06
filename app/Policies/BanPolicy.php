@@ -11,28 +11,28 @@ class BanPolicy
 
     public function viewAll(User $user)
     {
-        if ($user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'voir_bans'])) {
             return true;
         }
     }
 
     public function create(User $user)
     {
-        if ($user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'ajouter_ban'])) {
             return true;
         }
     }
 
     public function update(User $user)
     {
-        if ($user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'modifier_ban'])) {
             return true;
         }
     }
 
     public function destroy(User $user)
     {
-        if ( $user->hasPermissionTo('*')) {
+        if ($user->hasAnyPermission(['*', 'supprimer_ban'])) {
             return true;
         }
     }

@@ -38,7 +38,7 @@ class UserPolicy
 
     public function update(User $user_logged)
     {
-        if ($user_logged->id != 0) {
+        if ($user_logged->id != 1) {
             return abort(403, 'You Can\'t Update This Account');
         }
 
@@ -50,7 +50,7 @@ class UserPolicy
 
     public function destroy(User $user_logged, User $user)
     {
-        if ($user->id == 0) {
+        if ($user->id == 1) {
             return abort(403, 'You Can\'t Delete This Account');
         }
 
