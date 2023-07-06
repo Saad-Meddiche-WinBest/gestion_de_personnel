@@ -131,6 +131,16 @@ function choose_input($column, $data = null)
         return $input;
     }
 
+    if ($comments[1] == 'textarea') {
+        $input .= '<textarea id="' . $column['name'] . '" type="text" name="' . $column['name'] . '" ' . requiredness($column['name']) . ' style="width:500px">' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '</textarea>';
+        return $input;
+    }
+
+    if ($comments[1] == 'file') {
+        $input .= '<input type="file" name="file" value="' . (isset($data->{$column['name']}) ? $data->{$column['name']} : '') . '">';
+        return $input;
+    }
+
     if ($comments[1] == 'bool') {
         $selectedOption1 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 1);
         $selectedOption2 = select_option(isset($data->{$column['name']}) ? $data->{$column['name']} : null, 0);
@@ -154,7 +164,7 @@ function choose_input($column, $data = null)
 
 function choose_id($name_of_column)
 {
-    return (in_array($name_of_column, ['id_poste', 'id_source'])) ? filter_name($name_of_column) : '';
+    return (in_array($name_of_column, ['id_poste', 'id_source', 'id_departement', 'id_service'])) ? filter_name($name_of_column) : '';
 }
 
 function select_option($a, $b)
@@ -165,7 +175,6 @@ function select_option($a, $b)
 function choose_data($looking_for, $column)
 {
     $comments = explode('-', $column['comment']);
-
 
     if ($comments[1] == 'foreign') {
         $referenced_table = $column['foreign_key']['referenced_table'];
@@ -188,7 +197,7 @@ function choose_data($looking_for, $column)
 function requiredness($name_of_column)
 {
 
-    if (in_array($name_of_column, ['date_fin', 'id_source', 'comment'])) {
+    if (in_array($name_of_column, ['date_fin', 'id_source', 'comment', 'id_service', 'file'])) {
         return '';
     } else {
         return 'required';

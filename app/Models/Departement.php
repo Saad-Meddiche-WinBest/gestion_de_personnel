@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Departement extends Model
 {
     use HasFactory;
-    protected $table = 'services';
+    protected $table = 'departements';
     protected $guarded = ['name_of_model', '_token', '_method'];
-    protected $fillable = ['nom' ,'id_departement'];
+    protected $fillable = ['nom'];
 
-    public function departement()
+    
+    public function services()
     {
-        return $this->belongsTo(Departement::class);
+        return $this->hasMany(Service::class, 'id_departement');
     }
+
 }

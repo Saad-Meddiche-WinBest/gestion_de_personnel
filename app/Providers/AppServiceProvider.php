@@ -29,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
 
             if (!isset($view->data_of_table)) {
                 $data = fetch_data_of_table($name_of_table);
+
+                if ($name_of_table == 'users') {
+                    unset($data[0]);
+                }
+
                 $view->with('data_of_table', $data);
             }
 

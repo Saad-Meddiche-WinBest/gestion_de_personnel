@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy
@@ -19,11 +20,10 @@ class RolePolicy
         //
     }
 
-    
     public function viewAll(User $user)
     {
         // Vérifier si l'utilisateur a la permission spécifique pour voir les une personne
-        if ($user->hasPermissionTo('voir_roles') || $user->hasPermissionTo('*') ) {
+        if ($user->hasPermissionTo('voir_roles') || $user->hasPermissionTo('*')) {
             return true;
         }
     }
@@ -31,23 +31,32 @@ class RolePolicy
     public function create(User $user)
     {
         // Vérifier si l'utilisateur a la permission spécifique pour ajouter les une user
-        if ($user->hasPermissionTo('ajouter_role') || $user->hasPermissionTo('*') ) {
+        if ($user->hasPermissionTo('ajouter_role') || $user->hasPermissionTo('*')) {
             return true;
         }
     }
 
-    public function update(User $user)
+    public function update(User $user, Role $role)
     {
+        //Do not Grand The Access If The Role Is Owner
+        if ($role->id == 1) {
+            return abort(403, "You can't Modife This Role ");
+        }
         // Vérifier si l'utilisateur a la permission spécifique pour modifier les une user
-        if ($user->hasPermissionTo('modifier_role') || $user->hasPermissionTo('*') ) {
+        if ($user->hasAnyPermission(['modifier_role', '*'])) {
             return true;
         }
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user, Role $role)
     {
+        //Do not Grand The Access If The Role Is Owner
+        if ($role->id == 1) {
+            return abort(403, "You can't Change The Permissions Of This Role ");
+        }
+
         // Vérifier si l'utilisateur a la permission spécifique pour supprimer les une user
-        if ($user->hasPermissionTo('supprimer_role') || $user->hasPermissionTo('*') ) {
+        if ($user->hasAnyPermission(['supprimer_role', '*'])) {
             return true;
         }
     }
@@ -55,42 +64,56 @@ class RolePolicy
     public function assignRole(User $user)
     {
         // Vérifier si l'utilisateur a la permission spécifique pour supprimer les une user
-        if ($user->hasPermissionTo('affecter_roles') || $user->hasPermissionTo('*') ) {
+        if ($user->hasAnyPermission(['affecter_roles', '*'])) {
             return true;
         }
     }
 
-    
+
     public function revokeRole(User $user)
     {
         // Vérifier si l'utilisateur a la permission spécifique pour supprimer les une user
-        if ($user->hasPermissionTo('retirer_roles') || $user->hasPermissionTo('*') ) {
+        if ($user->hasAnyPermission(['retirer_roles', '*'])) {
             return true;
         }
     }
 
-    public function viewAllP(User $user)
+    public function viewAllP(User $user, Role $role)
     {
+
+        //Do not Grand The Access If The Role Is Owner
+        if ($role->id == 1) {
+            return abort(403, "You can't Change The Permissions Of This Role ");
+        }
         // Vérifier si l'utilisateur a la permission spécifique pour voir les une personne
-        if ($user->hasPermissionTo('voir_permissions') || $user->hasPermissionTo('*') ) {
+        if ($user->hasAnyPermission(['voir_permissions', '*'])) {
             return true;
         }
-    } 
-    public function assignPermission(User $user)
+    }
+    public function assignPermission(User $user, Role $role)
     {
+        //Do not Grand The Access If The Role Is Owner
+        if ($role->id == 1) {
+            return abort(403, "You can't Assign Permission To This Role");
+        }
+
         // Vérifier si l'utilisateur a la permission spécifique pour supprimer les une user
-        if ($user->hasPermissionTo('affecter_permissions') || $user->hasPermissionTo('*') ) {
+        if ($user->hasAnyPermission(['affecter_permissions', '*'])) {
             return true;
         }
     }
 
-    
-    public function revokePermission(User $user)
+
+    public function revokePermission(User $user, Role $role)
     {
+        //Do not Grand The Access If The Role Is Owner
+        if ($role->id == 1) {
+            return abort(403, "You can't Revoce Permission Of This Role");
+        }
+
         // Vérifier si l'utilisateur a la permission spécifique pour supprimer les une user
-        if ($user->hasPermissionTo('retirer_permissions') || $user->hasPermissionTo('*') ) {
+        if ($user->hasAnyPermission(['retirer_permissions', '*'])) {
             return true;
         }
     }
-
 }

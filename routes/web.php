@@ -45,6 +45,7 @@ Route::middleware(['accessDashboard'])->group(function () {
     Route::get('/poste/{poste}',  [GeneralController::class, "get_personnes_with_this_poste"]);
 
     Route::get('/get-sources/{poste}',  [GeneralController::class, "get_all_sources_of_poste"]);
+    Route::get('/get-services/{departement}',  [GeneralController::class, "get_all_services_of_departement"]);
 
 
     Route::post('/set-persiode-absence',  [GeneralController::class, "get_absences_in_this_periode"])
@@ -74,4 +75,6 @@ Route::middleware(['accessDashboard'])->group(function () {
     Route::post('/revoke-role', [RoleController::class, "revokeRole"])->name('retirerRole');
     Route::get('/show-roles', [RoleController::class, 'voir_roles_utilisateur'])->name('roles');
     Route::get('/show-roles-of-user/{user}', [RoleController::class, 'show_Roles_Of_User'])->name('roles.user');
+
+    Route::get('/documents/{document}/download', [GeneralController::class, 'download_file'])->name('documents.download');
 });

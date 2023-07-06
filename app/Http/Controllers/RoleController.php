@@ -15,8 +15,10 @@ class RoleController extends Controller
     {
         $roles = Role::all(); // Récupérer tous les rôles depuis la base de données
 
+        unset($roles[0]);
+
         $model = Role::class;
-        // dd($model);
+
         $this->authorize('viewAll', Role::class);
 
         return view('roles', compact('roles'));
@@ -45,7 +47,7 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $model = Role::class;
-        $this->authorize('update', $model);
+        $this->authorize('update', [$model, $role]);
         return view('editRoles', compact('role'));
     }
 
@@ -53,19 +55,20 @@ class RoleController extends Controller
     {
         $validatedData  = $request->validated();
 
-        $this->authorize('update', Role::class);
+        $this->authorize('update', [Role::class, $role]);
 
         // Mettre à jour le rôle dans la base de données
         $role->update($validatedData);
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
-    
+
     public function destroy(Role $role)
     {
         // Supprimer le rôle de la base de données
+
         $model = Role::class;
-        $this->authorize('destroy', $model);
+        $this->authorize('destroy', [$model, $role]);
         $role->delete();
 
         return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
@@ -73,10 +76,13 @@ class RoleController extends Controller
 
     public function permission(Request $request, Role $role_id)
     {
+      
         $permissions = Permission::all();
         $role = $request->role_id;
         $model = Role::class;
-        $this->authorize('viewAllP', $model);
+
+
+        $this->authorize('viewAllP', [$model, $role_id]);
 
         return view('permission', compact('permissions', 'role_id', 'role'));
     }
@@ -119,7 +125,7 @@ class RoleController extends Controller
         $role = Role::find($role_id);
         $permission = Permission::find($permission_id);
         $model = Role::class;
-        $this->authorize('assignPermission', $model);
+        $this->authorize('assignPermission', [$model, $role]);
         // Recherche de la permission par son nom
 
         // Affecter la permission au rôle
@@ -140,7 +146,7 @@ class RoleController extends Controller
         $role = Role::find($role_id);
         $permission = Permission::find($permission_id);
         $model = Role::class;
-        $this->authorize('revokePermission', $model);
+        $this->authorize('revokePermission', [$model, $role]);
         // Recherche de la permission par son nom
 
         // Affecter la permission au rôle
@@ -232,7 +238,7 @@ class RoleController extends Controller
         $name_of_table = 'roles';
         $name_of_model = 'role';
 
-        $this->authorize('viewAllP',  Role::class);
+        $this->authorize('viewAll',  Role::class);
 
         return view('index', compact(['name_of_model', 'data_of_table', 'user']));
     }

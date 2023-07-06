@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Poste;
+use App\Models\Departement;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 
 class GeneralController extends Controller
@@ -20,6 +23,12 @@ class GeneralController extends Controller
     {
         $sources = $poste->sources;
         return response()->json(['sources' => $sources]);
+    }
+
+    public function get_all_services_of_departement(Departement $departement)
+    {
+        $services = $departement->services;
+        return response()->json(['services' => $services]);
     }
 
     public function get_absences_in_this_periode(Request $request)
@@ -51,5 +60,10 @@ class GeneralController extends Controller
         ];
 
         Cache::forever('extra_informations', $data);
+    }
+
+    public function download_file(Document $document)
+    {
+        return Storage::download($document->file);
     }
 }

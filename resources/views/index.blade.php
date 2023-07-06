@@ -20,21 +20,29 @@
     @endif
 
 
-    @if ($name_of_model != 'absence' && $name_of_model != 'role')
-        <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
-            <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
-            <div style="width:100%;">
-                <button type="submit" class="btn btn-primary"
-                    style="float:right;  margin-top:15px;  margin-bottom:15px; font-size:1.5vh; ">
+    @if ($name_of_model != 'absence' && $name_of_model != 'role' && $name_of_model != 'ban')
+        @if ($name_of_model != 'user')
+            <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
+                <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
+                <div style="width:100%;">
+                    <button type="submit" class="btn btn-primary"
+                        style="float:right;  margin-top:15px;  margin-bottom:15px; font-size:1.5vh; ">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:5px; margin-bottom: 2.5px;" width="16"
-                        height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                    </svg>Add {{ ucfirst($name_of_model) }}</button>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:5px; margin-bottom: 2.5px;"
+                            width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>Add {{ ucfirst($name_of_model) }}</button>
+                </div>
+                <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px">Liste {{ ucfirst($name_of_model) }} </h2>
+            </form>
+        @else
+            <div style="width:100%">
+                <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px ; float:left">Liste
+                    {{ ucfirst($name_of_model) }} </h2>
             </div>
-            <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px">Liste {{ ucfirst($name_of_model) }} </h2>
-        </form>
+        @endif
     @endif
 
     @if ($name_of_model == 'absence')
@@ -58,6 +66,8 @@
         </form>
     @endif
 
+
+
     <table id="myTable" class="table table-hover" style="background-color:white;">
         <button id="exportButton" class="btn btn-success" style="margin-top:15px; margin-bottom:15px;">Export to
             Excel</button>
@@ -79,10 +89,17 @@
                 <tr {{ color_expired_event($name_of_model, $column, $data) }}>
 
                     @foreach ($informations_of_columns as $column)
-                        @if ($column['name'] != 'id_icon')
+                        @if ($column['name'] != 'id_icon' && $column['name'] != 'file')
                             <td style="font-size:0.7rem;">
                                 {{ choose_data($data->{$column['name']}, $column) }}
+                            </td>
+                        @endif
 
+                        @if ($column['name'] == 'file')
+                            <td style="font-size:0.7rem;">
+                                @if (isset($data->file))
+                                    <a href="{{ route('documents.download', $data->id) }}">Download</a>
+                                @endif
                             </td>
                         @endif
                     @endforeach
@@ -90,7 +107,7 @@
                     <td>
                         <div style="display:flex; ">
 
-                            @if ($name_of_model !== 'role' && $data->id !== 0)
+                            @if ($name_of_model !== 'role')
                                 <form action="{{ route('Gerer.edit', $data->id) }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-primary"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -117,10 +134,10 @@
                                 </form>
                             @endif
 
-                            @if ($name_of_model == 'user' && $data->id !== 0)
+                            @if ($name_of_model == 'user')
                                 <form action="{{ route('roles.user', $data->id) }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-success"
-                                        style="height:100%; font-size:0.6rem;">Gérer
+                                        style="height:100%; font-size:0.5rem;">Gérer
                                         Roles</button>
                                     <input type="hidden" name="name_of_model" value="role">
                                     <input type="hidden" name="user_id" value="{{ $data->id }}">
@@ -168,6 +185,18 @@
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
+                                <form action="{{ route('Gerer.create') }}" method="GET">
+                                    <button id="btn1" type="sumbit" class="btn btn-warning"
+                                        style="font-size:0.7rem;">Banner</button>
+                                    <input type="hidden" name="name_of_model" value="ban">
+
+                                    <input type="hidden" name="extra_informations[0][data]" value={{ $data->nom }}>
+                                    <input type="hidden" name="extra_informations[0][column]" value="nom">
+                                    <input type="hidden" name="extra_informations[1][data]" value={{ $data->prenom }}>
+                                    <input type="hidden" name="extra_informations[1][column]" value="prenom">
+                                    <input type="hidden" name="extra_informations[2][data]" value={{ $data->cin }}>
+                                    <input type="hidden" name="extra_informations[2][column]" value="cin">
+                                </form>
                             @endif
                         </div>
                     </td>
@@ -179,9 +208,7 @@
                                 <input type="hidden" name="name_of_model" value="role">
                                 <input type="hidden" name="user_id" value="{{ $data->id }}">
                                 <button id="btn1" type="submit" class="btn btn-outline-info"
-
-                                    style="font-size:0.7rem; padding:5px ;height:100%"><svg
-                                        xmlns="http://www.w3.org/2000/svg"
+                                    style="font-size:0.7rem;padding:height:100%"><svg xmlns="http://www.w3.org/2000/svg"
                                         style="padding-right: 6px; padding-bottom:2.5px;" width="20" height="20"
                                         fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                         <path

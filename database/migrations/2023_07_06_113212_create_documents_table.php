@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('postes', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id()->comment('grp2-number');
             $table->string('nom')->comment('grp1-text');
-            $table->unsignedBigInteger('id_icon')->comment('grp3-icons')->default(1);
-            $table->foreign('id_icon')->references('id')->on('icons');
+            $table->string('file')->nullable()->comment('grp1-file');
             $table->timestamps();
         });
     }
@@ -30,7 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('postes');
+        Schema::dropIfExists('documents');
     }
 };
