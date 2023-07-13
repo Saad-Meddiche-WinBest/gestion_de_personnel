@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('personnes', function (Blueprint $table) {
-            $table->string('stoped')->comment('grp3-bool-Oui-Non')->nullable()->default(0);
+            $table->boolean('stoped')->comment('grp1-bool-Oui-Non')->nullable()->default(0);
         });
     }
 
