@@ -122,11 +122,9 @@ class CrudController extends Controller
 
         $data = (object) $request->validated();
 
-
         if (Cache::has('extra_informations')) {
 
             $extra_informations = Cache::get('extra_informations');
-
 
             foreach ($extra_informations as $info) {
 

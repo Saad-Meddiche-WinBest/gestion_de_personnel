@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Absence;
 use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
@@ -10,15 +11,20 @@ use Illuminate\Database\QueryException;
 function  fetch_data_of_table($name_of_table, $id = null)
 {
     try {
-        
         $query = DB::table($name_of_table);
-        
+
+
+        if ($name_of_table == 'events') {
+            $today = Carbon::today();
+            $query->where('date', $today);
+        }
+
+
         if ($id !== null) {
             $query->where('id', $id);
         }
-        
+
         $data = $query->get();
-    
     } catch (QueryException $e) {
         abort(403, $e->getMessage());
     }
