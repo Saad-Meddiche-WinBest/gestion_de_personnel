@@ -174,7 +174,7 @@
                                 <form action="{{ route('Gerer.create') }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-outline-success"
                                         style="font-size:0.7rem;">Absence</button>
-                                    <input type="hidden" name="name_of_model" value="Absence">
+                                    <input type="hidden" name="name_of_model" value="absence">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>
