@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Poste;
-use App\Models\Departement;
 use App\Models\Document;
+use App\Models\Personne;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Cache;
@@ -65,5 +66,19 @@ class GeneralController extends Controller
     public function download_file(Document $document)
     {
         return Storage::download($document->file);
+    }
+
+    public function display_stoped_personnes()
+    {
+        if (Gate::denies('viewAll', Poste::class)) {
+            abort(403, 'Unauthorized');
+        }
+
+        $personnes = Personne::where('stoped', 1)->get();
+
+        return view('index', [
+            'name_of_model' => 'personne',
+            'data_of_table' => $personnes
+        ]);
     }
 }

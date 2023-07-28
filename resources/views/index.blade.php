@@ -21,29 +21,29 @@
 
 
     @if ($name_of_model != 'absence' && $name_of_model != 'role' && $name_of_model != 'ban')
-        @if ($name_of_model != 'user')
-            <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
-                <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
-                <div style="width:100%;">
-                    <button type="submit" class="btn btn-primary"
-                        style="float:right;  margin-top:15px;  margin-bottom:15px; font-size:1.5vh; ">
+    @if ($name_of_model != 'user' && $name_of_model != 'event')
+        <form action="{{ route('Gerer.create') }}" method="GET" style="width:100%;">
+            <input type="hidden" name="name_of_model" value="{{ $name_of_model }}">
+            <div style="width:100%;">
+                <button type="submit" class="btn btn-primary"
+                    style="float:right;  margin-top:15px;  margin-bottom:15px; font-size:1.5vh; ">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:5px; margin-bottom: 2.5px;"
-                            width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                        </svg>Add {{ ucfirst($name_of_model) }}</button>
-                </div>
-                <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px">Liste {{ ucfirst($name_of_model) }} </h2>
-            </form>
-        @else
-            <div style="width:100%">
-                <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px ; float:left">Liste
-                    {{ ucfirst($name_of_model) }} </h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:5px; margin-bottom: 2.5px;"
+                        width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                    </svg>Add {{ ucfirst($name_of_model) }}</button>
             </div>
-        @endif
+            <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px">Liste {{ ucfirst($name_of_model) }} </h2>
+        </form>
+    @else
+        <div style="width:100%">
+            <h2 style="font-family: 'Noto Sans TC', sans-serif;  margin:5px ; float:left">Liste
+                {{ ucfirst($name_of_model) }} </h2>
+        </div>
     @endif
+@endif
 
     @if ($name_of_model == 'absence')
         <form action="{{ route('set-persiode-absence') }}" method="POST">
@@ -174,7 +174,7 @@
                                 <form action="{{ route('Gerer.create') }}" method="GET">
                                     <button id="btn1" type="sumbit" class="btn btn-outline-success"
                                         style="font-size:0.7rem;">Absence</button>
-                                    <input type="hidden" name="name_of_model" value="Absence">
+                                    <input type="hidden" name="name_of_model" value="absence">
                                     <input type="hidden" name="extra_informations[0][data]" value={{ $data->id }}>
                                     <input type="hidden" name="extra_informations[0][column]" value="id_personne">
                                 </form>

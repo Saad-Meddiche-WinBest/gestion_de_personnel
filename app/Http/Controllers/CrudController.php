@@ -91,10 +91,19 @@ class CrudController extends Controller
         return view('welcome');
     }
 
-    public function edit($id_of_row)
+    public function edit(Request $request, $id_of_row)
     {
 
         $this->authorize('update', $this->class);
+
+        if (isset($request->extra_informations)) {
+
+            $extra_informations = $request->extra_informations;
+
+            Cache::forever('extra_informations', $extra_informations);
+        } else {
+            Cache::forget('extra_informations');
+        }
 
         $data_of_table = fetch_data_of_table($this->name_of_table, $id_of_row);
 
@@ -117,7 +126,6 @@ class CrudController extends Controller
 
             $extra_informations = Cache::get('extra_informations');
 
-
             foreach ($extra_informations as $info) {
 
                 $data->{$info['column']} = $info['data'];
@@ -127,11 +135,14 @@ class CrudController extends Controller
         }
 
         if ($request->hasFile('file')) {
+
             Storage::delete($data->file);
             $data->file = $request->file->store('files');
         } else {
             $record = $this->class::find($id_of_row);
-            $data->file = $record->file;
+            if ($record->file) {
+                $data->file = $record->file;
+            }
         }
 
         update_data_of_table((array) $data, $this->name_of_table, $id_of_row);

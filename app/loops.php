@@ -36,7 +36,7 @@ function fetch_cards()
             'link' => '/Gerer'
         ],
         [
-            'image' => 'https://www.clipartkey.com/mpngs/m/73-731125_resources-icon-infographic-.png',
+            'image' => 'https://icon-library.com/images/source-icon/source-icon-2.jpg',
             'text' => 'Sources',
             'name_of_model' => 'source',
             'link' => '/Gerer'
@@ -84,7 +84,7 @@ function fetch_cards()
             'link' => '/Gerer'
         ],
         [
-            'image' => 'https://cdn-icons-png.flaticon.com/512/5777/5777935.png',
+            'image' => 'https://th.bing.com/th?id=OIP.Aqb49crLL2Nt9WbNbn-CmgHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
             'text' => 'Block Notes',
             'name_of_model' => 'note',
             'link' => '/Gerer'
@@ -100,6 +100,12 @@ function fetch_cards()
             'text' => 'Documents',
             'name_of_model' => 'document',
             'link' => '/Gerer'
+        ],
+        [
+            'image' => 'https://www.bing.com/th?id=OIP.KrourTviHGgKEdot4crK1QHaHa&w=150&h=150&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2',
+            'text' => 'Arreté',
+            'name_of_model' => 'personne',
+            'link' => '/personnes/stoped'
         ]
 
 

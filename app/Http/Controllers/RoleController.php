@@ -226,7 +226,7 @@ class RoleController extends Controller
         $name_of_table = $request->name_of_model . 's';
 
 
-        $this->authorize('viewAllP', Role::class);
+        $this->authorize('viewAll', Role::class);
 
         return view('index', compact('data_of_table', 'name_of_model', 'user'));
     }
